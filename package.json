@@ -1,0 +1,12 @@
+{
+  "name": "jackbooru",
+  "version": "1.0.0",
+  "description": "An taggable imageboard.",
+  "scripts": {},
+  "author": "Jack Wright <githubcontact@sec.jackwmail.com>",
+  "license": "GPL-3.0-only",
+  "volta": {
+    "node": "22.1.0",
+    "npm": "10.7.0"
+  }
+}
