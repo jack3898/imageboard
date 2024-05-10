@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "echo works!"
+    "dev": "tsx index.ts"
   },
   "author": "Jack Wright <github@sec.jackwmail.com>",
   "license": "GPL-3.0-only",
