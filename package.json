@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "An taggable imageboard.",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev": "nx run-many --targets=dev --all --output-style=stream --parallel --max-parallel=10"
+  },
   "author": "Jack Wright <githubcontact@sec.jackwmail.com>",
   "license": "GPL-3.0-only",
   "workspaces": [
@@ -17,5 +19,8 @@
   "engines": {
     "node": "22.1.0",
     "npm": "10.7.0"
+  },
+  "devDependencies": {
+    "nx": "^19.0.2"
   }
 }
