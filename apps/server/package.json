@@ -1,0 +1,9 @@
+{
+  "name": "@internal/server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {},
+  "author": "Jack Wright <github@sec.jackwmail.com>",
+  "license": "GPL-3.0-only",
+  "description": ""
+}

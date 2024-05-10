@@ -1,0 +1,60 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "files.associations": {
+    ".env*": "properties"
+  },
+  // These are basically the default settings, bar a few
+  // So it is guaranteed to overwrite anyone's local vscode user settings
+  "prettier.arrowParens": "always",
+  "prettier.bracketSameLine": false,
+  "prettier.bracketSpacing": true,
+  "prettier.configPath": "",
+  "prettier.documentSelectors": [],
+  "prettier.embeddedLanguageFormatting": "auto",
+  "prettier.enable": true,
+  "prettier.enableDebugLogs": false,
+  "prettier.endOfLine": "lf",
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.ignorePath": ".prettierignore",
+  "prettier.insertPragma": false,
+  "prettier.jsxSingleQuote": false,
+  "prettier.prettierPath": "",
+  "prettier.printWidth": 100,
+  "prettier.proseWrap": "preserve",
+  "prettier.quoteProps": "as-needed",
+  "prettier.requireConfig": false,
+  "prettier.requirePragma": false,
+  "prettier.resolveGlobalModules": false,
+  "prettier.semi": true,
+  "prettier.singleAttributePerLine": false,
+  "prettier.singleQuote": false,
+  "prettier.tabWidth": 2,
+  "prettier.trailingComma": "es5",
+  "prettier.useEditorConfig": true,
+  "prettier.useTabs": false,
+  "prettier.vueIndentScriptAndStyle": false,
+  "prettier.withNodeModules": false
+}
