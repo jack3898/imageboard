@@ -20,8 +20,14 @@
     "node": "20.13.1",
     "npm": "10.7.0"
   },
+  "overrides": {
+    "types-react": "^19.0.0-beta.1",
+    "types-react-dom": "^19.0.0-beta.1"
+  },
   "devDependencies": {
     "@types/node": "^20.12.11",
+    "@types/react": "npm:types-react@beta",
+    "@types/react-dom": "npm:types-react-dom@beta",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "eslint": "^8.57.0",
@@ -30,6 +36,8 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "nx": "^19.0.2",
+    "react": "^19.0.0-beta-04b058868c-20240508",
+    "react-dom": "^19.0.0-beta-04b058868c-20240508",
     "tsx": "^4.9.4",
     "typescript": "^5.5.0-beta",
     "vite": "^5.2.11"
