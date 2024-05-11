@@ -26,6 +26,7 @@
   "files.associations": {
     ".env*": "properties"
   },
+  "typescript.tsdk": "node_modules/typescript/lib",
   "editor.tabSize": 2,
   // These are basically the default Prettier settings, bar a few
   // So it is guaranteed to overwrite anyone's local vscode user settings
