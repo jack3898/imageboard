@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts --env-file ../../.env"
   },
   "author": "Jack Wright <github@sec.jackwmail.com>",
-  "license": "GPL-3.0-only",
-  "description": ""
+  "license": "GPL-3.0-only"
 }
