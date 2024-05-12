@@ -4,7 +4,11 @@
   "description": "An taggable imageboard.",
   "type": "module",
   "scripts": {
-    "dev": "nx run-many --targets=dev --all --output-style=stream --parallel --max-parallel=10"
+    "nx": "nx",
+    "dev": "nx run-many --targets=dev --all --output-style=stream --parallel --max-parallel=10",
+    "lint": "nx run-many --targets=lint --all --output-style=stream --parallel --max-parallel=10",
+    "build": "nx run-many --targets=build --all --max-parallel=10",
+    "postinstall": "npm run build"
   },
   "author": "Jack Wright <githubcontact@sec.jackwmail.com>",
   "license": "GPL-3.0-only",

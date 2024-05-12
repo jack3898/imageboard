@@ -7,21 +7,14 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
   ],
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-  },
+  parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   plugins: ["@typescript-eslint"],
+  settings: { react: { version: "19" } },
   rules: {
-    "prettier/prettier": [
-      "error",
-      {
-        printWidth: 100,
-        tabWidth: 2,
-      },
-    ],
+    "prettier/prettier": ["error", { printWidth: 100, tabWidth: 2 }],
     "no-duplicate-imports": "error",
     "no-constant-condition": "off",
     "@typescript-eslint/consistent-type-imports": ["error", { fixStyle: "inline-type-imports" }],

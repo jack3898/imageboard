@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsc --watch --preserveWatchOutput",
+    "lint": "eslint src",
     "build": "tsc"
   },
   "author": "Jack Wright <github@sec.jackwmail.com>",

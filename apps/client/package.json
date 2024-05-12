@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "lint": "eslint src",
+    "build": "vite build",
+    "start": "tsx src/express-server.ts"
   },
   "author": "Jack Wright <github@sec.jackwmail.com>",
   "license": "GPL-3.0-only",

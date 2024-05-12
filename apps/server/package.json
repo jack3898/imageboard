@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts --env-file ../../.env"
+    "dev": "tsx watch src/index.ts --env-file ../../.env",
+    "lint": "eslint src",
+    "start": "tsx src/index.ts"
   },
   "author": "Jack Wright <github@sec.jackwmail.com>",
   "license": "GPL-3.0-only"
