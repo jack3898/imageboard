@@ -5,7 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   build: {
     sourcemap: true,
-    cssMinify: "lightningcss",
   },
   resolve: {
     alias: {

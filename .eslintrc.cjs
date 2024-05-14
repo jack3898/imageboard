@@ -12,7 +12,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   plugins: ["@typescript-eslint"],
-  settings: { react: { version: "19" } },
+  settings: { react: { version: "18" } },
   rules: {
     "prettier/prettier": ["error", { printWidth: 100, tabWidth: 2 }],
     "no-duplicate-imports": "error",

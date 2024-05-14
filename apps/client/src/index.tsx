@@ -1,13 +1,22 @@
-import { StrictMode, Suspense } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./app.js";
+import { BrowseLayout } from "./layout/browse.js";
+import { SearchArea } from "./common/search-area.js";
+import { SiteLogo } from "./common/site-logo.js";
+import { ImageList } from "./common/image-list.js";
+import { Credit } from "./atom/credit.js";
 
 const root = document.getElementById("root");
 
 createRoot(root!).render(
   <StrictMode>
-    <Suspense fallback={<>Loading...</>}>
-      <App />
-    </Suspense>
+    <div className="p-2 min-h-[100svh] grid">
+      <BrowseLayout
+        header={<SiteLogo />}
+        left={<SearchArea />}
+        main={<ImageList />}
+        footer={<Credit />}
+      />
+    </div>
   </StrictMode>,
 );
