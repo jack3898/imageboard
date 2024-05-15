@@ -1,4 +1,4 @@
-import { Card } from "@/components/atom/card.js";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/atom/card.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
 import { useMemo, type ReactElement } from "react";
@@ -48,8 +48,11 @@ type ImageListViewProps = {
 
 export function ImageListView({ images, imageFit }: ImageListViewProps): JSX.Element {
   return (
-    <Card className="h-full bg-slate-100">
-      <Card.Body>
+    <Card className="h-full">
+      <CardHeader>
+        <CardTitle>Latest</CardTitle>
+      </CardHeader>
+      <CardContent>
         <ul className="flex items-center gap-2 flex-wrap">
           {images.map((image) => (
             <li key={image.id} className="size-48">
@@ -61,7 +64,7 @@ export function ImageListView({ images, imageFit }: ImageListViewProps): JSX.Ele
             </li>
           ))}
         </ul>
-      </Card.Body>
+      </CardContent>
     </Card>
   );
 }

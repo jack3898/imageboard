@@ -7,3 +7,7 @@ When a component is an atom it has all of these attributes:
 - Simple
 - Used in a variety of different contexts and places
 - Has no tie-in to this application, if I wanted to migrate these to another package, it will be trivial
+
+## Note
+
+This library uses a lot of components from shadcn/ui https://ui.shadcn.com.

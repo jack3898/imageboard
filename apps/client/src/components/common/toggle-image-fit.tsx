@@ -1,15 +1,17 @@
 import { useGlobalStore } from "@/store/global-store.js";
 import { type ReactElement } from "react";
+import { Switch } from "../atom/switch.js";
 
 export function ToggleImageFit(): ReactElement {
   const checked = useGlobalStore((store) => store.thumbnailFit === "contain");
 
   return (
-    <input
-      type="checkbox"
+    <Switch
       checked={checked}
-      onChange={({ currentTarget }) => {
-        useGlobalStore.setState({ thumbnailFit: currentTarget.checked ? "contain" : "cover" });
+      onCheckedChange={(newChecked) => {
+        useGlobalStore.setState({
+          thumbnailFit: newChecked ? "contain" : "cover",
+        });
       }}
     />
   );
