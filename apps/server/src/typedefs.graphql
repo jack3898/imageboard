@@ -1,0 +1,9 @@
+type Image {
+  id: ID!
+  alt: String
+  thumbnailUrl: String!
+}
+
+type Query {
+  images: [Image!]!
+}

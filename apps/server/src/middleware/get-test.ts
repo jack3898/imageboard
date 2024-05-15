@@ -1,6 +1,6 @@
-import { server } from "@/express-server.js";
+import { expressServer } from "@/server.js";
 
-server.get("/test", (_, res) => {
+expressServer.get("/test", (_, res) => {
   res.send({
     message: "Hi from the backend!",
   });

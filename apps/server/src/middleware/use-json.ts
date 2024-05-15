@@ -1,4 +1,4 @@
-import { server } from "@/express-server.js";
+import { expressServer } from "@/server.js";
 import express from "express";
 
-server.use(express.json);
+expressServer.use(express.json);

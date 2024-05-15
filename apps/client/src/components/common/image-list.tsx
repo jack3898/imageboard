@@ -6,7 +6,6 @@ import { useMemo, type ReactElement } from "react";
 type ThumbnailImage = {
   id: number;
   thumbnailUrl: string;
-  link: string;
   alt: string;
 };
 
@@ -20,19 +19,16 @@ export function ImageList(): ReactElement {
       {
         id: 1,
         thumbnailUrl: "https://picsum.photos/200/300",
-        link: "",
         alt: "",
       },
       {
         id: 2,
         thumbnailUrl: "https://picsum.photos/300/200",
-        link: "",
         alt: "",
       },
       {
         id: 3,
         thumbnailUrl: "https://picsum.photos/220/300",
-        link: "",
         alt: "",
       },
     ];
