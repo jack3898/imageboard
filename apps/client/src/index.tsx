@@ -1,21 +1,22 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowseLayout } from "./layout/browse.js";
-import { SearchArea } from "./common/search-area.js";
-import { SiteLogo } from "./common/site-logo.js";
-import { ImageList } from "./common/image-list.js";
-import { Credit } from "./atom/credit.js";
+import { BrowseLayout } from "./components/layout/browse.js";
+import { SearchArea } from "./components/common/search-area.js";
+import { ImageList } from "./components/common/image-list.js";
+import { Footer } from "./components/common/footer.js";
+import { Header } from "./components/common/header.js";
 
 const root = document.getElementById("root");
 
 createRoot(root!).render(
   <StrictMode>
-    <div className="p-2 min-h-[100svh] grid">
+    <div className="min-h-[100svh] grid">
       <BrowseLayout
-        header={<SiteLogo />}
+        header={<Header />}
         left={<SearchArea />}
         main={<ImageList />}
-        footer={<Credit />}
+        footer={<Footer />}
+        className="p-2 bg-slate-200"
       />
     </div>
   </StrictMode>,

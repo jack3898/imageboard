@@ -1,4 +1,5 @@
 import { useBrowserStore } from "@/store/browser-store.js";
+import { cn } from "@/utils/cn.js";
 import { type ReactElement, type ReactNode } from "react";
 
 type BrowseProps = {
@@ -6,7 +7,7 @@ type BrowseProps = {
   left: ReactNode;
   main: ReactNode;
   footer: ReactNode;
-};
+} & React.ComponentPropsWithoutRef<"div">;
 
 export function BrowseLayout(props: BrowseProps): ReactElement {
   const isMobile = useBrowserStore((store) => store.viewportWidth < 768);
@@ -23,9 +24,21 @@ export function BrowseLayout(props: BrowseProps): ReactElement {
  *
  * NOTE: Uses 100vh
  */
-export function BrowseLayoutDesktop({ header, left, main, footer }: BrowseProps): ReactElement {
+export function BrowseLayoutDesktop({
+  header,
+  left,
+  main,
+  footer,
+  ...wrapperProps
+}: BrowseProps): ReactElement {
   return (
-    <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_1fr_auto] gap-2 [grid-template-areas:'header_header''left_main''footer_footer'] size-full">
+    <div
+      {...wrapperProps}
+      className={cn(
+        "grid grid-cols-[auto_1fr] grid-rows-[auto_1fr_auto] gap-2 [grid-template-areas:'header_header''left_main''footer_footer'] size-full",
+        wrapperProps.className,
+      )}
+    >
       <header className="[grid-area:header]">{header}</header>
       <aside className="[grid-area:left]">{left}</aside>
       <main className="[grid-area:main]">{main}</main>
@@ -39,12 +52,18 @@ export function BrowseLayoutDesktop({ header, left, main, footer }: BrowseProps)
  *
  * NOTE: Uses 100vh
  */
-export function BrowseLayoutMobile({ header, left, main, footer }: BrowseProps): ReactElement {
+export function BrowseLayoutMobile({
+  header,
+  left,
+  main,
+  footer,
+  ...wrapperProps
+}: BrowseProps): ReactElement {
   return (
-    <div className="flex flex-col size-full gap-2">
+    <div {...wrapperProps} className={cn("flex flex-col size-full gap-2", wrapperProps.className)}>
       <header>{header}</header>
       <aside>{left}</aside>
-      <main>{main}</main>
+      <main className="grow">{main}</main>
       <footer>{footer}</footer>
     </div>
   );
