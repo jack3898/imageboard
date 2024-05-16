@@ -17,6 +17,6 @@ const apolloServer = new ApolloServer({
 });
 
 await apolloServer.start();
-await new Promise<void>((resolve) => httpServer.listen({ port: env.BACKEND_PORT }, resolve));
+await new Promise<void>((resolve) => httpServer.listen({ port: env.UNSAFE_BACKEND_PORT }, resolve));
 
 export { expressServer, apolloServer };

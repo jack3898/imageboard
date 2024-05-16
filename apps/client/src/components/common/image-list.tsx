@@ -1,44 +1,25 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/atom/card.js";
+import { type Image, useImagesQuery } from "@/hooks/generated-graphql-hooks.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
-import { useMemo, type ReactElement } from "react";
-
-type ThumbnailImage = {
-  id: number;
-  thumbnailUrl: string;
-  alt: string;
-};
+import { type ReactElement } from "react";
 
 export function ImageList(): ReactElement {
   const imageFit = useGlobalStore((store) =>
     store.thumbnailFit === "cover" ? "object-cover" : "object-contain",
   );
 
-  const images: ThumbnailImage[] = useMemo(() => {
-    return [
-      {
-        id: 1,
-        thumbnailUrl: "https://picsum.photos/200/300",
-        alt: "",
-      },
-      {
-        id: 2,
-        thumbnailUrl: "https://picsum.photos/300/200",
-        alt: "",
-      },
-      {
-        id: 3,
-        thumbnailUrl: "https://picsum.photos/220/300",
-        alt: "",
-      },
-    ];
-  }, []);
+  const { data } = useImagesQuery();
 
-  return <ImageListView images={images} imageFit={imageFit} />;
+  if (!data) {
+    return <>Loading...</>;
+  }
+
+  return <ImageListView images={data.images} imageFit={imageFit} />;
 }
 
 type ImageListViewProps = {
-  images: ThumbnailImage[];
+  images: Image[];
   imageFit?: "object-cover" | "object-contain";
 };
 
@@ -54,7 +35,7 @@ export function ImageListView({ images, imageFit }: ImageListViewProps): JSX.Ele
             <li key={image.id} className="size-48">
               <img
                 src={image.thumbnailUrl}
-                alt={image.alt}
+                alt={image.alt || "No alternative text specified."}
                 className={cn("size-full object-cover border", imageFit)}
               ></img>
             </li>

@@ -5,4 +5,4 @@ import "@/middleware/use-cors.js";
 import "@/middleware/get-test.js";
 import "@/middleware/use-json.js";
 
-console.info("Server online on port:", env.BACKEND_PORT);
+console.info("Server online on port:", env.UNSAFE_BACKEND_PORT);

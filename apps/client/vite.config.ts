@@ -1,6 +1,5 @@
 import path from "path";
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   build: {
@@ -11,5 +10,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  plugins: [tailwindcss()],
+  envPrefix: "UNSAFE",
 });

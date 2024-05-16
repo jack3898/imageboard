@@ -6,9 +6,9 @@
     "dev": "vite",
     "lint": "eslint src",
     "build": "vite build",
-    "start": "tsx src/express-server.ts"
+    "start": "tsx src/express-server.ts",
+    "generate": "graphql-codegen -r tsx/cjs --config graphql-codegen.config.ts --verbose true"
   },
   "author": "Jack Wright <github@sec.jackwmail.com>",
-  "license": "GPL-3.0-only",
-  "description": ""
+  "license": "GPL-3.0-only"
 }
