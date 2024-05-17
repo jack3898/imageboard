@@ -1,5 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
+import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 
 export default defineConfig({
   build: {
@@ -11,4 +12,5 @@ export default defineConfig({
     },
   },
   envPrefix: "UNSAFE",
+  plugins: [TanStackRouterVite({ generatedRouteTree: "src/generated-routes.tsx" })],
 });
