@@ -39,7 +39,7 @@ function LoginForm(): ReactElement {
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormLabel>Email</FormLabel>
+          <FormLabel htmlFor="email">Email</FormLabel>
           <FormField
             control={form.control}
             name="email"
@@ -50,7 +50,7 @@ function LoginForm(): ReactElement {
           <FormMessage>
             <span>{form.formState.errors.email?.message}</span>
           </FormMessage>
-          <FormLabel>Password</FormLabel>
+          <FormLabel htmlFor="password">Password</FormLabel>
           <FormField
             control={form.control}
             name="password"
