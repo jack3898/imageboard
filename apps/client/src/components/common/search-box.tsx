@@ -1,13 +1,18 @@
-import { type ReactElement } from "react";
+import { useCallback, type ReactElement } from "react";
 import { Input } from "../atom/input.js";
-import { useForm } from "@tanstack/react-form";
-import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import { Button } from "../atom/button.js";
 import { Search as SearchIcon } from "lucide-react";
 import { type NavigateOptions, useNavigate, useSearch } from "@tanstack/react-router";
+import { Form, FormField, FormMessage } from "../atom/form.js";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 type SearchProps = NavigateOptions;
+
+const formSchema = z.object({
+  q: z.string().max(100, { message: "Your search query is too long." }),
+});
 
 export function SearchBox(options: SearchProps): ReactElement {
   const navigate = useNavigate();
@@ -17,69 +22,52 @@ export function SearchBox(options: SearchProps): ReactElement {
     strict: false,
   });
 
-  const form = useForm({
-    defaultValues: { q: search.q ?? "" },
-    onSubmit({ value }) {
-      const newSearch = { ...search, q: value.q };
+  const onSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      const newSearch = { ...search, q: values.q };
 
       navigate({
         ...options,
         search: newSearch,
       });
     },
+    [navigate, options, search],
+  );
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      q: search.q ?? "",
+    },
   });
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        form.handleSubmit();
-      }}
-    >
-      <form.Field
-        name="q"
-        validatorAdapter={zodValidator}
-        validators={{ onChange: z.string().max(100) }}
-      >
-        {(field) => {
-          return (
-            <SearchBoxView
-              onChange={(e) => field.handleChange(e.target.value)}
-              error={field.state.meta.errors.join("")}
-              value={field.getValue()}
-              name={field.name}
-            />
-          );
-        }}
-      </form.Field>
-    </form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="q"
+          render={({ field }) => <SearchBoxView inputProps={field} />}
+        />
+        <FormMessage>
+          <>{form.formState.errors.q?.message}</>
+        </FormMessage>
+      </form>
+    </Form>
   );
 }
 
 type SearchViewProps = {
-  onChange: React.ComponentProps<typeof Input>["onChange"];
-  error: string | undefined;
-  value: string;
-  name: string;
+  inputProps: React.ComponentProps<typeof Input>;
 };
 
-function SearchBoxView({ onChange, error, value, name }: SearchViewProps): ReactElement {
+function SearchBoxView({ inputProps }: SearchViewProps): ReactElement {
   return (
-    <>
-      <div className="flex gap-2">
-        <Input
-          type="text"
-          onChange={onChange}
-          placeholder="Search for tags, authors, meta..."
-          value={value}
-          name={name}
-        />
-        <Button size="icon" type="submit" className="[aspect-ratio:1/1]">
-          <SearchIcon />
-        </Button>
-      </div>
-      <p>{error}</p>
-    </>
+    <div className="flex gap-2">
+      <Input type="text" placeholder="Search for tags, authors, meta..." {...inputProps} />
+      <Button size="icon" type="submit" className="[aspect-ratio:1/1]">
+        <SearchIcon />
+      </Button>
+    </div>
   );
 }
