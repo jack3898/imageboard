@@ -12,7 +12,7 @@ export const Route = createLazyFileRoute("/")({
 function Home(): ReactElement {
   return (
     <Focus>
-      <Card className="size-full">
+      <Card className="m-2">
         <CardHeader className="text-center">
           <SiteLogo />
         </CardHeader>
