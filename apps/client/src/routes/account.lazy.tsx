@@ -14,7 +14,7 @@ function Account(): ReactElement {
         <CardHeader className="text-center">
           <CardTitle>Account</CardTitle>
         </CardHeader>
-        <CardContent className="text-center">
+        <CardContent>
           <Outlet />
         </CardContent>
       </Card>

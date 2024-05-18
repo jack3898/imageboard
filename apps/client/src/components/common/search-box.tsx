@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 type SearchProps = NavigateOptions;
 
 const formSchema = z.object({
-  q: z.string().max(100, { message: "Your search query is too long." }),
+  q: z.string().max(100, { message: "Your search query is too long" }),
 });
 
 export function SearchBox(options: SearchProps): ReactElement {
@@ -49,7 +49,7 @@ export function SearchBox(options: SearchProps): ReactElement {
           name="q"
           render={({ field }) => <SearchBoxView inputProps={field} />}
         />
-        <FormMessage>
+        <FormMessage className="h-[unset]">
           <>{form.formState.errors.q?.message}</>
         </FormMessage>
       </form>
