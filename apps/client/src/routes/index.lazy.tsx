@@ -1,8 +1,8 @@
-import { Button } from "@/components/atom/button.js";
 import { Card, CardContent, CardHeader } from "@/components/atom/card.js";
 import { SiteLogo } from "@/components/atom/site-logo.js";
+import { SearchBox } from "@/components/common/search-box.js";
 import { Focus } from "@/components/layout/focus.js";
-import { Link, createLazyFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";
 
 export const Route = createLazyFileRoute("/")({
@@ -17,11 +17,7 @@ function Home(): ReactElement {
           <SiteLogo />
         </CardHeader>
         <CardContent className="text-center">
-          <Button asChild>
-            <Link to="/explore" preload="intent">
-              Explore!
-            </Link>
-          </Button>
+          <SearchBox to="/explore" />
         </CardContent>
       </Card>
     </Focus>

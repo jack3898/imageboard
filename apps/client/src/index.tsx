@@ -5,15 +5,9 @@ import { ThemeProvider } from "./context/theme.js";
 import { ApolloClientProvider } from "./context/apollo.js";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 
-const root = document.getElementById("root");
 const router = createRouter({ routeTree });
 
-// Register the router instance for type safety
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
+const root = document.getElementById("root");
 
 createRoot(root!).render(
   <StrictMode>
