@@ -8,10 +8,10 @@ export function SearchArea(): ReactElement {
       <CardHeader>
         <CardTitle>Search</CardTitle>
       </CardHeader>
-      <CardContent>
-        <SearchBox />
+      <CardContent className="overflow-auto">
+        <SearchBox to="/explore" />
         <hr className="my-4" />
-        <div className="w-96">
+        <div className="max-w-96 overflow-auto">
           <ul>
             <li>? Flowery</li>
             <li>? Architecture</li>

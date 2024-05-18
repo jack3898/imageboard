@@ -13,6 +13,8 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ExploreIndexImport } from './routes/explore/index'
+import { Route as ExploreSingleImport } from './routes/explore/single'
 
 // Create Virtual Routes
 
@@ -30,6 +32,16 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const ExploreIndexRoute = ExploreIndexImport.update({
+  path: '/',
+  getParentRoute: () => ExploreLazyRoute,
+} as any)
+
+const ExploreSingleRoute = ExploreSingleImport.update({
+  path: '/single',
+  getParentRoute: () => ExploreLazyRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -49,6 +61,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLazyImport
       parentRoute: typeof rootRoute
     }
+    '/explore/single': {
+      id: '/explore/single'
+      path: '/single'
+      fullPath: '/explore/single'
+      preLoaderRoute: typeof ExploreSingleImport
+      parentRoute: typeof ExploreLazyImport
+    }
+    '/explore/': {
+      id: '/explore/'
+      path: '/'
+      fullPath: '/explore/'
+      preLoaderRoute: typeof ExploreIndexImport
+      parentRoute: typeof ExploreLazyImport
+    }
   }
 }
 
@@ -56,7 +82,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  ExploreLazyRoute,
+  ExploreLazyRoute: ExploreLazyRoute.addChildren({
+    ExploreSingleRoute,
+    ExploreIndexRoute,
+  }),
 })
 
 /* prettier-ignore-end */

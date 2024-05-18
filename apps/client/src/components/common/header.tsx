@@ -6,7 +6,7 @@ import { Link } from "@tanstack/react-router";
 
 export function Header(): ReactElement {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between flex-wrap">
       <div className="grow">
         <Link to="/">
           <SiteLogo />

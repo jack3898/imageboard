@@ -12,22 +12,33 @@ type SearchProps = NavigateOptions;
 export function SearchBox(options: SearchProps): ReactElement {
   const navigate = useNavigate();
 
+  // This could be on any route!
   const search = useSearch({
     strict: false,
-    select: (state) => z.string().catch("").parse(state.search?.search),
   });
 
   const form = useForm({
-    defaultValues: { search },
+    defaultValues: { q: search.q },
     onSubmit({ value }) {
-      navigate({ ...options, search: { ...options.search, search: value } });
+      const newSearch = { ...search, q: value.q };
+
+      navigate({
+        ...options,
+        search: newSearch,
+      });
     },
   });
 
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
       <form.Field
-        name="search"
+        name="q"
         validatorAdapter={zodValidator}
         validators={{ onChange: z.string().max(100) }}
       >
@@ -36,11 +47,8 @@ export function SearchBox(options: SearchProps): ReactElement {
             <SearchBoxView
               onChange={(e) => field.handleChange(e.target.value)}
               error={field.state.meta.errors.join("")}
-              onSubmit={(e) => {
-                e.preventDefault();
-                form.handleSubmit();
-              }}
               value={field.getValue()}
+              name={field.name}
             />
           );
         }}
@@ -52,11 +60,11 @@ export function SearchBox(options: SearchProps): ReactElement {
 type SearchViewProps = {
   onChange: React.ComponentProps<typeof Input>["onChange"];
   error: string | undefined;
-  onSubmit: React.ComponentProps<typeof Button>["onSubmit"];
-  value: React.ComponentProps<typeof Button>["value"];
+  value: string;
+  name: string;
 };
 
-function SearchBoxView({ onChange, error, onSubmit, value }: SearchViewProps): ReactElement {
+function SearchBoxView({ onChange, error, value, name }: SearchViewProps): ReactElement {
   return (
     <>
       <div className="flex gap-2">
@@ -65,8 +73,9 @@ function SearchBoxView({ onChange, error, onSubmit, value }: SearchViewProps): R
           onChange={onChange}
           placeholder="Search for tags, authors, meta..."
           value={value}
+          name={name}
         />
-        <Button size="icon" type="submit" onClick={onSubmit} className="[aspect-ratio:1/1]">
+        <Button size="icon" type="submit" className="[aspect-ratio:1/1]">
           <SearchIcon />
         </Button>
       </div>
