@@ -4,7 +4,7 @@ services:
     container_name: jackbooru_server
     restart: always
     ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - 8000:8000
     env_file:
       - ./.env
     command: npm run nx run @internal/server:start
@@ -14,7 +14,7 @@ services:
     container_name: jackbooru_client
     restart: always
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - 80:80
     env_file:
       - ./.env
     command: npm run nx run @internal/client:start

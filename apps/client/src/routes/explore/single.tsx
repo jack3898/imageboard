@@ -51,7 +51,9 @@ function MediaItemError(): ReactElement {
       </CardHeader>
       <CardContent>
         <p>There was a problem loading this page.</p>
-        <Link to="/explore">Go back?</Link>
+        <Link to=".." className="underline">
+          Go back?
+        </Link>
       </CardContent>
     </Card>
   );
