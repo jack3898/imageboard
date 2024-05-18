@@ -14,11 +14,15 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ExploreIndexImport } from './routes/explore/index'
+import { Route as AccountIndexImport } from './routes/account/index'
 import { Route as ExploreSingleImport } from './routes/explore/single'
+import { Route as AccountSignupImport } from './routes/account/signup'
+import { Route as AccountLoginImport } from './routes/account/login'
 
 // Create Virtual Routes
 
 const ExploreLazyImport = createFileRoute('/explore')()
+const AccountLazyImport = createFileRoute('/account')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
@@ -27,6 +31,11 @@ const ExploreLazyRoute = ExploreLazyImport.update({
   path: '/explore',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/explore.lazy').then((d) => d.Route))
+
+const AccountLazyRoute = AccountLazyImport.update({
+  path: '/account',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/account.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -38,9 +47,24 @@ const ExploreIndexRoute = ExploreIndexImport.update({
   getParentRoute: () => ExploreLazyRoute,
 } as any)
 
+const AccountIndexRoute = AccountIndexImport.update({
+  path: '/',
+  getParentRoute: () => AccountLazyRoute,
+} as any)
+
 const ExploreSingleRoute = ExploreSingleImport.update({
   path: '/single',
   getParentRoute: () => ExploreLazyRoute,
+} as any)
+
+const AccountSignupRoute = AccountSignupImport.update({
+  path: '/signup',
+  getParentRoute: () => AccountLazyRoute,
+} as any)
+
+const AccountLoginRoute = AccountLoginImport.update({
+  path: '/login',
+  getParentRoute: () => AccountLazyRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -54,6 +78,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/explore': {
       id: '/explore'
       path: '/explore'
@@ -61,12 +92,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLazyImport
       parentRoute: typeof rootRoute
     }
+    '/account/login': {
+      id: '/account/login'
+      path: '/login'
+      fullPath: '/account/login'
+      preLoaderRoute: typeof AccountLoginImport
+      parentRoute: typeof AccountLazyImport
+    }
+    '/account/signup': {
+      id: '/account/signup'
+      path: '/signup'
+      fullPath: '/account/signup'
+      preLoaderRoute: typeof AccountSignupImport
+      parentRoute: typeof AccountLazyImport
+    }
     '/explore/single': {
       id: '/explore/single'
       path: '/single'
       fullPath: '/explore/single'
       preLoaderRoute: typeof ExploreSingleImport
       parentRoute: typeof ExploreLazyImport
+    }
+    '/account/': {
+      id: '/account/'
+      path: '/'
+      fullPath: '/account/'
+      preLoaderRoute: typeof AccountIndexImport
+      parentRoute: typeof AccountLazyImport
     }
     '/explore/': {
       id: '/explore/'
@@ -82,6 +134,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  AccountLazyRoute: AccountLazyRoute.addChildren({
+    AccountLoginRoute,
+    AccountSignupRoute,
+    AccountIndexRoute,
+  }),
   ExploreLazyRoute: ExploreLazyRoute.addChildren({
     ExploreSingleRoute,
     ExploreIndexRoute,
