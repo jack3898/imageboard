@@ -18,7 +18,7 @@ export function SearchBox(options: SearchProps): ReactElement {
   });
 
   const form = useForm({
-    defaultValues: { q: search.q },
+    defaultValues: { q: search.q ?? "" },
     onSubmit({ value }) {
       const newSearch = { ...search, q: value.q };
 
