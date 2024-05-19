@@ -1,4 +1,4 @@
-import { type FileType } from "./file";
+import { type FileType } from "./file.js";
 
 // More methods are to come
 

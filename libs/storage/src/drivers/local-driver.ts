@@ -1,11 +1,11 @@
-import { type FileType } from "../types/file";
-import { type StorageDriver } from "../types/storage-driver";
+import { type FileType } from "../types/file.js";
+import { type StorageDriver } from "../types/storage-driver.js";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { blobToWebReadable } from "../utils/blobToWebReadable";
-import { webReadableToNodeReadable } from "../utils/webReadableToNodeReadable";
+import { blobToWebReadable } from "../utils/blobToWebReadable.js";
+import { webReadableToNodeReadable } from "../utils/webReadableToNodeReadable.js";
 import { createReadStream } from "node:fs";
-import { nodeReadableToWebReadable } from "../utils/nodeReadableToWebReadable";
+import { nodeReadableToWebReadable } from "../utils/nodeReadableToWebReadable.js";
 
 /**
  * The local driver is for filesystem-only operations. Great for testing.

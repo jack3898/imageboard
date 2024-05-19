@@ -1,6 +1,7 @@
 {
   "name": "@internal/storage",
   "version": "1.0.0",
+  "type": "module",
   "description": "Storage utilities.",
   "main": "dist/index.js",
   "scripts": {

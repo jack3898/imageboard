@@ -2,7 +2,7 @@
   "name": "@internal/database",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "devDependencies": {},
+  "type": "module",
   "scripts": {
     "dev": "tsc --watch --preserveWatchOutput",
     "lint": "eslint src",
