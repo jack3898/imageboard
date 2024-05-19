@@ -21,4 +21,6 @@ await new Promise<void>((resolve) =>
   httpServer.listen({ port: env.UNSAFE_BACKEND_URL.port }, resolve),
 );
 
-export { expressServer, apolloServer };
+const apiRouter = express.Router();
+
+export { apiRouter, expressServer, apolloServer };

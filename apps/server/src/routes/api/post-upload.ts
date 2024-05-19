@@ -1,12 +1,12 @@
 import { env } from "@/env.js";
-import { expressServer } from "@/server.js";
+import { apiRouter } from "@/server.js";
 import { NodeLocalDriver, File } from "@internal/storage";
 import multer from "multer";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const allowedMimeTypes = ["image/png", "image/jpeg"];
 
-expressServer.post("/upload/image", upload.single("image"), (req, res) => {
+apiRouter.post("/upload/image", upload.single("file"), (req, res) => {
   if (!req.file) {
     res.status(400).send("No file attached");
 

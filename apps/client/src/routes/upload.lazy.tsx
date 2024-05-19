@@ -5,11 +5,11 @@ import { BrowseLayout } from "@/components/layout/browse.js";
 import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";
 
-export const Route = createLazyFileRoute("/explore")({
-  component: Explore,
+export const Route = createLazyFileRoute("/upload")({
+  component: Upload,
 });
 
-function Explore(): ReactElement {
+function Upload(): ReactElement {
   return (
     <BrowseLayout
       header={<Header />}

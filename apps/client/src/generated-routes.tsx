@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as UploadIndexImport } from './routes/upload/index'
 import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as AccountIndexImport } from './routes/account/index'
 import { Route as ExploreSingleImport } from './routes/explore/single'
@@ -21,11 +22,17 @@ import { Route as AccountLoginImport } from './routes/account/login'
 
 // Create Virtual Routes
 
+const UploadLazyImport = createFileRoute('/upload')()
 const ExploreLazyImport = createFileRoute('/explore')()
 const AccountLazyImport = createFileRoute('/account')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const UploadLazyRoute = UploadLazyImport.update({
+  path: '/upload',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/upload.lazy').then((d) => d.Route))
 
 const ExploreLazyRoute = ExploreLazyImport.update({
   path: '/explore',
@@ -41,6 +48,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const UploadIndexRoute = UploadIndexImport.update({
+  path: '/',
+  getParentRoute: () => UploadLazyRoute,
+} as any)
 
 const ExploreIndexRoute = ExploreIndexImport.update({
   path: '/',
@@ -92,6 +104,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLazyImport
       parentRoute: typeof rootRoute
     }
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/account/login': {
       id: '/account/login'
       path: '/login'
@@ -127,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreIndexImport
       parentRoute: typeof ExploreLazyImport
     }
+    '/upload/': {
+      id: '/upload/'
+      path: '/'
+      fullPath: '/upload/'
+      preLoaderRoute: typeof UploadIndexImport
+      parentRoute: typeof UploadLazyImport
+    }
   }
 }
 
@@ -143,6 +169,7 @@ export const routeTree = rootRoute.addChildren({
     ExploreSingleRoute,
     ExploreIndexRoute,
   }),
+  UploadLazyRoute: UploadLazyRoute.addChildren({ UploadIndexRoute }),
 })
 
 /* prettier-ignore-end */
