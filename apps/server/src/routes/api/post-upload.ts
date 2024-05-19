@@ -1,7 +1,7 @@
-import { env } from "@/env.js";
 import { filesModel, usersModel } from "@/mongo.js";
 import { apiRouter } from "@/server.js";
-import { NodeLocalDriver, File } from "@internal/storage";
+import { abstractStorageDriver } from "@/storage-driver.js";
+import { File } from "@internal/storage";
 import multer from "multer";
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -30,26 +30,20 @@ apiRouter.post("/upload/image", upload.single("file"), async (req, res) => {
     return;
   }
 
-  if (env.STORAGE_DRIVER === "node_local") {
-    const driver = new NodeLocalDriver(env.STORAGE_BASE_PATH);
+  const file = new File({
+    mimeType: req.file.mimetype,
+    name: crypto.randomUUID() + req.file.mimetype.replace("/", "."), // Cheesy, but it does for now 🙈
+    data: new Blob([req.file.buffer]),
+  });
 
-    const file = new File({
-      mimeType: req.file.mimetype,
-      name: crypto.randomUUID() + req.file.mimetype.replace("/", "."), // Cheesy, but it does for now 🙈
-      data: new Blob([req.file.buffer]),
-    });
+  await abstractStorageDriver.upload(file);
 
-    await driver.upload(file);
+  await filesModel.create({
+    path: file.name,
+    user: (await usersModel.findOne())?.id, // This is temporary
+  });
 
-    await filesModel.create({
-      path: file.name,
-      user: (await usersModel.findOne())?.id, // This is temporary
-    });
+  res.sendStatus(200);
 
-    res.sendStatus(200);
-
-    return;
-  }
-
-  res.sendStatus(500);
+  return;
 });

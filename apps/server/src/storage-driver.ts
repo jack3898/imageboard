@@ -1,6 +1,11 @@
 import { NodeLocalDriver, type types } from "@internal/storage";
 import { env } from "./env.js";
 
+/**
+ * Configures and initializes a storage driver based from environment configuration.
+ *
+ * For driver-specific features, use type guards or instanceof checks.
+ */
 function getStorageDriver(): types.StorageDriver {
   switch (env.STORAGE_DRIVER) {
     case "node_local":
@@ -10,4 +15,7 @@ function getStorageDriver(): types.StorageDriver {
   }
 }
 
-export const storageDriver = getStorageDriver();
+/**
+ * Driver destination changes on environment configuration.
+ */
+export const abstractStorageDriver = getStorageDriver();
