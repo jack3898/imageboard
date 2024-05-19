@@ -1,6 +1,4 @@
-# Jackbooru
-
-A "booru" is an "online image board with taggable images". A place to store media, and organise them to make them easy to find.
+# Imageboard
 
 Inspired by some online image boards (a lot being questionable 😂), I thought it would be a fun project to make my own. Make it great on mobile, written in TypeScript.
 
@@ -9,6 +7,13 @@ I plan to use this as more of a personal photo hosting solution for myself but o
 ## WIP
 
 This project is a bit WIP! Rough edges are inevitable.
+
+Here is a super early sneak peek.
+
+|                                                                                                  |                                                                                                  |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| ![](https://github.com/jack3898/imageboard/assets/28375223/2ace2ce0-1029-4ca3-8512-ecae1e8b3318) | ![](https://github.com/jack3898/imageboard/assets/28375223/5ea1ad6c-4528-41c2-8b9f-141522630874) |
+| ![](https://github.com/jack3898/imageboard/assets/28375223/deaa74c7-cccf-4c35-973d-45eec5123252) | ![](https://github.com/jack3898/imageboard/assets/28375223/6c156e05-ae6c-4773-b2de-b59a68c5f4f1) |
 
 ## Install
 
