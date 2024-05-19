@@ -30,16 +30,15 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
-export type Image = {
-  __typename?: 'Image';
-  alt?: Maybe<Scalars['String']['output']>;
+export type File = {
+  __typename?: 'File';
   id: Scalars['ID']['output'];
-  thumbnailUrl: Scalars['String']['output'];
+  user: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  images: Array<Image>;
+  files: Array<File>;
   users: Array<User>;
 };
 
@@ -50,56 +49,55 @@ export type User = {
   username: Scalars['String']['output'];
 };
 
-export type ImagesQueryVariables = Exact<{ [key: string]: never; }>;
+export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ImagesQuery = { __typename?: 'Query', images: Array<{ __typename?: 'Image', alt?: string | null, id: string, thumbnailUrl: string }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', id: string, user: string }> };
 
 
-export const ImagesDocument = gql`
-    query Images {
-  images {
-    alt
+export const FilesDocument = gql`
+    query Files {
+  files {
     id
-    thumbnailUrl
+    user
   }
 }
     `;
-export type ImagesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<ImagesQuery, ImagesQueryVariables>, 'query'>;
+export type FilesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<FilesQuery, FilesQueryVariables>, 'query'>;
 
-    export const ImagesComponent = (props: ImagesComponentProps) => (
-      <ApolloReactComponents.Query<ImagesQuery, ImagesQueryVariables> query={ImagesDocument} {...props} />
+    export const FilesComponent = (props: FilesComponentProps) => (
+      <ApolloReactComponents.Query<FilesQuery, FilesQueryVariables> query={FilesDocument} {...props} />
     );
     
 
 /**
- * __useImagesQuery__
+ * __useFilesQuery__
  *
- * To run a query within a React component, call `useImagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useImagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useImagesQuery({
+ * const { data, loading, error } = useFilesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useImagesQuery(baseOptions?: Apollo.QueryHookOptions<ImagesQuery, ImagesQueryVariables>) {
+export function useFilesQuery(baseOptions?: Apollo.QueryHookOptions<FilesQuery, FilesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ImagesQuery, ImagesQueryVariables>(ImagesDocument, options);
+        return Apollo.useQuery<FilesQuery, FilesQueryVariables>(FilesDocument, options);
       }
-export function useImagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ImagesQuery, ImagesQueryVariables>) {
+export function useFilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilesQuery, FilesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ImagesQuery, ImagesQueryVariables>(ImagesDocument, options);
+          return Apollo.useLazyQuery<FilesQuery, FilesQueryVariables>(FilesDocument, options);
         }
-export function useImagesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ImagesQuery, ImagesQueryVariables>) {
+export function useFilesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FilesQuery, FilesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ImagesQuery, ImagesQueryVariables>(ImagesDocument, options);
+          return Apollo.useSuspenseQuery<FilesQuery, FilesQueryVariables>(FilesDocument, options);
         }
-export type ImagesQueryHookResult = ReturnType<typeof useImagesQuery>;
-export type ImagesLazyQueryHookResult = ReturnType<typeof useImagesLazyQuery>;
-export type ImagesSuspenseQueryHookResult = ReturnType<typeof useImagesSuspenseQuery>;
-export type ImagesQueryResult = Apollo.QueryResult<ImagesQuery, ImagesQueryVariables>;
+export type FilesQueryHookResult = ReturnType<typeof useFilesQuery>;
+export type FilesLazyQueryHookResult = ReturnType<typeof useFilesLazyQuery>;
+export type FilesSuspenseQueryHookResult = ReturnType<typeof useFilesSuspenseQuery>;
+export type FilesQueryResult = Apollo.QueryResult<FilesQuery, FilesQueryVariables>;

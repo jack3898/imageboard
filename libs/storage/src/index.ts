@@ -3,3 +3,4 @@ export * from "./file.js";
 export * from "./utils/blobToWebReadable.js";
 export * from "./utils/nodeReadableToWebReadable.js";
 export * from "./utils/webReadableToNodeReadable.js";
+export * as types from "./types/index.js";

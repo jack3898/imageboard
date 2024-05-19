@@ -1,9 +1,8 @@
 scalar Date
 
-type Image {
+type File {
   id: ID!
-  alt: String
-  thumbnailUrl: String!
+  user: String!
 }
 
 type User {
@@ -13,6 +12,6 @@ type User {
 }
 
 type Query {
-  images: [Image!]!
+  files: [File!]!
   users: [User!]!
 }

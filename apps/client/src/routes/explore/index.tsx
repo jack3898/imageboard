@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/atom/card.js";
-import { useImagesQuery, type Image } from "@/hooks/generated-graphql-hooks.js";
+import { envClient } from "@/env-client.js";
+import { useFilesQuery, type File } from "@/hooks/generated-graphql-hooks.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
 import { Link, createFileRoute } from "@tanstack/react-router";
@@ -13,17 +14,17 @@ export const Route = createFileRoute("/explore/")({
 });
 
 export function MediaList(): ReactElement {
-  const { data } = useImagesQuery();
+  const { data } = useFilesQuery();
 
   if (!data) {
     return <>Loading...</>;
   }
 
-  return <MediaListView images={data.images} />;
+  return <MediaListView images={data.files} />;
 }
 
 type MediaListViewProps = {
-  images: Image[];
+  images: File[];
   imageFit?: "object-cover" | "object-contain";
 };
 
@@ -51,15 +52,14 @@ export function MediaListView({ images }: MediaListViewProps): JSX.Element {
   );
 }
 
-function ImageTile({ image }: { image: Image }): ReactElement {
+function ImageTile({ image }: { image: File }): ReactElement {
   const imageFit = useGlobalStore((store) =>
     store.thumbnailFit === "cover" ? "object-cover" : "object-contain",
   );
 
   return (
     <img
-      src={image.thumbnailUrl}
-      alt={image.alt || ""}
+      src={`${envClient.UNSAFE_BACKEND_URL}api/file/${image.id}`}
       className={cn("size-full object-cover border", imageFit)}
     />
   );

@@ -1,7 +1,0 @@
-query Images {
-  images {
-    alt
-    id
-    thumbnailUrl
-  }
-}

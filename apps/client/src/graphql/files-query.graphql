@@ -1,0 +1,6 @@
+query Files {
+  files {
+    id
+    user
+  }
+}

@@ -1,4 +1,5 @@
 import { env } from "@/env.js";
+import { filesModel, usersModel } from "@/mongo.js";
 import { apiRouter } from "@/server.js";
 import { NodeLocalDriver, File } from "@internal/storage";
 import multer from "multer";
@@ -6,7 +7,7 @@ import multer from "multer";
 const upload = multer({ storage: multer.memoryStorage() });
 const allowedMimeTypes = ["image/png", "image/jpeg"];
 
-apiRouter.post("/upload/image", upload.single("file"), (req, res) => {
+apiRouter.post("/upload/image", upload.single("file"), async (req, res) => {
   if (!req.file) {
     res.status(400).send("No file attached");
 
@@ -38,7 +39,12 @@ apiRouter.post("/upload/image", upload.single("file"), (req, res) => {
       data: new Blob([req.file.buffer]),
     });
 
-    driver.upload(file);
+    await driver.upload(file);
+
+    await filesModel.create({
+      path: file.name,
+      user: (await usersModel.findOne())?.id, // This is temporary
+    });
 
     res.sendStatus(200);
 

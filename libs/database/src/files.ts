@@ -17,7 +17,7 @@ export const filesSchema = new Schema(
     },
   },
   {
-    collection: "users",
+    collection: "files",
     timestamps: true,
     autoIndex: true,
   },

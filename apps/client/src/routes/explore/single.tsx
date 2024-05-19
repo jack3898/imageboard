@@ -1,5 +1,6 @@
 import { Button } from "@/components/atom/button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/atom/card.js";
+import { envClient } from "@/env-client.js";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { type ReactElement } from "react";
@@ -37,7 +38,11 @@ function MediaItem(): ReactElement {
         >
           <ArrowLeft />
         </Button>
-        <img src="https://picsum.photos/1920/1080" alt="tbc" className="w-full"></img>
+        <img
+          src={`${envClient.UNSAFE_BACKEND_URL}api/file/${id}`}
+          alt="tbc"
+          className="w-full"
+        ></img>
       </CardContent>
     </Card>
   );
