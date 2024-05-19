@@ -4,7 +4,7 @@ import { useFilesQuery, type File } from "@/hooks/generated-graphql-hooks.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { z } from "zod";
 
 export const Route = createFileRoute("/explore/")({
@@ -14,7 +14,11 @@ export const Route = createFileRoute("/explore/")({
 });
 
 export function MediaList(): ReactElement {
-  const { data } = useFilesQuery();
+  const { data, refetch } = useFilesQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (!data) {
     return <>Loading...</>;
