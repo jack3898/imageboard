@@ -1,9 +1,18 @@
+scalar Date
+
 type Image {
   id: ID!
   alt: String
   thumbnailUrl: String!
 }
 
+type User {
+  username: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
 type Query {
   images: [Image!]!
+  users: [User!]!
 }

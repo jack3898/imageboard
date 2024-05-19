@@ -1,8 +1,10 @@
-import { images } from "./temp-data.js";
+import { getUsers } from "./resolvers/query/get-users.js";
+import { getImages } from "./resolvers/query/get-images.js";
+import { type Resolvers } from "./types/generated-graphql-types.js";
 
-// TODO: Use typegen
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    images: (): typeof images => images,
+    images: () => getImages(),
+    users: () => getUsers(),
   },
 };

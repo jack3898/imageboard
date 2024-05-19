@@ -13,7 +13,7 @@ export default async function introspectGraphQL(): Promise<GraphQLSchema> {
   //   ?.at(1);
 
   // TODO: Extract more detail of backend url as env
-  const response = await fetch(`http://localhost:${env.UNSAFE_BACKEND_PORT}/graphql`, {
+  const response = await fetch(`http://localhost:${env.UNSAFE_BACKEND_URL.port}/graphql`, {
     method: "POST",
     headers: {
       "content-type": "application/json",

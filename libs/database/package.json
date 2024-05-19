@@ -1,0 +1,13 @@
+{
+  "name": "@internal/database",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput",
+    "lint": "eslint src",
+    "build": "tsc"
+  },
+  "author": "Jack Wright <github@sec.jackwmail.com>",
+  "license": "GPL-3.0-only"
+}
