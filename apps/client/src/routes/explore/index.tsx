@@ -13,17 +13,13 @@ export const Route = createFileRoute("/explore/")({
 });
 
 export function MediaList(): ReactElement {
-  const imageFit = useGlobalStore((store) =>
-    store.thumbnailFit === "cover" ? "object-cover" : "object-contain",
-  );
-
   const { data } = useImagesQuery();
 
   if (!data) {
     return <>Loading...</>;
   }
 
-  return <MediaListView images={data.images} imageFit={imageFit} />;
+  return <MediaListView images={data.images} />;
 }
 
 type MediaListViewProps = {
@@ -31,7 +27,7 @@ type MediaListViewProps = {
   imageFit?: "object-cover" | "object-contain";
 };
 
-export function MediaListView({ images, imageFit }: MediaListViewProps): JSX.Element {
+export function MediaListView({ images }: MediaListViewProps): JSX.Element {
   const q = Route.useSearch({ select: (search) => search.q });
 
   return (
@@ -45,17 +41,27 @@ export function MediaListView({ images, imageFit }: MediaListViewProps): JSX.Ele
           {images.map((image) => (
             <li key={image.id} className="size-48">
               <Link to={"/explore/single"} search={{ q, id: image.id }}>
-                <img
-                  src={image.thumbnailUrl}
-                  alt={image.alt || ""}
-                  className={cn("size-full object-cover border", imageFit)}
-                ></img>
+                <ImageTile image={image} />
               </Link>
             </li>
           ))}
         </ul>
       </CardContent>
     </Card>
+  );
+}
+
+function ImageTile({ image }: { image: Image }): ReactElement {
+  const imageFit = useGlobalStore((store) =>
+    store.thumbnailFit === "cover" ? "object-cover" : "object-contain",
+  );
+
+  return (
+    <img
+      src={image.thumbnailUrl}
+      alt={image.alt || ""}
+      className={cn("size-full object-cover border", imageFit)}
+    />
   );
 }
 
