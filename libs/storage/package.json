@@ -1,0 +1,13 @@
+{
+  "name": "@internal/storage",
+  "version": "1.0.0",
+  "description": "Storage utilities.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput",
+    "lint": "eslint src",
+    "build": "tsc"
+  },
+  "author": "Jack Wright <github@sec.jackwmail.com>",
+  "license": "GPL-3.0-only"
+}
