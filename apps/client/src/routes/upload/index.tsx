@@ -94,7 +94,7 @@ function UploadFileForm(): ReactElement {
             </span>
           </FormMessage>
           <div className="text-right">
-            <Button>Upload</Button>
+            <Button disabled={!form.formState.isValid}>Upload</Button>
           </div>
         </form>
       </Form>

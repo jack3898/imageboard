@@ -3,8 +3,10 @@ import { type ReactNode, type ReactElement } from "react";
 
 type FocusProps = {
   children: ReactNode;
+  header: ReactNode;
+  footer: ReactNode;
   size?: "small" | "medium" | "large";
-};
+} & React.ComponentPropsWithoutRef<"div">;
 
 function getTailwindSize(size: "small" | "medium" | "large"): string {
   switch (size) {
@@ -17,10 +19,20 @@ function getTailwindSize(size: "small" | "medium" | "large"): string {
   }
 }
 
-export function Focus({ children, size = "medium" }: FocusProps): ReactElement {
+export function Focus({
+  children,
+  size = "medium",
+  header,
+  footer,
+  ...wrapperProps
+}: FocusProps): ReactElement {
   return (
-    <div className="flex justify-center items-center">
-      <div className={cn(`max-w-xl w-full`, getTailwindSize(size))}>{children}</div>
+    <div {...wrapperProps} className={cn("flex flex-col", wrapperProps.className)}>
+      <header className="shrink">{header}</header>
+      <main className="grow flex justify-center items-center">
+        <div className={cn(`max-w-xl w-full`, getTailwindSize(size))}>{children}</div>
+      </main>
+      <footer className="shrink">{footer}</footer>
     </div>
   );
 }
