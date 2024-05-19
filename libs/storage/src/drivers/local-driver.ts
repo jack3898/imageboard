@@ -22,7 +22,7 @@ export class NodeLocalDriver implements StorageDriver {
     const nodeReadable = webReadableToNodeReadable(readableStream);
     const fullPath = path.resolve(this.basePath, file.name);
 
-    await fs.access(fullPath);
+    await fs.access(this.basePath);
 
     return fs.writeFile(fullPath, nodeReadable);
   }

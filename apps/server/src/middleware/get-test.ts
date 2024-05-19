@@ -6,13 +6,13 @@ expressServer.get("/test", async (_, res) => {
   if (env.STORAGE_DRIVER === "node_local") {
     const driver = new NodeLocalDriver(env.STORAGE_BASE_PATH);
     const file = await driver.download("hello.png").catch((error) => {
-      console.log(error);
+      console.error(error);
 
       return null;
     });
 
     if (!file) {
-      res.send("No image named hello.png found.").status(404);
+      res.status(404).send("No image named hello.png found.");
 
       return;
     }
@@ -25,7 +25,7 @@ expressServer.get("/test", async (_, res) => {
   }
 
   if (env.STORAGE_DRIVER === "s3") {
-    res.send("This test endpoint does not yet work with S3.").status(400);
+    res.status(400).send("This test endpoint does not yet work with S3.");
 
     return;
   }
