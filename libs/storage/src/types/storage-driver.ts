@@ -4,7 +4,5 @@ import { type FileType } from "./file";
 
 export interface StorageDriver {
   upload(file: FileType): Promise<void>;
-  // download
-  // delete
-  // ..more
+  download(path: string): Promise<ReadableStream>;
 }
