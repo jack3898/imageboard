@@ -1,5 +1,4 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/atom/card.js";
-import { envClient } from "@/env-client.js";
 import { useFilesQuery, type File } from "@/hooks/generated-graphql-hooks.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
@@ -63,7 +62,7 @@ function ImageTile({ image }: { image: File }): ReactElement {
 
   return (
     <img
-      src={`${envClient.UNSAFE_BACKEND_URL}api/file/${image.id}`}
+      src={`${import.meta.env["UNSAFE_BACKEND_URL"]}api/file/${image.id}`}
       className={cn("size-full object-cover border", imageFit)}
     />
   );

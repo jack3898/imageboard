@@ -6,3 +6,6 @@ MONGO_URL=mongodb://someurl:27017/yourdb
 
 STORAGE_DRIVER=node_local
 STORAGE_BASE_PATH=C:\Users\You\Some\Path
+
+NGROK_AUTHTOKEN=
+NGROK_DOMAIN=

@@ -2,7 +2,6 @@ import { Button } from "@/components/atom/button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/atom/card.js";
 import { Form, FormField, FormLabel, FormMessage } from "@/components/atom/form.js";
 import { Input } from "@/components/atom/input.js";
-import { envClient } from "@/env-client.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
@@ -56,7 +55,7 @@ function UploadFileForm(): ReactElement {
       formData.append("file", file);
     }
 
-    fetch(`${envClient.UNSAFE_BACKEND_URL}api/upload/image`, {
+    fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}api/upload/image`, {
       method: "POST",
       body: formData
     });

@@ -3,6 +3,10 @@
 
 FROM node:20.13.1
 
+ARG UNSAFE_BACKEND_URL
+
+ENV UNSAFE_BACKEND_URL=${UNSAFE_BACKEND_URL}
+
 WORKDIR /usr/src/app
 
 COPY . .
@@ -12,5 +16,3 @@ RUN npm i -g npm@10.7.0
 RUN npm ci
 
 WORKDIR /usr/src/app
-
-ENV NODE_ENV production
