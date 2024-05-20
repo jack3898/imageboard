@@ -32,8 +32,11 @@ Volta will automatically read this project and install the exact tested version 
 
 - Clone this repo
 - Install Docker with Docker Compose
-- Copy and rename ".envexample" to ".env" and fill in the correct values
-- Run `docker build -t jackbooru:latest -f .docker/Dockerfile .`
+- Copy and rename ".envexample" to ".env" and fill in:
+  - NGROK_AUTHTOKEN
+  - NGROK_DOMAIN
+  - FRONTEND_PORT set to `80` (this is proxied so do not worry about no encryption)
+- Run `docker build -t imageboard:latest -f .docker/Dockerfile . --build-arg UNSAFE_BACKEND_URL=https://your_ngrok_domain.com`
 - Run `docker-compose up`
 - Visit the site!
 
