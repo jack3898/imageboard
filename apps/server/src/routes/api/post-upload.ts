@@ -18,7 +18,7 @@ apiRouter.post("/upload/image", upload.single("file"), async (req, res) => {
     res
       .status(400)
       .send(
-        `Invalid mime type, expected any of: ${allowedMimeTypes.join(", ")}. Received ${req.file.mimetype}`,
+        `Invalid mime type, expected any of: ${allowedMimeTypes.join(", ")}. Received ${req.file.mimetype}`
       );
 
     return;
@@ -33,14 +33,14 @@ apiRouter.post("/upload/image", upload.single("file"), async (req, res) => {
   const file = new File({
     mimeType: req.file.mimetype,
     name: crypto.randomUUID() + req.file.mimetype.replace("/", "."), // Cheesy, but it does for now 🙈
-    data: new Blob([req.file.buffer]),
+    data: new Blob([req.file.buffer])
   });
 
   await abstractStorageDriver.upload(file);
 
   await filesModel.create({
     path: file.name,
-    user: (await usersModel.findOne())?.id, // This is temporary
+    user: (await usersModel.findOne())?.id // This is temporary
   });
 
   res.sendStatus(200);

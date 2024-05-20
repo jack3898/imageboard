@@ -5,16 +5,16 @@ export const usersSchema = new Schema(
     docVersion: {
       type: Number,
       required: true,
-      default: 1,
+      default: 1
     },
     username: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
     collection: "users",
     timestamps: true,
-    autoIndex: true,
-  },
+    autoIndex: true
+  }
 );

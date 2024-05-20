@@ -10,7 +10,7 @@ export function ToggleImageFit(): ReactElement {
       checked={checked}
       onCheckedChange={(newChecked) => {
         useGlobalStore.setState({
-          thumbnailFit: newChecked ? "contain" : "cover",
+          thumbnailFit: newChecked ? "contain" : "cover"
         });
       }}
     />

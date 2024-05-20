@@ -16,10 +16,10 @@ export const MONGO_URL = z.string().url();
 export const STORAGE_DRIVER = z.discriminatedUnion("STORAGE_DRIVER", [
   z.object({
     STORAGE_DRIVER: z.literal("node_local"),
-    STORAGE_BASE_PATH: z.string(),
+    STORAGE_BASE_PATH: z.string()
   }),
   z.object({
-    STORAGE_DRIVER: z.literal("s3"),
+    STORAGE_DRIVER: z.literal("s3")
     // Coming soon!
-  }),
+  })
 ]);

@@ -5,6 +5,6 @@ import cors from "cors";
 expressServer.use(
   cors({
     origin: env.CORS_ORIGIN,
-    credentials: true,
-  }),
+    credentials: true
+  })
 );

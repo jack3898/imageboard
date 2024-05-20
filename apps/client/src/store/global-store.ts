@@ -8,13 +8,13 @@ type GlobalStore = {
 const useGlobalStore = create<GlobalStore>()(
   persist(
     () => ({
-      thumbnailFit: "cover" as GlobalStore["thumbnailFit"],
+      thumbnailFit: "cover" as GlobalStore["thumbnailFit"]
     }),
     {
       name: "appGlobalState",
-      storage: createJSONStorage(() => sessionStorage),
-    },
-  ),
+      storage: createJSONStorage(() => sessionStorage)
+    }
+  )
 );
 
 export { useGlobalStore };

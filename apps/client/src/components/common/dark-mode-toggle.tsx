@@ -3,7 +3,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "../atom/dropdown-menu.js";
 import { useTheme } from "@/context/theme.js";
 import { Button } from "../atom/button.js";

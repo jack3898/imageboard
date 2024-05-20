@@ -17,10 +17,10 @@ export default async function introspectGraphQL(): Promise<GraphQLSchema> {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      credentials: "include",
+      credentials: "include"
       // cookie: `session=${cookie}`, This will be needed in the future!
     },
-    body: JSON.stringify({ query: introspectionQuery }),
+    body: JSON.stringify({ query: introspectionQuery })
   });
 
   const { data } = await response.json();

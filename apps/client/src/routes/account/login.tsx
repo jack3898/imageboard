@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const Route = createFileRoute("/account/login")({
-  component: LoginForm,
+  component: LoginForm
 });
 
 const formSchema = z.object({
@@ -16,7 +16,7 @@ const formSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password must be 8 characters or more" })
-    .max(72, { message: "A password cannot be longer than 72 characters" }),
+    .max(72, { message: "A password cannot be longer than 72 characters" })
 });
 
 function LoginForm(): ReactElement {
@@ -24,8 +24,8 @@ function LoginForm(): ReactElement {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: "",
-    },
+      password: ""
+    }
   });
 
   const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {

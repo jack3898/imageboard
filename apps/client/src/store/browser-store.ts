@@ -7,13 +7,13 @@ type BrowserStore = {
 
 const useBrowserStore = create<BrowserStore>()(() => ({
   viewportHeight: window.innerHeight,
-  viewportWidth: window.innerWidth,
+  viewportWidth: window.innerWidth
 }));
 
 window.addEventListener("resize", () => {
   useBrowserStore.setState({
     viewportHeight: window.innerHeight,
-    viewportWidth: window.innerWidth,
+    viewportWidth: window.innerWidth
   });
 });
 

@@ -4,7 +4,7 @@ import { LogIn, UserPlus } from "lucide-react";
 import { type ReactElement } from "react";
 
 export const Route = createFileRoute("/account/")({
-  component: Account,
+  component: Account
 });
 
 function Account(): ReactElement {

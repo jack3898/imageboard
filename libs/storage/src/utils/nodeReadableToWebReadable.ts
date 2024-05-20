@@ -18,6 +18,6 @@ export function nodeReadableToWebReadable(nodeReadable: Readable): ReadableStrea
 
     cancel(): void {
       nodeReadable.destroy();
-    },
+    }
   });
 }

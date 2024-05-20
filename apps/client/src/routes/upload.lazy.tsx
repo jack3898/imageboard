@@ -6,7 +6,7 @@ import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";
 
 export const Route = createLazyFileRoute("/upload")({
-  component: Upload,
+  component: Upload
 });
 
 function Upload(): ReactElement {

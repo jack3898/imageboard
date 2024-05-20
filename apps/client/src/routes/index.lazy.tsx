@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 import { type ReactElement } from "react";
 
 export const Route = createLazyFileRoute("/")({
-  component: Home,
+  component: Home
 });
 
 function Home(): ReactElement {

@@ -21,12 +21,12 @@ export default {
         "typescript",
         "typescript-operations",
         "typescript-react-apollo",
-        { add: { content: generatedComment } },
+        { add: { content: generatedComment } }
       ],
       config: {
         withComponent: true,
-        useTypeImports: true,
-      },
-    },
-  },
+        useTypeImports: true
+      }
+    }
+  }
 } satisfies CodegenConfig;

@@ -8,8 +8,8 @@ expressServer.use(
   "/graphql",
   cors<cors.CorsRequest>({
     origin: env.CORS_ORIGIN,
-    credentials: true,
+    credentials: true
   }),
   express.json(),
-  expressMiddleware(apolloServer),
+  expressMiddleware(apolloServer)
 );

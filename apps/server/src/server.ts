@@ -13,12 +13,12 @@ const apolloServer = new ApolloServer({
   typeDefs: await readFile("src/typedefs.graphql").then((buf) => buf.toString("utf-8")),
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-  introspection: true,
+  introspection: true
 });
 
 await apolloServer.start();
 await new Promise<void>((resolve) =>
-  httpServer.listen({ port: env.UNSAFE_BACKEND_URL.port }, resolve),
+  httpServer.listen({ port: env.UNSAFE_BACKEND_URL.port }, resolve)
 );
 
 const apiRouter = express.Router();

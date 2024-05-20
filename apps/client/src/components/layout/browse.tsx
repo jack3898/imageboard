@@ -36,7 +36,7 @@ export function BrowseLayoutDesktop({
       {...wrapperProps}
       className={cn(
         "grid grid-cols-[auto_1fr] grid-rows-[auto_1fr_auto] gap-2 [grid-template-areas:'header_header''left_main''footer_footer'] size-full",
-        wrapperProps.className,
+        wrapperProps.className
       )}
     >
       <header className="[grid-area:header]">{header}</header>

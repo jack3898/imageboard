@@ -5,6 +5,6 @@ export const env = z
   .object({
     NODE_ENV,
     FRONTEND_PORT,
-    UNSAFE_BACKEND_URL,
+    UNSAFE_BACKEND_URL
   })
   .parse(process.env);

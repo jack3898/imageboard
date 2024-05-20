@@ -59,7 +59,7 @@
   "prettier.singleAttributePerLine": false,
   "prettier.singleQuote": false,
   "prettier.tabWidth": 2,
-  "prettier.trailingComma": "es5",
+  "prettier.trailingComma": "none",
   "prettier.useEditorConfig": true,
   "prettier.useTabs": false,
   "prettier.vueIndentScriptAndStyle": false,

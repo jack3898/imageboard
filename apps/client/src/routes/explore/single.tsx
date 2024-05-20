@@ -10,9 +10,9 @@ export const Route = createFileRoute("/explore/single")({
   component: MediaItem,
   validateSearch: z.object({
     id: z.string(),
-    q: z.string().catch(""),
+    q: z.string().catch("")
   }).parse,
-  errorComponent: MediaItemError,
+  errorComponent: MediaItemError
 });
 
 function MediaItem(): ReactElement {
@@ -32,7 +32,7 @@ function MediaItem(): ReactElement {
           onClick={() =>
             navigate({
               to: "..",
-              search: { q, id },
+              search: { q, id }
             })
           }
         >

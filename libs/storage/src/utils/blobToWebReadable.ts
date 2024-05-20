@@ -18,7 +18,7 @@ export function blobToWebReadable(blob: Blob): ReadableStream {
       }
 
       push();
-    },
+    }
   });
 
   return stream;

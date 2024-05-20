@@ -6,7 +6,7 @@ import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";
 
 export const Route = createLazyFileRoute("/explore")({
-  component: Explore,
+  component: Explore
 });
 
 function Explore(): ReactElement {

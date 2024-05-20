@@ -10,7 +10,7 @@ import { z } from "zod";
 export const Route = createFileRoute("/explore/")({
   component: MediaList,
   validateSearch: z.object({ q: z.string().catch("") }).parse,
-  errorComponent: MediaListError,
+  errorComponent: MediaListError
 });
 
 export function MediaList(): ReactElement {
@@ -58,7 +58,7 @@ export function MediaListView({ images }: MediaListViewProps): JSX.Element {
 
 function ImageTile({ image }: { image: File }): ReactElement {
   const imageFit = useGlobalStore((store) =>
-    store.thumbnailFit === "cover" ? "object-cover" : "object-contain",
+    store.thumbnailFit === "cover" ? "object-cover" : "object-contain"
   );
 
   return (

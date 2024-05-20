@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 type SearchProps = NavigateOptions;
 
 const formSchema = z.object({
-  q: z.string().max(100, { message: "Your search query is too long" }),
+  q: z.string().max(100, { message: "Your search query is too long" })
 });
 
 export function SearchBox(options: SearchProps): ReactElement {
@@ -19,7 +19,7 @@ export function SearchBox(options: SearchProps): ReactElement {
 
   // This could be on any route!
   const search = useSearch({
-    strict: false,
+    strict: false
   });
 
   const onSubmit = useCallback(
@@ -28,17 +28,17 @@ export function SearchBox(options: SearchProps): ReactElement {
 
       navigate({
         ...options,
-        search: newSearch,
+        search: newSearch
       });
     },
-    [navigate, options, search],
+    [navigate, options, search]
   );
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      q: search.q ?? "",
-    },
+      q: search.q ?? ""
+    }
   });
 
   return (

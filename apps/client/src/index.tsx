@@ -18,5 +18,5 @@ createRoot(root!).render(
         </div>
       </ThemeProvider>
     </ApolloClientProvider>
-  </StrictMode>,
+  </StrictMode>
 );

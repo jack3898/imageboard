@@ -12,6 +12,6 @@ export function webReadableToNodeReadable(readableStream: ReadableStream): Reada
       } else {
         this.push(value);
       }
-    },
+    }
   });
 }

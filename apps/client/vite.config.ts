@@ -4,13 +4,13 @@ import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 
 export default defineConfig({
   build: {
-    sourcemap: true,
+    sourcemap: true
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+      "@": path.resolve(__dirname, "./src")
+    }
   },
   envPrefix: "UNSAFE",
-  plugins: [TanStackRouterVite({ generatedRouteTree: "src/generated-routes.tsx" })],
+  plugins: [TanStackRouterVite({ generatedRouteTree: "src/generated-routes.tsx" })]
 });

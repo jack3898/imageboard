@@ -5,20 +5,20 @@ export const filesSchema = new Schema(
     docVersion: {
       type: Number,
       required: true,
-      default: 1,
+      default: 1
     },
     path: {
       type: String,
-      required: true,
+      required: true
     },
     user: {
       type: Schema.ObjectId,
-      ref: "user",
-    },
+      ref: "user"
+    }
   },
   {
     collection: "files",
     timestamps: true,
-    autoIndex: true,
-  },
+    autoIndex: true
+  }
 );
