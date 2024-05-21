@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "nx": "nx",
-    "dev": "nx run-many --targets=dev --all --output-style=stream --parallel --max-parallel=10",
-    "lint": "nx run-many --targets=lint --all --output-style=stream --parallel --max-parallel=10",
-    "generate": "nx run-many --targets=generate --all --output-style=stream --parallel --max-parallel=2",
-    "build": "nx run-many --targets=build --all --max-parallel=10",
+    "dev": "nx run-many --target=dev --all --output-style=stream --parallel --max-parallel=10",
+    "lint": "nx run-many --targets=lint --all --output-style=stream",
+    "generate": "nx run-many --target=generate --output-style=stream --all",
+    "build": "nx run-many --target=build --all",
     "postinstall": "npm run build"
   },
   "author": "Jack Wright <githubcontact@sec.jackwmail.com>",

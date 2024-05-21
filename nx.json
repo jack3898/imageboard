@@ -1,10 +1,4 @@
 {
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    }
-  },
   "projects": {
     "@internal/client": {
       "tags": []
