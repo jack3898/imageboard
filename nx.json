@@ -25,6 +25,9 @@
     },
     "build": {
       "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"],
       "options": {
         "cwd": "{projectRoot}",
         "command": "tsc"
