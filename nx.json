@@ -1,0 +1,47 @@
+{
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    }
+  },
+  "projects": {
+    "@internal/client": {
+      "tags": []
+    },
+    "@internal/server": {
+      "tags": []
+    },
+    "@internal/env": {
+      "tags": []
+    },
+    "@internal/storage": {
+      "tags": []
+    },
+    "@internal/database": {
+      "tags": []
+    }
+  },
+  "targetDefaults": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint {projectRoot}/src"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "tsc"
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "tsc --watch"
+      }
+    }
+  }
+}

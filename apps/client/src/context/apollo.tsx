@@ -4,7 +4,7 @@ import { type ReactNode, type ReactElement } from "react";
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
-  uri: `${import.meta.env["UNSAFE_BACKEND_URL"]}graphql`,
+  uri: `${import.meta.env["UNSAFE_BACKEND_URL"]}/graphql`,
   cache: cache
 });
 

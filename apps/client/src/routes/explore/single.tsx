@@ -38,7 +38,7 @@ function MediaItem(): ReactElement {
           <ArrowLeft />
         </Button>
         <img
-          src={`${import.meta.env["UNSAFE_BACKEND_URL"]}api/file/${id}`}
+          src={`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/file/${id}`}
           alt="tbc"
           className="w-full"
         ></img>

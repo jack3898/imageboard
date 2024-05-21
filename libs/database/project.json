@@ -1,0 +1,17 @@
+{
+  "name": "@internal/database",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/database/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "defaultConfiguration": "build"
+    },
+    "dev": {
+      "defaultConfiguration": "dev"
+    },
+    "lint": {
+      "defaultConfiguration": "lint"
+    }
+  }
+}

@@ -3,6 +3,7 @@
     "apollographql.vscode-apollo",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "nrwl.angular-console"
   ]
 }

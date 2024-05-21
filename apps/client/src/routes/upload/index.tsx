@@ -55,7 +55,7 @@ function UploadFileForm(): ReactElement {
       formData.append("file", file);
     }
 
-    fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}api/upload/image`, {
+    fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/upload/image`, {
       method: "POST",
       body: formData
     });

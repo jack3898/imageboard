@@ -1,0 +1,17 @@
+{
+  "name": "@internal/storage",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/storage/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "defaultConfiguration": "build"
+    },
+    "dev": {
+      "defaultConfiguration": "dev"
+    },
+    "lint": {
+      "defaultConfiguration": "lint"
+    }
+  }
+}

@@ -62,7 +62,7 @@ function ImageTile({ image }: { image: File }): ReactElement {
 
   return (
     <img
-      src={`${import.meta.env["UNSAFE_BACKEND_URL"]}api/file/${image.id}`}
+      src={`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/file/${image.id}`}
       className={cn("size-full object-cover border", imageFit)}
     />
   );

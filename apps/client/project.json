@@ -1,0 +1,44 @@
+{
+  "name": "@internal/client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client/src",
+  "projectType": "application",
+  "implicitDependencies": [
+    "@internal/storage",
+    "@internal/env",
+    "@internal/database"
+  ],
+  "targets": {
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/client",
+        "command": "tsx src/express-server.ts"
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/client",
+        "command": "vite"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/client",
+        "command": "vite build"
+      }
+    },
+    "lint": {
+      "defaultConfiguration": "lint"
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/client",
+        "command": "graphql-codegen -r tsx/cjs --config graphql-codegen.config.ts --verbose true"
+      }
+    }
+  }
+}
