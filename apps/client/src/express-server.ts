@@ -2,6 +2,7 @@ import express from "express";
 import { fileURLToPath } from "node:url";
 import path, { dirname } from "node:path";
 import { env } from "./env.js";
+import helmet from "helmet";
 
 /**
  * FOR PRODUCTION
@@ -13,6 +14,8 @@ import { env } from "./env.js";
 export const server = express();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+server.use(helmet());
 
 server.use(express.static(path.join("dist")));
 

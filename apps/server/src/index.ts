@@ -1,5 +1,6 @@
 import { env } from "./env.js";
 
+import "@/middleware/use-helmet.js";
 import "@/middleware/use-graphql.js";
 import "@/middleware/use-cors.js";
 import "@/middleware/use-api.js";

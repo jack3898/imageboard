@@ -12,8 +12,7 @@ const httpServer = http.createServer(expressServer);
 const apolloServer = new ApolloServer({
   typeDefs: await readFile("src/typedefs.graphql").then((buf) => buf.toString("utf-8")),
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-  introspection: true
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
 });
 
 await apolloServer.start();
