@@ -5,30 +5,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { schemas } from "@internal/shared";
+import { type z } from "zod";
 
 export const Route = createFileRoute("/account/login")({
   component: LoginForm
 });
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be 8 characters or more" })
-    .max(72, { message: "A password cannot be longer than 72 characters" })
-});
-
 function LoginForm(): ReactElement {
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(schemas.account.accountForm),
     defaultValues: {
       email: "",
       password: ""
     }
   });
 
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
+  const onSubmit = useCallback((values: z.infer<typeof schemas.account.accountForm>) => {
     alert(JSON.stringify(values));
   }, []);
 

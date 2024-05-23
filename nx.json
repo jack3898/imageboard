@@ -30,14 +30,21 @@
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/dist/**/*"],
       "options": {
         "cwd": "{projectRoot}",
-        "command": "tsc"
+        "command": "tsc -p tsconfig.build.json"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "vitest run"
       }
     },
     "dev": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{projectRoot}",
-        "command": "tsc --watch"
+        "command": "tsc --watch -p tsconfig.build.json"
       }
     }
   }

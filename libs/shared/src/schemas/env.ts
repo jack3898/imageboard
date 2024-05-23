@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { username, password } from "./account.js";
 
 export const NODE_ENV = z.enum(["production", "development"]);
 
@@ -12,6 +13,10 @@ export const FRONTEND_PORT = z.number({ coerce: true }).min(0).max(25565);
 export const CORS_ORIGIN = z.string().url();
 
 export const MONGO_URL = z.string().url();
+
+export const TEST_USERNAME = username;
+
+export const TEST_PASSWORD = password;
 
 export const STORAGE_DRIVER = z.discriminatedUnion("STORAGE_DRIVER", [
   z.object({

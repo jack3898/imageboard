@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/atom/card
 import { Form, FormField, FormLabel, FormMessage } from "@/components/atom/form.js";
 import { Input } from "@/components/atom/input.js";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { schemas } from "@internal/shared";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { type z } from "zod";
 
 export const Route = createFileRoute("/upload/")({
   component: UploadFile
@@ -28,24 +29,16 @@ function UploadFile(): ReactElement {
   );
 }
 
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(3, { message: "The title is too short!" })
-    .max(128, { message: "The title is too long!" }),
-  file: z.array(z.instanceof(File)).nonempty({ message: "You must provide at least one file" })
-});
-
 function UploadFileForm(): ReactElement {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof schemas.upload.uploadForm>>({
+    resolver: zodResolver(schemas.upload.uploadForm),
     defaultValues: {
       title: "",
       file: []
     }
   });
 
-  const onSubmit = useCallback((data: z.infer<typeof formSchema>) => {
+  const onSubmit = useCallback((data: z.infer<typeof schemas.upload.uploadForm>) => {
     const formData = new FormData();
     const file = data.file[0];
 

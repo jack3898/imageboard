@@ -1,11 +1,7 @@
 import { z } from "zod";
-import {
-  UNSAFE_BACKEND_URL,
-  CORS_ORIGIN,
-  NODE_ENV,
-  MONGO_URL,
-  STORAGE_DRIVER
-} from "@internal/env";
+import { schemas } from "@internal/shared";
+
+const { NODE_ENV, UNSAFE_BACKEND_URL, CORS_ORIGIN, MONGO_URL, STORAGE_DRIVER } = schemas.env;
 
 export const env = z
   .object({

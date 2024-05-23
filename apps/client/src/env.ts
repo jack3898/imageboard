@@ -1,5 +1,7 @@
 import { z } from "zod";
-import { UNSAFE_BACKEND_URL, FRONTEND_PORT, NODE_ENV } from "@internal/env";
+import { schemas } from "@internal/shared";
+
+const { NODE_ENV, FRONTEND_PORT, UNSAFE_BACKEND_URL } = schemas.env;
 
 export const env = z
   .object({

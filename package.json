@@ -7,6 +7,7 @@
     "nx": "nx",
     "dev": "nx run-many --target=dev --output-style=stream --parallel --max-parallel=10",
     "lint": "nx run-many --targets=lint --output-style=stream",
+    "test": "nx run-many --targets=test --output-style=stream",
     "generate": "nx run-many --target=generate --output-style=stream",
     "build": "nx run-many --target=build",
     "postinstall": "npm run build"
@@ -70,6 +71,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.5.0-beta",
     "vite": "^5.2.11",
+    "vitest": "^1.6.0",
     "zustand": "^4.5.2"
   },
   "dependencies": {

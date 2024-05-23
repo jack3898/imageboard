@@ -1,7 +1,7 @@
 {
-  "name": "@internal/env",
+  "name": "@internal/shared",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/env/src",
+  "sourceRoot": "libs/shared/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -12,6 +12,9 @@
     },
     "lint": {
       "defaultConfiguration": "lint"
+    },
+    "test": {
+      "defaultConfiguration": "test"
     }
   }
 }
