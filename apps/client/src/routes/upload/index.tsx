@@ -5,12 +5,13 @@ import { Input } from "@/components/atom/input.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemas } from "@internal/shared";
 import { type UseMutationResult, useMutation } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
 import { type UseFormReturn, useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/upload/")({
-  component: UploadFile
+  component: UploadFile,
+  errorComponent: UploadFileError
 });
 
 type UploadForm = schemas.upload.UploadForm;
@@ -121,6 +122,22 @@ function UploadFileFormView({
           </div>
         </form>
       </Form>
+    </Card>
+  );
+}
+
+function UploadFileError(): ReactElement {
+  return (
+    <Card className="size-full">
+      <CardHeader>
+        <CardTitle>Oh no!</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p>There was a problem loading this form.</p>
+        <Link to=".." className="underline">
+          Go back?
+        </Link>
+      </CardContent>
     </Card>
   );
 }
