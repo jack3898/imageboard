@@ -1,24 +1,26 @@
 import { filesModel } from "@/mongo.js";
-import { apiRouter } from "@/server.js";
 import { abstractStorageDriver } from "@/storage-driver.js";
 import { z } from "zod";
 import { webReadableToNodeReadable } from "@internal/storage";
+import { type Router } from "express";
 
-apiRouter.get("/file/:id", async (req, res, next) => {
-  try {
-    const id = z.string().parse(req.params.id);
-    const file = await filesModel.findById(id).catch(console.error);
+export default (router: Router): void => {
+  router.get("/file/:id", async (req, res, next) => {
+    try {
+      const id = z.string().parse(req.params.id);
+      const file = await filesModel.findById(id).catch(console.error);
 
-    if (!file) {
-      res.status(404).send("File not found");
+      if (!file) {
+        res.status(404).send("File not found");
 
-      return;
+        return;
+      }
+
+      const download = await abstractStorageDriver.download(file.path);
+
+      webReadableToNodeReadable(download).pipe(res);
+    } catch (error) {
+      next(error);
     }
-
-    const download = await abstractStorageDriver.download(file.path);
-
-    webReadableToNodeReadable(download).pipe(res);
-  } catch (error) {
-    next(error);
-  }
-});
+  });
+};

@@ -28,6 +28,9 @@
     },
     "lint": {
       "defaultConfiguration": "lint"
+    },
+    "test": {
+      "defaultConfiguration": "test"
     }
   }
 }

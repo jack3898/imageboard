@@ -4,7 +4,6 @@ import { readFile } from "node:fs/promises";
 import http from "node:http";
 import { resolvers } from "./resolvers.js";
 import { ApolloServer } from "@apollo/server";
-import { env } from "./env.js";
 
 const expressServer = express();
 const httpServer = http.createServer(expressServer);
@@ -16,12 +15,5 @@ const apolloServer = new ApolloServer({
 });
 
 await apolloServer.start();
-await new Promise<void>((resolve) =>
-  httpServer.listen({ port: env.UNSAFE_BACKEND_URL.port }, resolve)
-);
 
-const apiRouter = express.Router();
-
-console.info("Server online on port:", env.UNSAFE_BACKEND_URL.port);
-
-export { apiRouter, expressServer, apolloServer };
+export { expressServer, apolloServer, httpServer };

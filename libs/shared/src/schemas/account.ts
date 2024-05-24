@@ -21,3 +21,5 @@ export const accountForm = z.object({
   email,
   password
 });
+
+export type AccountForm = z.infer<typeof accountForm>;

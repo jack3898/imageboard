@@ -1,5 +1,7 @@
-import { apiRouter } from "@/server.js";
+import { type Router } from "express";
 
-apiRouter.get("/test", async (_, res) => {
-  res.sendStatus(200);
-});
+export default (router: Router): void => {
+  router.get("/test", async (_, res) => {
+    res.sendStatus(200);
+  });
+};

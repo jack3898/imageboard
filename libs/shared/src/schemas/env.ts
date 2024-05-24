@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { username, password } from "./account.js";
+import { username, password, email } from "./account.js";
 
 export const NODE_ENV = z.enum(["production", "development"]);
 
@@ -18,7 +18,11 @@ export const TEST_USERNAME = username;
 
 export const TEST_PASSWORD = password;
 
-export const TEST_EMAIL = z.string().email();
+export const TEST_EMAIL = email;
+
+export const COOKIE_SECRET = z.string().min(36);
+
+export const JWT_SECRET = z.string().min(36);
 
 export const STORAGE_DRIVER = z.discriminatedUnion("STORAGE_DRIVER", [
   z.object({

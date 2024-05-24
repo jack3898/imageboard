@@ -6,13 +6,26 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { schemas } from "@internal/shared";
-import { type z } from "zod";
+import { useMutation } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/account/login")({
   component: LoginForm
 });
 
+type AccountForm = schemas.account.AccountForm;
+
 function LoginForm(): ReactElement {
+  const loginMutation = useMutation({
+    mutationFn(data: AccountForm) {
+      return fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/login`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+        credentials: "include"
+      });
+    }
+  });
+
   const form = useForm({
     resolver: zodResolver(schemas.account.accountForm),
     defaultValues: {
@@ -21,9 +34,12 @@ function LoginForm(): ReactElement {
     }
   });
 
-  const onSubmit = useCallback((values: z.infer<typeof schemas.account.accountForm>) => {
-    alert(JSON.stringify(values));
-  }, []);
+  const onSubmit = useCallback(
+    (values: AccountForm) => {
+      loginMutation.mutate(values);
+    },
+    [loginMutation]
+  );
 
   return (
     <>
