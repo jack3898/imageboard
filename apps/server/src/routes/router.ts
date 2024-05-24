@@ -9,8 +9,8 @@ import useApiRoute from "./api/router.js";
 export default (parentRouter: Router): void => {
   useHelmet(parentRouter);
   useCors(parentRouter);
-  useJson(parentRouter);
   useCookieParser(parentRouter);
+  useJson(parentRouter);
   useGraphql(parentRouter);
 
   useApiRoute(parentRouter);
