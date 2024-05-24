@@ -1,12 +1,13 @@
 import { usersModel } from "@/mongo.js";
-import { TEST_PASSWORD, TEST_USERNAME } from "@internal/shared/dist/schemas/env.js";
+import { schemas } from "@internal/shared";
 import { z } from "zod";
 
 export async function initTestUser(): Promise<void> {
   const envCredentialsCheck = z
     .object({
-      TEST_USERNAME,
-      TEST_PASSWORD
+      TEST_EMAIL: schemas.env.TEST_EMAIL,
+      TEST_USERNAME: schemas.env.TEST_USERNAME,
+      TEST_PASSWORD: schemas.env.TEST_PASSWORD
     })
     .safeParse(process.env);
 
@@ -23,7 +24,11 @@ export async function initTestUser(): Promise<void> {
       const salt = await bcrypt.genSalt(10);
       const passwordHash = await bcrypt.hash(env.TEST_PASSWORD, salt);
 
-      usersModel.create({ username: env.TEST_USERNAME, password: passwordHash });
+      usersModel.create({
+        username: env.TEST_USERNAME,
+        password: passwordHash,
+        email: env.TEST_EMAIL
+      });
 
       console.info(
         `ℹ️ Test account "${env.TEST_USERNAME}" created successfully. Please remove this account from your .env.`

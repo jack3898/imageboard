@@ -7,6 +7,7 @@ MONGO_URL=mongodb://someurl:27017/yourdb
 # This is temporary while in development.
 # Auth will be managed by supertokens in the future.
 # Creates this user on first-time init.
+TEST_EMAIL=
 TEST_USERNAME=
 TEST_PASSWORD=
 

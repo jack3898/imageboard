@@ -18,6 +18,8 @@ export const TEST_USERNAME = username;
 
 export const TEST_PASSWORD = password;
 
+export const TEST_EMAIL = z.string().email();
+
 export const STORAGE_DRIVER = z.discriminatedUnion("STORAGE_DRIVER", [
   z.object({
     STORAGE_DRIVER: z.literal("node_local"),
