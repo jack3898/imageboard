@@ -22,4 +22,6 @@ await new Promise<void>((resolve) =>
 
 const apiRouter = express.Router();
 
+console.info("Server online on port:", env.UNSAFE_BACKEND_URL.port);
+
 export { apiRouter, expressServer, apolloServer };

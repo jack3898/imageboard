@@ -1,4 +1,4 @@
-import { env } from "./env.js";
+import { initTestUser } from "@/utils/init-test-user.js";
 
 import "@/middleware/use-helmet.js";
 import "@/middleware/use-graphql.js";
@@ -9,4 +9,4 @@ import "@/routes/api/post-upload.js";
 import "@/routes/api/get-file.js";
 import "@/middleware/use-json.js";
 
-console.info("Server online on port:", env.UNSAFE_BACKEND_URL.port);
+await initTestUser();

@@ -11,9 +11,3 @@ await mongoose.connect(env.MONGO_URL).catch(() => {
 
 export const usersModel = mongoose.model("user", usersSchema);
 export const filesModel = mongoose.model("file", filesSchema);
-
-usersModel.findOne().then((result) => {
-  if (!result) {
-    usersModel.create({ username: "anonymous" });
-  }
-});
