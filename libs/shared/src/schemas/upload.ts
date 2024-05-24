@@ -13,3 +13,5 @@ export const uploadForm = z.object({
   title,
   file
 });
+
+export type UploadForm = z.infer<typeof uploadForm>;
