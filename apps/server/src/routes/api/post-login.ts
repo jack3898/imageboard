@@ -25,7 +25,12 @@ export default (router: Router): void => {
       const oneDay = 24 * 60 * 60 * 1000;
       const tomorrow = new Date(Date.now() + oneDay);
 
-      res.cookie("session", jwt, { signed: true, expires: tomorrow });
+      res.cookie("session", jwt, {
+        signed: true,
+        expires: tomorrow,
+        secure: true,
+        httpOnly: true
+      });
 
       res.sendStatus(200);
     } catch (error) {
