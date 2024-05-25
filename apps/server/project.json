@@ -16,7 +16,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/server",
-        "command": "tsx watch src/index.ts --env-file ../../.env"
+        "command": "tsx watch --clear-screen=false src/index.ts --env-file ../../.env"
       }
     },
     "generate": {

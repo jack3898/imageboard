@@ -3,12 +3,12 @@ import { env } from "./env.js";
 import { expressServer, httpServer } from "./server.js";
 import registerAppRoutes from "@/routes/router.js";
 
+const port = env.UNSAFE_BACKEND_URL.port;
+
+await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
+
 await initTestUser();
-
-await new Promise<void>((resolve) =>
-  httpServer.listen({ port: env.UNSAFE_BACKEND_URL.port }, resolve)
-);
-
 registerAppRoutes(expressServer);
 
-console.info("Server online on port:", env.UNSAFE_BACKEND_URL.port);
+console.info(`✅  API server online ➜  http://localhost:${port}/`);
+console.info(`✅  GraphQL ➜  http://localhost:${port}/graphql/`);
