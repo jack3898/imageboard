@@ -1,17 +1,17 @@
 import { type Router } from "express";
-import useCookieParser from "./use-cookie-parser.js";
-import useCors from "./use-cors.js";
-import useGraphql from "./use-graphql.js";
-import useHelmet from "./use-helmet.js";
-import useJson from "./use-json.js";
+import useCookieParser from "../middleware/use-cookie-parser.js";
+import useCors from "../middleware/use-cors.js";
+import useHelmet from "../middleware/use-helmet.js";
+import useJson from "../middleware/use-json.js";
 import useApiRoute from "./api/router.js";
+import useApolloRoute from "./graphql/router.js";
 
 export default (parentRouter: Router): void => {
   useHelmet(parentRouter);
   useCors(parentRouter);
   useCookieParser(parentRouter);
   useJson(parentRouter);
-  useGraphql(parentRouter);
 
+  useApolloRoute(parentRouter);
   useApiRoute(parentRouter);
 };
