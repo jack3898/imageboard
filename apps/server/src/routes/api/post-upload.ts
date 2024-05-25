@@ -3,15 +3,16 @@ import { abstractStorageDriver } from "@/storage-driver.js";
 import { File } from "@internal/storage";
 import multer from "multer";
 import { type Router } from "express";
+import { auth } from "@/middleware/use-auth.js";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const allowedMimeTypes = ["image/png", "image/jpeg"];
 
 export default (router: Router): void => {
-  router.post("/upload/image", upload.single("file"), async (req, res, next) => {
+  router.post("/upload/image", auth(), upload.single("file"), async (req, res, next) => {
     try {
       if (!req.file) {
-        res.status(400).send("No file attached");
+        res.status(400).send("File not found");
 
         return;
       }
@@ -42,8 +43,6 @@ export default (router: Router): void => {
       });
 
       res.sendStatus(200);
-
-      return;
     } catch (error) {
       next(error);
     }

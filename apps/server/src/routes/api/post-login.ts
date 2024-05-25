@@ -11,16 +11,16 @@ export default (router: Router): void => {
       const dbUser = await usersModel.findOne({ email });
 
       if (!dbUser) {
-        return res.status(400).send("Invalid login");
+        return res.status(401).send("Invalid login");
       }
 
       const validPassword = verifyHash(passwordInput, dbUser.password);
 
       if (!validPassword) {
-        return res.status(400).send("Invalid login");
+        return res.status(401).send("Invalid login");
       }
 
-      const jwt = await userJwt.sign({ username: dbUser.username });
+      const jwt = await userJwt.sign({ userId: dbUser.id });
 
       const oneDay = 24 * 60 * 60 * 1000;
       const tomorrow = new Date(Date.now() + oneDay);
@@ -29,6 +29,8 @@ export default (router: Router): void => {
 
       res.sendStatus(200);
     } catch (error) {
+      res.sendStatus(400);
+
       next(error);
     }
   });

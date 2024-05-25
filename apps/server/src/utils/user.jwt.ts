@@ -7,6 +7,6 @@ const jwtSecret = z.object({ JWT_SECRET: schemas.env.JWT_SECRET }).parse(process
 export const userJwt = new JWT(
   jwtSecret,
   z.object({
-    username: z.string()
+    userId: z.string()
   })
 );

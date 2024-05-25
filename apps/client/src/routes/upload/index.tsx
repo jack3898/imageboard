@@ -45,7 +45,8 @@ function UploadFileForm(): ReactElement {
     mutationFn(formData: FormData) {
       return fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/upload/image`, {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: "include"
       });
     },
     onSuccess() {

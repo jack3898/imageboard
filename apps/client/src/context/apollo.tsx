@@ -5,7 +5,8 @@ const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   uri: `${import.meta.env["UNSAFE_BACKEND_URL"]}/graphql`,
-  cache: cache
+  cache: cache,
+  credentials: "include"
 });
 
 type ApolloProviderProps = {

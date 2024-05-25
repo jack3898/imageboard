@@ -2,7 +2,7 @@ import { Button } from "@/components/atom/button.js";
 import { Form, FormField, FormLabel, FormMessage } from "@/components/atom/form.js";
 import { Input } from "@/components/atom/input.js";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { schemas } from "@internal/shared";
@@ -15,6 +15,8 @@ export const Route = createFileRoute("/account/login")({
 type AccountForm = schemas.account.AccountForm;
 
 function LoginForm(): ReactElement {
+  const navigate = useNavigate();
+
   const loginMutation = useMutation({
     mutationFn(data: AccountForm) {
       return fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/login`, {
@@ -23,6 +25,11 @@ function LoginForm(): ReactElement {
         body: JSON.stringify(data),
         credentials: "include"
       });
+    },
+    onSuccess(data) {
+      if (data.status === 200) {
+        navigate({ to: "/explore" });
+      }
     }
   });
 

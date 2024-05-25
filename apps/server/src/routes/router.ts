@@ -5,6 +5,7 @@ import useHelmet from "../middleware/use-helmet.js";
 import useJson from "../middleware/use-json.js";
 import useApiRoute from "./api/router.js";
 import useApolloRoute from "./graphql/router.js";
+import useError from "@/middleware/use-error.js";
 
 export default (parentRouter: Router): void => {
   useHelmet(parentRouter);
@@ -14,4 +15,6 @@ export default (parentRouter: Router): void => {
 
   useApolloRoute(parentRouter);
   useApiRoute(parentRouter);
+
+  useError(parentRouter);
 };
