@@ -20,7 +20,7 @@ export function LoginForm(): ReactElement {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(login)}>
+      <form onSubmit={form.handleSubmit(login)} className="max-w-sm">
         <FormLabel htmlFor="email">Email</FormLabel>
         <FormField
           control={form.control}
