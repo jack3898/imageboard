@@ -60,8 +60,8 @@ export function useLogout(): UseLogoutHookResult {
     },
     async onSuccess(data) {
       if (data.status === 200) {
-        await client.refetchQueries({ include: [LoggedInUserDocument] });
         await navigate({ from: "/", to: "/" });
+        await client.refetchQueries({ include: [LoggedInUserDocument] });
       }
     }
   });
