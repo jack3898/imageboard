@@ -1,6 +1,7 @@
 import { usersModel } from "@/mongo.js";
 import { schemas } from "@internal/shared";
 import { z } from "zod";
+import { hash } from "@/utils/pw-hash.js";
 
 export async function initTestUser(): Promise<void> {
   const envCredentialsCheck = z
@@ -19,10 +20,7 @@ export async function initTestUser(): Promise<void> {
 
   await usersModel.findOne({ username: env.TEST_USERNAME }).then(async (result) => {
     if (!result) {
-      const bcrypt = await import("bcrypt");
-
-      const salt = await bcrypt.genSalt(10);
-      const passwordHash = await bcrypt.hash(env.TEST_PASSWORD, salt);
+      const passwordHash = await hash(env.TEST_PASSWORD);
 
       usersModel.create({
         username: env.TEST_USERNAME,
