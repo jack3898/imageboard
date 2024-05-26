@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/atom/card.js";
-import { Footer } from "@/components/common/footer.js";
-import { Header } from "@/components/common/header.js";
+import { Footer } from "@/components/panels/footer.js";
+import { Header } from "@/components/panels/header.js";
 import { FullLayout } from "@/components/layout/full.js";
 import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";

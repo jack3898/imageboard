@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../atom/card.js";
-import { SearchBox } from "./search-box.js";
+import { SearchBox } from "../common/search-box.js";
 
 export function SearchArea(): ReactElement {
   return (

@@ -1,5 +1,5 @@
 import { type ReactElement } from "react";
 
-export function AccountEdit(): ReactElement {
+export function AccountEditForm(): ReactElement {
   return <div>Account management coming soon!</div>;
 }

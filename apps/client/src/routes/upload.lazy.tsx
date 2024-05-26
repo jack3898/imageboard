@@ -1,6 +1,6 @@
-import { Footer } from "@/components/common/footer.js";
-import { Header } from "@/components/common/header.js";
-import { SearchArea } from "@/components/common/search-area.js";
+import { Footer } from "@/components/panels/footer.js";
+import { Header } from "@/components/panels/header.js";
+import { SearchArea } from "@/components/panels/search-area.js";
 import { BrowseLayout } from "@/components/layout/browse.js";
 import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";

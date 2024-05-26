@@ -1,5 +1,6 @@
 import { Button } from "@/components/atom/button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/atom/card.js";
+import { MediaItemFromUrlId } from "@/components/common/media-item-from-url-id.js";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { type ReactElement } from "react";
@@ -15,33 +16,22 @@ export const Route = createFileRoute("/explore/single")({
 });
 
 function MediaItem(): ReactElement {
-  const id = Route.useSearch({ select: (search) => search.id });
-  const q = Route.useSearch({ select: (search) => search.q });
   const navigate = useNavigate();
 
   return (
     <Card className="size-full">
       <CardHeader>
-        <CardTitle>Image ({id})</CardTitle>
+        <CardTitle>Image</CardTitle>
       </CardHeader>
       <CardContent>
         <Button
           size="icon"
           className="mb-2"
-          onClick={() =>
-            navigate({
-              to: "..",
-              search: { q, id }
-            })
-          }
+          onClick={() => navigate({ to: "..", search: (cur) => cur })}
         >
           <ArrowLeft />
         </Button>
-        <img
-          src={`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/file/${id}`}
-          alt="tbc"
-          className="w-full"
-        ></img>
+        <MediaItemFromUrlId />
       </CardContent>
     </Card>
   );

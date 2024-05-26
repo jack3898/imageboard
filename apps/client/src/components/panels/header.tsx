@@ -1,9 +1,9 @@
 import { SiteLogo } from "@/components/atom/site-logo.js";
 import { type ReactElement } from "react";
-import { ToggleImageFit } from "./toggle-image-fit.js";
-import { DarkModeToggle } from "./dark-mode-toggle.js";
+import { ToggleImageFit } from "../common/toggle-image-fit.js";
+import { DarkModeToggle } from "../common/dark-mode-toggle.js";
 import { Link } from "@tanstack/react-router";
-import { AccountDropdownMenu } from "./account-dropdown-menu.js";
+import { AccountDropdownMenu } from "../common/account-dropdown-menu.js";
 
 export function Header(): ReactElement {
   return (

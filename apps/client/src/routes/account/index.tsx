@@ -1,5 +1,5 @@
 import { Button } from "@/components/atom/button.js";
-import { AccountEdit } from "@/components/common/account-edit.js";
+import { AccountEditForm } from "@/components/common/account-edit-form.js";
 import { useImageboardContext } from "@/context/imageboard.js";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { LogIn, UserPlus } from "lucide-react";
@@ -20,7 +20,7 @@ function Account(): ReactElement {
 }
 
 function AccountLoggedIn(): ReactElement {
-  return <AccountEdit />;
+  return <AccountEditForm />;
 }
 
 function AccountLoggedOut(): ReactElement {
