@@ -21,7 +21,8 @@ export default defineConfig({
   plugins: [
     TanStackRouterVite({
       generatedRouteTree: "src/generated-routes.tsx",
-      semicolons: true
+      semicolons: true,
+      addExtensions: true
     })
   ]
 });

@@ -26,7 +26,7 @@ export function useLogin(): UseLoginHookResult {
     },
     async onSuccess(data) {
       if (data.status === 200) {
-        await navigate({ to: "/explore" });
+        await navigate({ to: "/explore", search: { q: "" } });
         await client.refetchQueries({ include: [LoggedInUserDocument] });
       }
     }

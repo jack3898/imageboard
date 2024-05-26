@@ -22,7 +22,7 @@ function Home(): ReactElement {
         </CardHeader>
         <CardContent className="text-center">
           <Button asChild className="inline-flex gap-2 items-center p-4">
-            <Link to="/explore">
+            <Link to="/explore" search={{ q: "" }}>
               Let's go <ArrowRight />
             </Link>
           </Button>

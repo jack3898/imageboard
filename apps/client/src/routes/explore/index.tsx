@@ -76,7 +76,9 @@ function MediaListError(): ReactElement {
       </CardHeader>
       <CardContent>
         <p>There was a problem loading this page.</p>
-        <Link to="/explore">Go back?</Link>
+        <Link to="/explore" search={{ q: "" }}>
+          Go back?
+        </Link>
       </CardContent>
     </Card>
   );

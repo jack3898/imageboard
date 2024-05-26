@@ -12,13 +12,13 @@ import { createFileRoute } from '@tanstack/react-router';
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as UploadIndexImport } from './routes/upload/index';
-import { Route as ExploreIndexImport } from './routes/explore/index';
-import { Route as AccountIndexImport } from './routes/account/index';
-import { Route as ExploreSingleImport } from './routes/explore/single';
-import { Route as AccountSignupImport } from './routes/account/signup';
-import { Route as AccountLoginImport } from './routes/account/login';
+import { Route as rootRoute } from './routes/__root.tsx';
+import { Route as UploadIndexImport } from './routes/upload/index.tsx';
+import { Route as ExploreIndexImport } from './routes/explore/index.tsx';
+import { Route as AccountIndexImport } from './routes/account/index.tsx';
+import { Route as ExploreSingleImport } from './routes/explore/single.tsx';
+import { Route as AccountSignupImport } from './routes/account/signup.tsx';
+import { Route as AccountLoginImport } from './routes/account/login.tsx';
 
 // Create Virtual Routes
 
@@ -32,22 +32,22 @@ const IndexLazyImport = createFileRoute('/')();
 const UploadLazyRoute = UploadLazyImport.update({
   path: '/upload',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/upload.lazy').then((d) => d.Route));
+} as any).lazy(() => import('./routes/upload.lazy.tsx').then((d) => d.Route));
 
 const ExploreLazyRoute = ExploreLazyImport.update({
   path: '/explore',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/explore.lazy').then((d) => d.Route));
+} as any).lazy(() => import('./routes/explore.lazy.tsx').then((d) => d.Route));
 
 const AccountLazyRoute = AccountLazyImport.update({
   path: '/account',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/account.lazy').then((d) => d.Route));
+} as any).lazy(() => import('./routes/account.lazy.tsx').then((d) => d.Route));
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route));
+} as any).lazy(() => import('./routes/index.lazy.tsx').then((d) => d.Route));
 
 const UploadIndexRoute = UploadIndexImport.update({
   path: '/',
