@@ -2,40 +2,18 @@ import { Button } from "@/components/atom/button.js";
 import { Form, FormField, FormLabel, FormMessage } from "@/components/atom/form.js";
 import { Input } from "@/components/atom/input.js";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useCallback, type ReactElement } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { type ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { schemas } from "@internal/shared";
-import { useMutation } from "@tanstack/react-query";
-import { useApolloClient } from "@apollo/client";
-import { LoggedInUserDocument } from "@/hooks/generated-graphql-hooks.js";
+import { useLogin } from "@/hooks/login-logout-hooks.js";
 
 export const Route = createFileRoute("/account/login")({
   component: LoginForm
 });
 
-type AccountForm = schemas.account.AccountForm;
-
 function LoginForm(): ReactElement {
-  const navigate = useNavigate();
-  const client = useApolloClient();
-
-  const loginMutation = useMutation({
-    mutationFn(data: AccountForm) {
-      return fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/login`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
-        credentials: "include"
-      });
-    },
-    async onSuccess(data) {
-      if (data.status === 200) {
-        await client.refetchQueries({ include: [LoggedInUserDocument] });
-        await navigate({ to: "/explore" });
-      }
-    }
-  });
+  const { login } = useLogin();
 
   const form = useForm({
     resolver: zodResolver(schemas.account.accountForm),
@@ -45,20 +23,13 @@ function LoginForm(): ReactElement {
     }
   });
 
-  const onSubmit = useCallback(
-    (values: AccountForm) => {
-      loginMutation.mutate(values);
-    },
-    [loginMutation]
-  );
-
   return (
     <>
       <div className="text-center">
         <strong className="mb-4">Welcome back!</strong>
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(login)}>
           <FormLabel htmlFor="email">Email</FormLabel>
           <FormField
             control={form.control}

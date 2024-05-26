@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { Button } from "../atom/button.js";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { LogIn, Upload, UserPlus, UserRound } from "lucide-react";
 import {
   DropdownMenu,
@@ -20,29 +20,10 @@ import {
   DialogTrigger
 } from "../atom/dialog.js";
 import { Auth } from "@/context/imageboard.js";
-import { useMutation } from "@tanstack/react-query";
-import { useApolloClient } from "@apollo/client";
-import { LoggedInUserDocument } from "@/hooks/generated-graphql-hooks.js";
+import { useLogout } from "@/hooks/login-logout-hooks.js";
 
 export function AccountDropdownMenu(): ReactElement {
-  const client = useApolloClient();
-  const navigate = useNavigate();
-
-  const logoutMutation = useMutation({
-    mutationFn() {
-      return fetch(`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/logout`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        credentials: "include"
-      });
-    },
-    async onSuccess(data) {
-      if (data.status === 200) {
-        await client.refetchQueries({ include: [LoggedInUserDocument] });
-        await navigate({ from: "/", to: "/" });
-      }
-    }
-  });
+  const { logout } = useLogout();
 
   return (
     <Dialog>
@@ -94,12 +75,7 @@ export function AccountDropdownMenu(): ReactElement {
           <DialogDescription>You are about to log out.</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button
-            type="submit"
-            onClick={() => {
-              logoutMutation.mutate();
-            }}
-          >
+          <Button type="submit" onClick={() => logout()}>
             Log out
           </Button>
         </DialogFooter>
