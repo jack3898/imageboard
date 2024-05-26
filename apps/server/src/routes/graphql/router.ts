@@ -7,7 +7,7 @@ export default (parentRouter: Router): void => {
 
   parentRouter.use("/graphql", router);
 
-  router.use(auth());
+  router.use(auth({ enforce: false }));
 
   useApolloServer(router);
 };

@@ -18,5 +18,10 @@ export default defineConfig({
     }
   },
   envPrefix: "UNSAFE",
-  plugins: [TanStackRouterVite({ generatedRouteTree: "src/generated-routes.tsx" })]
+  plugins: [
+    TanStackRouterVite({
+      generatedRouteTree: "src/generated-routes.tsx",
+      semicolons: true
+    })
+  ]
 });

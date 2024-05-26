@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "../atom/dialog.js";
+import { Auth } from "@/context/imageboard.js";
 
 export function AccountDropdownMenu(): ReactElement {
   return (
@@ -31,34 +32,38 @@ export function AccountDropdownMenu(): ReactElement {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Account</DropdownMenuLabel>
-          <DropdownMenuItem asChild>
-            <Link to="/account/login" preload="intent">
-              <LogIn className="mr-2 h-4 w-4 inline" />
-              <span>Log in</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link to="/account/signup" preload="intent">
-              <UserPlus className="mr-2 h-4 w-4 inline" />
-              <span>Sign up</span>
-            </Link>
-          </DropdownMenuItem>
-          <DialogTrigger asChild>
-            <DropdownMenuItem>
-              <a>
-                <UserPlus className="mr-2 h-4 w-4 inline" />
-                <span>Log out</span>
-              </a>
+          <Auth asLoggedIn={false}>
+            <DropdownMenuItem asChild>
+              <Link to="/account/login" preload="intent">
+                <LogIn className="mr-2 h-4 w-4 inline" />
+                <span>Log in</span>
+              </Link>
             </DropdownMenuItem>
-          </DialogTrigger>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem asChild>
-            <Link to="/upload" preload="intent">
-              <Upload className="mr-2 h-4 w-4 inline" />
-              <span>Upload</span>
-            </Link>
-          </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to="/account/signup" preload="intent">
+                <UserPlus className="mr-2 h-4 w-4 inline" />
+                <span>Sign up</span>
+              </Link>
+            </DropdownMenuItem>
+          </Auth>
+          <Auth asLoggedIn>
+            <DialogTrigger asChild>
+              <DropdownMenuItem>
+                <a>
+                  <UserPlus className="mr-2 h-4 w-4 inline" />
+                  <span>Log out</span>
+                </a>
+              </DropdownMenuItem>
+            </DialogTrigger>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem asChild>
+              <Link to="/upload" preload="intent">
+                <Upload className="mr-2 h-4 w-4 inline" />
+                <span>Upload</span>
+              </Link>
+            </DropdownMenuItem>
+          </Auth>
         </DropdownMenuContent>
       </DropdownMenu>
       <DialogContent className="sm:max-w-[425px]">

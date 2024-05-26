@@ -16,7 +16,8 @@ export default {
     "./src/types/generated-graphql-types.ts": {
       plugins: ["typescript", "typescript-resolvers", { add: { content: generatedComment } }],
       config: {
-        useIndexSignature: true
+        useIndexSignature: true,
+        contextType: "./src/types/graphql-context.ts#GqlContext"
       }
     }
   }

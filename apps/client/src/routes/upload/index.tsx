@@ -5,13 +5,19 @@ import { Input } from "@/components/atom/input.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemas } from "@internal/shared";
 import { type UseMutationResult, useMutation } from "@tanstack/react-query";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 import { useCallback, type ReactElement } from "react";
 import { type UseFormReturn, useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/upload/")({
   component: UploadFile,
-  errorComponent: UploadFileError
+  errorComponent: UploadFileError,
+  beforeLoad({ context }) {
+    // @ts-expect-error - I cannot yet figure out how to type this properly, will fix later
+    if (!context?.user?.id) {
+      throw redirect({ to: "/account/login" });
+    }
+  }
 });
 
 type UploadForm = schemas.upload.UploadForm;

@@ -4,23 +4,29 @@ import { env } from "./env.js";
 export default async function introspectGraphQL(): Promise<GraphQLSchema> {
   const introspectionQuery = getIntrospectionQuery();
 
-  // TODO: When auth is implemented, fill this fetch to fetch the cookie!
-  // const getCookieRes = await fetch();
+  // In order to introspect the backend, we need authentication to the graphql endpoint
+  const getCookieRes = await fetch(`${env.UNSAFE_BACKEND_URL}api/login`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({ email: env.TEST_EMAIL, password: env.TEST_PASSWORD }),
+    credentials: "include"
+  });
 
-  // const cookie = getCookieRes.headers
-  //   .get("set-cookie")
-  //   ?.match(/=([^;]+)/)
-  //   ?.at(1);
+  const cookie = getCookieRes.headers
+    .get("set-cookie")
+    ?.match(/=([^;]+)/)
+    ?.at(1);
 
-  // TODO: Extract more detail of backend url as env
-  const response = await fetch(`http://localhost:${env.UNSAFE_BACKEND_URL.port}/graphql`, {
+  const response = await fetch(`${env.UNSAFE_BACKEND_URL}graphql`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      credentials: "include"
-      // cookie: `session=${cookie}`, This will be needed in the future!
+      cookie: `session=${cookie}`
     },
-    body: JSON.stringify({ query: introspectionQuery })
+    body: JSON.stringify({ query: introspectionQuery }),
+    credentials: "include"
   });
 
   const { data } = await response.json();

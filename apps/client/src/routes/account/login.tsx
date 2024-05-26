@@ -7,6 +7,8 @@ import { useCallback, type ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { schemas } from "@internal/shared";
 import { useMutation } from "@tanstack/react-query";
+import { useApolloClient } from "@apollo/client";
+import { LoggedInUserDocument } from "@/hooks/generated-graphql-hooks.js";
 
 export const Route = createFileRoute("/account/login")({
   component: LoginForm
@@ -16,6 +18,7 @@ type AccountForm = schemas.account.AccountForm;
 
 function LoginForm(): ReactElement {
   const navigate = useNavigate();
+  const client = useApolloClient();
 
   const loginMutation = useMutation({
     mutationFn(data: AccountForm) {
@@ -26,9 +29,10 @@ function LoginForm(): ReactElement {
         credentials: "include"
       });
     },
-    onSuccess(data) {
+    async onSuccess(data) {
       if (data.status === 200) {
-        navigate({ to: "/explore" });
+        await client.refetchQueries({ include: [LoggedInUserDocument] });
+        await navigate({ to: "/explore" });
       }
     }
   });

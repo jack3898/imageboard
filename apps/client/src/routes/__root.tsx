@@ -1,5 +1,10 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { type User } from "@/hooks/generated-graphql-hooks.js";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 
-export const Route = createRootRoute({
+interface RouterContext {
+  user?: User;
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: Outlet
 });

@@ -1,0 +1,10 @@
+query LoggedInUser {
+  loggedInUser {
+    id
+    username
+    createdAt
+    updatedAt
+    email
+    __typename
+  }
+}
