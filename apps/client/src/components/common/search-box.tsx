@@ -14,31 +14,25 @@ const formSchema = z.object({
   q: z.string().max(100, { message: "Your search query is too long" })
 });
 
-export function SearchBox(options: SearchProps): ReactElement {
+export function SearchBox(navigateOptions: SearchProps): ReactElement {
   const navigate = useNavigate();
 
-  // This could be on any route!
-  const search = useSearch({
-    strict: false
+  const q = useSearch({
+    strict: false,
+    select: (search) => ("q" in search ? search.q : "")
   });
 
   const onSubmit = useCallback(
-    (values: z.infer<typeof formSchema>) => {
-      const newSearch = { ...search, q: values.q };
-
-      navigate({
-        ...options,
-        search: newSearch
-      });
+    ({ q }: z.infer<typeof formSchema>) => {
+      // The beauty of this search box is it merges the q param with existing search params
+      navigate({ ...navigateOptions, search: (cur) => ({ ...cur, q }) });
     },
-    [navigate, options, search]
+    [navigate, navigateOptions]
   );
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      q: search.q ?? ""
-    }
+    defaultValues: { q }
   });
 
   return (
