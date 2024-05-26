@@ -14,7 +14,7 @@ export default (router: Router): void => {
         return res.status(401).send("Invalid login");
       }
 
-      const validPassword = verifyHash(passwordInput, dbUser.password);
+      const validPassword = await verifyHash(passwordInput, dbUser.password);
 
       if (!validPassword) {
         return res.status(401).send("Invalid login");
