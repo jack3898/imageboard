@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
 import { Button } from "../atom/button.js";
 import { Link } from "@tanstack/react-router";
-import { LogIn, Upload, UserPlus, UserRound } from "lucide-react";
+import { LogIn, Upload, UserCog, UserPlus, UserRound } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,6 +50,12 @@ export function AccountDropdownMenu(): ReactElement {
             </DropdownMenuItem>
           </Auth>
           <Auth asLoggedIn>
+            <DropdownMenuItem asChild>
+              <Link to="/account" preload="intent">
+                <UserCog className="mr-2 h-4 w-4 inline" />
+                <span>Manage</span>
+              </Link>
+            </DropdownMenuItem>
             <DialogTrigger asChild>
               <DropdownMenuItem>
                 <a>
