@@ -5,7 +5,7 @@ import { type Router } from "express";
 import { auth } from "@/middleware/use-auth.js";
 import { imagesModel, type validation } from "@internal/database";
 import { schemas } from "@internal/shared";
-import { mimeToFiletype } from "@/utils/mimeToFiletype.js";
+import { mimeToFiletype } from "@/utils/mime-to-filetype.js";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const allowedTypes = ["jpeg", "png"];
