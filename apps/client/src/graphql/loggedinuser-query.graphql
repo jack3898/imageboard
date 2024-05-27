@@ -5,6 +5,5 @@ query LoggedInUser {
     createdAt
     updatedAt
     email
-    __typename
   }
 }

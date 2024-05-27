@@ -6,13 +6,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../atom/button.js";
 import { Input } from "../atom/input.js";
-import { useApolloClient } from "@apollo/client";
-import { FilesDocument } from "@/hooks/generated-graphql-hooks.js";
+import { useFilesLazyQuery } from "@/hooks/generated-graphql-hooks.js";
 
 type UploadForm = schemas.upload.UploadForm;
 
 export function UploadFileForm(): ReactElement {
-  const apollo = useApolloClient();
+  const [fetchFiles] = useFilesLazyQuery();
 
   const form = useForm<UploadForm>({
     resolver: zodResolver(schemas.upload.uploadForm),
@@ -32,7 +31,7 @@ export function UploadFileForm(): ReactElement {
     },
     async onSuccess() {
       form.reset();
-      await apollo.refetchQueries({ include: [FilesDocument] });
+      await fetchFiles({ fetchPolicy: "network-only" });
     }
   });
 

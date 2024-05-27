@@ -59,7 +59,7 @@ export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'Fi
 export type LoggedInUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LoggedInUserQuery = { __typename?: 'Query', loggedInUser?: { __typename: 'User', id: string, username: string, createdAt: any, updatedAt: any, email: string } | null };
+export type LoggedInUserQuery = { __typename?: 'Query', loggedInUser?: { __typename?: 'User', id: string, username: string, createdAt: any, updatedAt: any, email: string } | null };
 
 
 export const FilesDocument = gql`
@@ -116,7 +116,6 @@ export const LoggedInUserDocument = gql`
     createdAt
     updatedAt
     email
-    __typename
   }
 }
     `;

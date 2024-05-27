@@ -1,8 +1,7 @@
-import { useApolloClient } from "@apollo/client";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { LoggedInUserDocument } from "./generated-graphql-hooks.js";
+import { useLoggedInUserLazyQuery } from "./generated-graphql-hooks.js";
 import { type schemas } from "@internal/shared";
 
 type AccountForm = schemas.account.AccountForm;
@@ -13,7 +12,7 @@ type UseLoginHookResult = {
 
 export function useLogin(): UseLoginHookResult {
   const navigate = useNavigate();
-  const client = useApolloClient();
+  const [fetchLoggedInUser] = useLoggedInUserLazyQuery();
 
   const loginMutation = useMutation({
     mutationFn(data: AccountForm) {
@@ -27,7 +26,7 @@ export function useLogin(): UseLoginHookResult {
     async onSuccess(data) {
       if (data.status === 200) {
         await navigate({ to: "/explore", search: { q: "" } });
-        await client.refetchQueries({ include: [LoggedInUserDocument] });
+        await fetchLoggedInUser({ fetchPolicy: "network-only" });
       }
     }
   });
@@ -48,7 +47,7 @@ type UseLogoutHookResult = {
 
 export function useLogout(): UseLogoutHookResult {
   const navigate = useNavigate();
-  const client = useApolloClient();
+  const [fetchLoggedInUser] = useLoggedInUserLazyQuery();
 
   const logoutMutation = useMutation({
     mutationFn() {
@@ -61,7 +60,7 @@ export function useLogout(): UseLogoutHookResult {
     async onSuccess(data) {
       if (data.status === 200) {
         await navigate({ from: "/", to: "/" });
-        await client.refetchQueries({ include: [LoggedInUserDocument] });
+        await fetchLoggedInUser({ fetchPolicy: "network-only" });
       }
     }
   });
