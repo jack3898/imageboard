@@ -1,7 +1,17 @@
 scalar Date
 
+type Variant {
+  id: ID!
+  type: String!
+  path: String!
+  width: Int!
+  height: Int!
+}
+
 type File {
   id: ID!
+  variants: [Variant!]!
+  tags: [String!]!
   user: String!
 }
 

@@ -9,7 +9,7 @@ export function MediaItemFromUrlId(): ReactElement {
 
   return (
     <img
-      src={`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/file/${fileId}`}
+      src={`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/file/${fileId}/raw`}
       alt=""
       className="w-full"
     />

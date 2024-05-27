@@ -29,7 +29,8 @@ export default (router: Router): void => {
         signed: true,
         expires: tomorrow,
         secure: true,
-        httpOnly: true
+        httpOnly: true,
+        sameSite: "strict"
       });
 
       res.sendStatus(200);

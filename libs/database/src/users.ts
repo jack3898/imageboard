@@ -2,23 +2,10 @@ import { Schema } from "mongoose";
 
 export const usersSchema = new Schema(
   {
-    docVersion: {
-      type: Number,
-      required: true,
-      default: 1
-    },
-    username: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      require: true
-    },
-    password: {
-      type: String,
-      required: true
-    }
+    docVersion: { type: Number, required: true, default: 1 },
+    username: { type: String, required: true },
+    email: { type: String, require: true },
+    password: { type: String, required: true }
   },
   {
     collection: "users",

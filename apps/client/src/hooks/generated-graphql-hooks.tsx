@@ -33,7 +33,9 @@ export type Scalars = {
 export type File = {
   __typename?: 'File';
   id: Scalars['ID']['output'];
+  tags: Array<Scalars['String']['output']>;
   user: Scalars['String']['output'];
+  variants: Array<Variant>;
 };
 
 export type Query = {
@@ -51,10 +53,19 @@ export type User = {
   username: Scalars['String']['output'];
 };
 
+export type Variant = {
+  __typename?: 'Variant';
+  height: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  path: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
+};
+
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', id: string, user: string }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', id: string, user: string, tags: Array<string>, variants: Array<{ __typename?: 'Variant', id: string, path: string, width: number, height: number, type: string }> }> };
 
 export type LoggedInUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -67,6 +78,14 @@ export const FilesDocument = gql`
   files {
     id
     user
+    tags
+    variants {
+      id
+      path
+      width
+      height
+      type
+    }
   }
 }
     `;

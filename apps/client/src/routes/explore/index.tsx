@@ -5,14 +5,10 @@ import { z } from "zod";
 import { MediaList } from "@/components/common/media-list.js";
 
 export const Route = createFileRoute("/explore/")({
-  component: MediaListPage,
+  component: MediaListView,
   validateSearch: z.object({ q: z.string().catch("") }).parse,
   errorComponent: MediaListError
 });
-
-export function MediaListPage(): ReactElement {
-  return <MediaListView />;
-}
 
 export function MediaListView(): JSX.Element {
   return (
