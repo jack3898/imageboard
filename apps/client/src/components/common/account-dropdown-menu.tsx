@@ -37,13 +37,13 @@ export function AccountDropdownMenu(): ReactElement {
           <DropdownMenuLabel>Account</DropdownMenuLabel>
           <Auth asLoggedIn={false}>
             <DropdownMenuItem asChild>
-              <Link to="/account/login" preload="intent">
+              <Link to="/account/login">
                 <LogIn className="mr-2 h-4 w-4 inline" />
                 <span>Log in</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/account/signup" preload="intent">
+              <Link to="/account/signup">
                 <UserPlus className="mr-2 h-4 w-4 inline" />
                 <span>Sign up</span>
               </Link>
@@ -51,7 +51,7 @@ export function AccountDropdownMenu(): ReactElement {
           </Auth>
           <Auth asLoggedIn>
             <DropdownMenuItem asChild>
-              <Link to="/account" preload="intent">
+              <Link to="/account">
                 <UserCog className="mr-2 h-4 w-4 inline" />
                 <span>Manage</span>
               </Link>
@@ -67,7 +67,7 @@ export function AccountDropdownMenu(): ReactElement {
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem asChild>
-              <Link to="/upload" preload="intent">
+              <Link to="/upload">
                 <Upload className="mr-2 h-4 w-4 inline" />
                 <span>Upload</span>
               </Link>

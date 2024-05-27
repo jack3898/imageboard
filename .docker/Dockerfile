@@ -7,12 +7,19 @@ ARG UNSAFE_BACKEND_URL
 
 ENV UNSAFE_BACKEND_URL=${UNSAFE_BACKEND_URL}
 
+
 WORKDIR /usr/src/app
 
 COPY . .
 
 RUN npm i -g npm@10.7.0
 
-RUN npm ci
+RUN npm ci --ignore-scripts
+
+ENV NODE_ENV=production
+
+RUN npm run build
+
+RUN npm prune
 
 WORKDIR /usr/src/app
