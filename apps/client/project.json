@@ -29,6 +29,9 @@
     "lint": {
       "defaultConfiguration": "lint"
     },
+    "type-check": {
+      "defaultConfiguration": "lint"
+    },
     "generate": {
       "executor": "nx:run-commands",
       "options": {

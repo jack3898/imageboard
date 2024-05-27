@@ -27,11 +27,27 @@ export type Scalars = {
 };
 
 export type File = {
-  __typename?: 'File';
   id: Scalars['ID']['output'];
   tags: Array<Scalars['String']['output']>;
   user: Scalars['String']['output'];
-  variants: Array<Variant>;
+};
+
+export type Image = {
+  __typename?: 'Image';
+  height: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  path: Scalars['String']['output'];
+  quality: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
+};
+
+export type ImageFile = File & {
+  __typename?: 'ImageFile';
+  id: Scalars['ID']['output'];
+  imageVariants: Array<Image>;
+  tags: Array<Scalars['String']['output']>;
+  user: Scalars['String']['output'];
 };
 
 export type Query = {
@@ -47,15 +63,6 @@ export type User = {
   id: Scalars['ID']['output'];
   updatedAt: Scalars['Date']['output'];
   username: Scalars['String']['output'];
-};
-
-export type Variant = {
-  __typename?: 'Variant';
-  height: Scalars['Int']['output'];
-  id: Scalars['ID']['output'];
-  path: Scalars['String']['output'];
-  type: Scalars['String']['output'];
-  width: Scalars['Int']['output'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -127,31 +134,37 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 
+/** Mapping of interface types */
+export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
+  File: ( ImageFile );
+}>;
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
-  File: ResolverTypeWrapper<File>;
+  File: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['File']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Image: ResolverTypeWrapper<Image>;
+  ImageFile: ResolverTypeWrapper<ImageFile>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
-  Variant: ResolverTypeWrapper<Variant>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   Date: Scalars['Date']['output'];
-  File: File;
+  File: ResolversInterfaceTypes<ResolversParentTypes>['File'];
   ID: Scalars['ID']['output'];
+  Image: Image;
+  ImageFile: ImageFile;
   Int: Scalars['Int']['output'];
   Query: {};
   String: Scalars['String']['output'];
   User: User;
-  Variant: Variant;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -159,10 +172,27 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type FileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = ResolversObject<{
+  __resolveType: TypeResolveFn<'ImageFile', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  variants?: Resolver<Array<ResolversTypes['Variant']>, ParentType, ContextType>;
+}>;
+
+export type ImageResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = ResolversObject<{
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  quality?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ImageFileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['ImageFile'] = ResolversParentTypes['ImageFile']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  imageVariants?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -180,20 +210,12 @@ export type UserResolvers<ContextType = GqlContext, ParentType extends Resolvers
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type VariantResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Variant'] = ResolversParentTypes['Variant']> = ResolversObject<{
-  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type Resolvers<ContextType = GqlContext> = ResolversObject<{
   Date?: GraphQLScalarType;
   File?: FileResolvers<ContextType>;
+  Image?: ImageResolvers<ContextType>;
+  ImageFile?: ImageFileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  Variant?: VariantResolvers<ContextType>;
 }>;
 

@@ -10,6 +10,7 @@
     "test": "nx run-many --targets=test --output-style=stream",
     "generate": "nx run-many --target=generate --output-style=stream",
     "build": "nx run-many --target=build",
+    "type-check": "nx run-many --target=type-check",
     "postinstall": "npm run build"
   },
   "author": "Jack Wright <githubcontact@sec.jackwmail.com>",

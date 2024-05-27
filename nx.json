@@ -33,6 +33,14 @@
         "command": "tsc -p tsconfig.build.json"
       }
     },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^type-check"],
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "tsc --noEmit"
+      }
+    },
     "test": {
       "executor": "nx:run-commands",
       "options": {

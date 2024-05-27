@@ -1,14 +1,17 @@
 query Files {
   files {
     id
-    user
     tags
-    variants {
-      id
-      path
-      width
-      height
-      type
+    user
+    ... on ImageFile {
+      imageVariants {
+        id
+        path
+        width
+        height
+        type
+        quality
+      }
     }
   }
 }

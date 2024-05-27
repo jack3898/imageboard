@@ -1,6 +1,6 @@
-import { usersModel } from "@/mongo.js";
 import { verifyHash } from "@/utils/pw-hash.js";
 import { userJwt } from "@/utils/user.jwt.js";
+import { usersModel } from "@internal/database";
 import { schemas } from "@internal/shared";
 import { type Router } from "express";
 

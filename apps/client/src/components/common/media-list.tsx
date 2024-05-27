@@ -13,13 +13,15 @@ export function MediaList(): JSX.Element {
 
   return (
     <ul className="flex items-center gap-2 flex-wrap">
-      {data.files.map((image) => (
-        <li key={image.id} className="size-48">
-          <Link to={"/explore/single"} search={(cur) => ({ q: "", ...cur, id: image.id })}>
-            <MediaTile mediaItem={image} />
-          </Link>
-        </li>
-      ))}
+      {data.files
+        .filter((file) => file.__typename === "ImageFile")
+        .map((image) => (
+          <li key={image.id} className="size-48">
+            <Link to={"/explore/single"} search={(cur) => ({ q: "", ...cur, id: image.id })}>
+              <MediaTile mediaItem={image} />
+            </Link>
+          </li>
+        ))}
     </ul>
   );
 }

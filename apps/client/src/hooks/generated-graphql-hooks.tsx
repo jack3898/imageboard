@@ -31,11 +31,27 @@ export type Scalars = {
 };
 
 export type File = {
-  __typename?: 'File';
   id: Scalars['ID']['output'];
   tags: Array<Scalars['String']['output']>;
   user: Scalars['String']['output'];
-  variants: Array<Variant>;
+};
+
+export type Image = {
+  __typename?: 'Image';
+  height: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  path: Scalars['String']['output'];
+  quality: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
+};
+
+export type ImageFile = File & {
+  __typename?: 'ImageFile';
+  id: Scalars['ID']['output'];
+  imageVariants: Array<Image>;
+  tags: Array<Scalars['String']['output']>;
+  user: Scalars['String']['output'];
 };
 
 export type Query = {
@@ -65,7 +81,7 @@ export type Variant = {
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'File', id: string, user: string, tags: Array<string>, variants: Array<{ __typename?: 'Variant', id: string, path: string, width: number, height: number, type: string }> }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'ImageFile', id: string, tags: Array<string>, user: string, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }> }> };
 
 export type LoggedInUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -77,14 +93,17 @@ export const FilesDocument = gql`
     query Files {
   files {
     id
-    user
     tags
-    variants {
-      id
-      path
-      width
-      height
-      type
+    user
+    ... on ImageFile {
+      imageVariants {
+        id
+        path
+        width
+        height
+        type
+        quality
+      }
     }
   }
 }

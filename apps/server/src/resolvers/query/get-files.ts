@@ -1,8 +1,15 @@
-import { filesModel } from "@/mongo.js";
-import { type File } from "@/types/generated-graphql-types.js";
+import { type ImageFile } from "@/types/generated-graphql-types.js";
+import { filesModel } from "@internal/database";
 
-export async function getFiles(): Promise<File[]> {
-  const files = await filesModel.find({}).limit(250);
+export async function getImageFiles(): Promise<ImageFile[]> {
+  const files = await filesModel
+    .find({
+      kind: "image"
+    })
+    .limit(250);
 
-  return files.map((f) => f.toObject({ getters: true }));
+  return files.map((f) => ({
+    ...f.toObject({ getters: true }),
+    __typename: "ImageFile"
+  }));
 }

@@ -1,14 +1,14 @@
-import { filesModel } from "@/mongo.js";
 import { abstractStorageDriver } from "@/storage-driver.js";
 import { File } from "@internal/storage";
 import multer from "multer";
 import { type Router } from "express";
 import { auth } from "@/middleware/use-auth.js";
-import { RAW_VARIANT } from "@internal/database";
+import { imagesModel, type validation } from "@internal/database";
 import { schemas } from "@internal/shared";
+import { mimeToFiletype } from "@/utils/mimeToFiletype.js";
 
 const upload = multer({ storage: multer.memoryStorage() });
-const allowedMimeTypes = ["image/png", "image/jpeg"];
+const allowedTypes = ["jpeg", "png"];
 
 export default (router: Router): void => {
   router.post("/upload/image", auth(), upload.single("file"), async (req, res, next) => {
@@ -25,10 +25,10 @@ export default (router: Router): void => {
         return res.status(400).send("There was a problem processing your request");
       }
 
-      if (!allowedMimeTypes.includes(req.file.mimetype)) {
-        res.status(400).send(`Invalid MIME type. ${req.file.mimetype} is not permitted`);
+      const fileType = mimeToFiletype(req.file.mimetype);
 
-        return;
+      if (!fileType || !allowedTypes.includes(fileType)) {
+        return res.status(400).send(`Invalid MIME type. ${req.file.mimetype} is not permitted`);
       }
 
       if (!req.file.buffer) {
@@ -38,17 +38,18 @@ export default (router: Router): void => {
 
       const file = new File({
         mimeType: req.file.mimetype,
-        name: crypto.randomUUID() + req.file.mimetype.replace("/", "."), // Cheesy, but it does for now 🙈
+        name: `${crypto.randomUUID()}.${fileType}`,
         data: new Blob([req.file.buffer])
       });
 
       await abstractStorageDriver.upload(file);
 
-      await filesModel.create({
+      await imagesModel.create({
         title: formData.title,
-        variants: [
+        imageVariants: [
           {
-            type: RAW_VARIANT,
+            quality: "raw",
+            type: fileType,
             path: file.name,
             width: 500, // TODO: Calculate
             height: 500 // TODO: Calculate
@@ -56,7 +57,7 @@ export default (router: Router): void => {
         ],
         tags: [],
         user: req.user.userId
-      });
+      } satisfies validation.ImagesValidationSchema);
 
       res.sendStatus(200);
     } catch (error) {

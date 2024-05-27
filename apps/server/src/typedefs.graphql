@@ -1,18 +1,25 @@
 scalar Date
 
-type Variant {
+interface File {
+  id: ID!
+  tags: [String!]!
+  user: String!
+}
+
+type ImageFile implements File {
+  id: ID!
+  tags: [String!]!
+  user: String!
+  imageVariants: [Image!]!
+}
+
+type Image {
   id: ID!
   type: String!
+  quality: String!
   path: String!
   width: Int!
   height: Int!
-}
-
-type File {
-  id: ID!
-  variants: [Variant!]!
-  tags: [String!]!
-  user: String!
 }
 
 type User {

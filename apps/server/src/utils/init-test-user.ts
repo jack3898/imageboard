@@ -1,7 +1,7 @@
-import { usersModel } from "@/mongo.js";
 import { schemas } from "@internal/shared";
 import { z } from "zod";
 import { hash } from "@/utils/pw-hash.js";
+import { usersModel } from "@internal/database";
 
 export async function initTestUser(): Promise<void> {
   const envCredentialsCheck = z
