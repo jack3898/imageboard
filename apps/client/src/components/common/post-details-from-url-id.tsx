@@ -1,4 +1,4 @@
-import { type ReactElement } from "react";
+import { useMemo, type ReactElement } from "react";
 import { Button } from "../atom/button.js";
 import { Star } from "lucide-react";
 import { useFileQuery } from "@/hooks/generated-graphql-hooks.js";
@@ -16,11 +16,13 @@ export function PostDescription(): ReactElement {
   const postId = useUrlPostId();
   const { data } = useFileQuery({ variables: { fileId: postId } });
 
-  if (!data?.file?.description) {
-    return <></>;
-  }
+  return useMemo(() => {
+    if (!data?.file?.description) {
+      return <></>;
+    }
 
-  return <ReactMarkdown>{data.file.description}</ReactMarkdown>;
+    return <ReactMarkdown>{data.file.description}</ReactMarkdown>;
+  }, [data?.file?.description]);
 }
 
 export function PostFavouriteButton(): ReactElement {
