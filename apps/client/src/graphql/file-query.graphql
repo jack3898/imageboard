@@ -4,8 +4,10 @@ query File($fileId: ID!) {
     tags
     user
     title
+    description
     createdAt
     ... on ImageFile {
+      alt
       imageVariants {
         id
         path

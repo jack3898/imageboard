@@ -32,6 +32,7 @@ export type Scalars = {
 
 export type File = {
   createdAt: Scalars['Date']['output'];
+  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
@@ -51,7 +52,9 @@ export type Image = {
 
 export type ImageFile = File & {
   __typename?: 'ImageFile';
+  alt: Scalars['String']['output'];
   createdAt: Scalars['Date']['output'];
+  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   imageVariants: Array<Image>;
   tags: Array<Scalars['String']['output']>;
@@ -86,7 +89,7 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'ImageFile', id: string, tags: Array<string>, user: string, title: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }> } | null };
+export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'ImageFile', alt: string, id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }> } | null };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -106,8 +109,10 @@ export const FileDocument = gql`
     tags
     user
     title
+    description
     createdAt
     ... on ImageFile {
+      alt
       imageVariants {
         id
         path

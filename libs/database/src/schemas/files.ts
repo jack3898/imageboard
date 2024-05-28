@@ -23,7 +23,8 @@ const filesSchema = new Schema<FilesValidationSchema>(
     title: { type: String, required: true },
     docVersion: { type: Number, required: true, default: 1 },
     tags: { type: [String], default: [] },
-    user: { type: Schema.ObjectId, ref: "user" }
+    user: { type: Schema.ObjectId, ref: "user" },
+    description: { type: String, default: "" }
   },
   {
     collection: "files",
@@ -39,5 +40,8 @@ export const filesModel = mongoose.model("file", filesSchema);
 
 export const imagesModel = filesModel.discriminator<ImagesValidationSchema>(
   "image",
-  new Schema({ imageVariants: [imageVariant] })
+  new Schema({
+    imageVariants: [imageVariant],
+    alt: { type: String, default: "" }
+  })
 );

@@ -3,6 +3,7 @@ scalar Date
 interface File {
   id: ID!
   title: String!
+  description: String!
   tags: [String!]!
   user: String!
   createdAt: Date!
@@ -12,6 +13,8 @@ interface File {
 type ImageFile implements File {
   id: ID!
   title: String!
+  description: String!
+  alt: String!
   tags: [String!]!
   user: String!
   imageVariants: [Image!]!

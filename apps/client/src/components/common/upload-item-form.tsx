@@ -1,5 +1,13 @@
 import { useCallback, type ReactElement } from "react";
-import { Form, FormField, FormLabel, FormMessage } from "../atom/form.js";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "../atom/form.js";
 import { schemas } from "@internal/shared";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -7,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../atom/button.js";
 import { Input } from "../atom/input.js";
 import { useFilesLazyQuery } from "@/hooks/generated-graphql-hooks.js";
+import { Textarea } from "../atom/textarea.js";
 
 type UploadForm = schemas.upload.UploadForm;
 
@@ -17,7 +26,9 @@ export function UploadFileForm(): ReactElement {
     resolver: zodResolver(schemas.upload.uploadForm),
     defaultValues: {
       title: "",
-      file: []
+      file: [],
+      alt: "",
+      description: ""
     }
   });
 
@@ -41,6 +52,8 @@ export function UploadFileForm(): ReactElement {
       const file = data.file[0];
 
       formData.append("title", data.title);
+      formData.append("alt", data.alt);
+      formData.append("description", data.description);
 
       if (file) {
         formData.append("file", file);
@@ -54,38 +67,73 @@ export function UploadFileForm(): ReactElement {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormLabel htmlFor="title">Title</FormLabel>
         <FormField
           control={form.control}
           name="title"
-          render={() => <Input {...form.register("title")} />}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input type="text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <FormMessage>
-          <span>{form.formState.errors.title?.message}</span>
-        </FormMessage>
-        <FormLabel htmlFor="file">File</FormLabel>
         <FormField
           control={form.control}
           name="file"
-          render={({ field }) => (
-            <Input
-              onChange={(e) => {
-                field.onChange(Array.from(e.target.files ?? []));
-              }}
-              type="file"
-            />
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem>
+              <FormLabel>File</FormLabel>
+              <FormControl>
+                <Input
+                  {...fieldProps}
+                  type="file"
+                  accept="image/jpeg image/png"
+                  onChange={(event) => onChange(Array.from(event.target.files ?? []))}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
         />
-        <FormMessage>
-          <span>
-            <>{form.formState.errors.file?.message}</>
-          </span>
-        </FormMessage>
+        <FormField
+          control={form.control}
+          name="alt"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Alt text</FormLabel>
+              <FormControl>
+                <Input type="text" {...field} />
+              </FormControl>
+              <FormDescription>
+                Alt text is a little description to aid those with impaired vision understand what
+                the image is about. Keep it nice an concise!
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Any extras worth adding?" className="resize-y" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex justify-between">
           <div className="grow">
             <small>{result.isSuccess && "File uploaded!"}</small>
           </div>
-          <Button disabled={!form.formState.isValid}>Upload</Button>
+          <Button>Upload</Button>
         </div>
       </form>
     </Form>

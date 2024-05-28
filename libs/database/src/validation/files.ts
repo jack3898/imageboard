@@ -20,6 +20,7 @@ export const filesValidationSchema = z
     docVersion: z.number(),
     tags: z.array(z.string()),
     user: z.union([z.instanceof(Types.ObjectId), z.string()]),
+    description: z.string().optional(),
     kind: z.literal("image").optional()
   })
   .extend(docVersionValidationSchema)
@@ -29,7 +30,8 @@ export type FilesValidationSchema = z.infer<typeof filesValidationSchema>;
 
 export const imagesValidationSchema = z
   .object({
-    imageVariants: z.array(imageVariantValidationSchema)
+    imageVariants: z.array(imageVariantValidationSchema),
+    alt: z.string().optional().default("")
   })
   .and(filesValidationSchema);
 

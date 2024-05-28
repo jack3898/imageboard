@@ -29,6 +29,7 @@ export type Scalars = {
 
 export type File = {
   createdAt: Scalars['Date']['output'];
+  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
@@ -48,7 +49,9 @@ export type Image = {
 
 export type ImageFile = File & {
   __typename?: 'ImageFile';
+  alt: Scalars['String']['output'];
   createdAt: Scalars['Date']['output'];
+  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   imageVariants: Array<Image>;
   tags: Array<Scalars['String']['output']>;
@@ -187,6 +190,7 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 export type FileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = ResolversObject<{
   __resolveType: TypeResolveFn<'ImageFile', ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -205,7 +209,9 @@ export type ImageResolvers<ContextType = GqlContext, ParentType extends Resolver
 }>;
 
 export type ImageFileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['ImageFile'] = ResolversParentTypes['ImageFile']> = ResolversObject<{
+  alt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageVariants?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;

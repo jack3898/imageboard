@@ -13,13 +13,14 @@ export function PostTitle(): ReactElement {
 }
 
 export function PostDescription(): ReactElement {
-  return (
-    <ReactMarkdown>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos fugiat ea maiores!
-      Minima nisi aut harum aspernatur soluta voluptatum laudantium, numquam, eum veniam quibusdam
-      doloribus. Consequatur architecto excepturi modi expedita.
-    </ReactMarkdown>
-  );
+  const postId = useUrlPostId();
+  const { data } = useFileQuery({ variables: { fileId: postId } });
+
+  if (!data?.file?.description) {
+    return <></>;
+  }
+
+  return <ReactMarkdown>{data.file.description}</ReactMarkdown>;
 }
 
 export function PostFavouriteButton(): ReactElement {

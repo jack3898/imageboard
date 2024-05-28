@@ -45,7 +45,7 @@ export default (router: Router): void => {
       await abstractStorageDriver.upload(file);
 
       await imagesModel.create({
-        title: formData.title,
+        ...formData,
         imageVariants: [
           {
             quality: "raw",
