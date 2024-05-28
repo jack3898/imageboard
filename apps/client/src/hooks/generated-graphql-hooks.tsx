@@ -56,8 +56,14 @@ export type ImageFile = File & {
 
 export type Query = {
   __typename?: 'Query';
+  file?: Maybe<File>;
   files: Array<File>;
   loggedInUser?: Maybe<User>;
+};
+
+
+export type QueryFileArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type User = {
@@ -67,15 +73,6 @@ export type User = {
   id: Scalars['ID']['output'];
   updatedAt: Scalars['Date']['output'];
   username: Scalars['String']['output'];
-};
-
-export type Variant = {
-  __typename?: 'Variant';
-  height: Scalars['Int']['output'];
-  id: Scalars['ID']['output'];
-  path: Scalars['String']['output'];
-  type: Scalars['String']['output'];
-  width: Scalars['Int']['output'];
 };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
