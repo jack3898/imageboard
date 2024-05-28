@@ -1,3 +1,7 @@
+volumes:
+  mongodbdata:
+  filedata:
+
 services:
   gateway:
     image: nginx:latest
@@ -23,6 +27,8 @@ services:
       - 27017:27017
     env_file:
       - ./.env
+    volumes:
+      - mongodbdata:/data/db
 
   server:
     image: imageboard:latest
@@ -38,6 +44,8 @@ services:
       - STORAGE_DRIVER=node_local
       - STORAGE_BASE_PATH=/home/node
     command: npm run nx run @internal/server:start
+    volumes:
+      - filedata:/home/node
 
   client:
     image: imageboard:latest
