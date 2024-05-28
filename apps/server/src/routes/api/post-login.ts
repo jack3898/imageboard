@@ -8,7 +8,7 @@ export default (router: Router): void => {
   router.post("/login", async (req, res, next) => {
     try {
       const { email, password: passwordInput } = schemas.account.accountForm.parse(req.body);
-      const dbUser = await usersModel.findOne({ email });
+      const dbUser = await usersModel.findOne({ email }).select("+password");
 
       if (!dbUser) {
         return res.status(401).send("Invalid login");

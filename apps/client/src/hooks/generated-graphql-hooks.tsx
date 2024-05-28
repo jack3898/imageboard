@@ -30,10 +30,25 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
+export type AbstractFile = File & {
+  __typename?: 'AbstractFile';
+  createdAt: Scalars['Date']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  kind: Scalars['String']['output'];
+  resolveUser?: Maybe<PublicUser>;
+  tags: Array<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['Date']['output'];
+  user: Scalars['String']['output'];
+};
+
 export type File = {
   createdAt: Scalars['Date']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  kind: Scalars['String']['output'];
+  resolveUser?: Maybe<PublicUser>;
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
@@ -57,17 +72,37 @@ export type ImageFile = File & {
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   imageVariants: Array<Image>;
+  kind: Scalars['String']['output'];
+  resolveUser?: Maybe<PublicUser>;
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
 
+export type LoggedInUser = User & {
+  __typename?: 'LoggedInUser';
+  createdAt: Scalars['Date']['output'];
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  updatedAt: Scalars['Date']['output'];
+  username: Scalars['String']['output'];
+};
+
+export type PublicUser = User & {
+  __typename?: 'PublicUser';
+  createdAt: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  updatedAt: Scalars['Date']['output'];
+  username: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   file?: Maybe<File>;
   files: Array<File>;
-  loggedInUser?: Maybe<User>;
+  loggedInUser?: Maybe<LoggedInUser>;
+  publicUser?: Maybe<PublicUser>;
 };
 
 
@@ -75,10 +110,13 @@ export type QueryFileArgs = {
   id: Scalars['ID']['input'];
 };
 
+
+export type QueryPublicUserArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type User = {
-  __typename?: 'User';
   createdAt: Scalars['Date']['output'];
-  email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   updatedAt: Scalars['Date']['output'];
   username: Scalars['String']['output'];
@@ -89,17 +127,17 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'ImageFile', alt: string, id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }> } | null };
+export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'AbstractFile', id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, resolveUser?: { __typename?: 'PublicUser', username: string } | null } | { __typename?: 'ImageFile', alt: string, id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }>, resolveUser?: { __typename?: 'PublicUser', username: string } | null } | null };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'ImageFile', id: string, title: string, imageVariants: Array<{ __typename?: 'Image', path: string, width: number, height: number, type: string }> }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'AbstractFile', id: string, title: string } | { __typename?: 'ImageFile', id: string, title: string, imageVariants: Array<{ __typename?: 'Image', path: string, width: number, height: number, type: string }> }> };
 
 export type LoggedInUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LoggedInUserQuery = { __typename?: 'Query', loggedInUser?: { __typename?: 'User', id: string, username: string, createdAt: any, updatedAt: any, email: string } | null };
+export type LoggedInUserQuery = { __typename?: 'Query', loggedInUser?: { __typename?: 'LoggedInUser', id: string, username: string, createdAt: any, email: string, updatedAt: any } | null };
 
 
 export const FileDocument = gql`
@@ -111,6 +149,9 @@ export const FileDocument = gql`
     title
     description
     createdAt
+    resolveUser {
+      username
+    }
     ... on ImageFile {
       alt
       imageVariants {
@@ -224,8 +265,9 @@ export const LoggedInUserDocument = gql`
     id
     username
     createdAt
-    updatedAt
     email
+    updatedAt
+    createdAt
   }
 }
     `;

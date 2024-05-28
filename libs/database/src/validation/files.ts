@@ -21,7 +21,7 @@ export const filesValidationSchema = z
     tags: z.array(z.string()),
     user: z.union([z.instanceof(Types.ObjectId), z.string()]),
     description: z.string().optional(),
-    kind: z.literal("image").optional()
+    kind: z.enum(["image", "unknown"]).optional()
   })
   .extend(docVersionValidationSchema)
   .extend(timestampValidationSchema);

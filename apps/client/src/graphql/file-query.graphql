@@ -6,6 +6,9 @@ query File($fileId: ID!) {
     title
     description
     createdAt
+    resolveUser {
+      username
+    }
     ... on ImageFile {
       alt
       imageVariants {

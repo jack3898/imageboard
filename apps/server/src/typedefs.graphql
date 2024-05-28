@@ -6,8 +6,22 @@ interface File {
   description: String!
   tags: [String!]!
   user: String!
+  resolveUser: PublicUser
   createdAt: Date!
   updatedAt: Date!
+  kind: String!
+}
+
+type AbstractFile implements File {
+  id: ID!
+  title: String!
+  description: String!
+  tags: [String!]!
+  user: String!
+  resolveUser: PublicUser
+  createdAt: Date!
+  updatedAt: Date!
+  kind: String!
 }
 
 type ImageFile implements File {
@@ -17,7 +31,9 @@ type ImageFile implements File {
   alt: String!
   tags: [String!]!
   user: String!
+  resolveUser: PublicUser
   imageVariants: [Image!]!
+  kind: String!
   createdAt: Date!
   updatedAt: Date!
 }
@@ -31,7 +47,21 @@ type Image {
   height: Int!
 }
 
-type User {
+interface User {
+  id: ID!
+  username: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type PublicUser implements User {
+  id: ID!
+  username: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type LoggedInUser implements User {
   id: ID!
   username: String!
   email: String!
@@ -42,5 +72,6 @@ type User {
 type Query {
   files: [File!]!
   file(id: ID!): File
-  loggedInUser: User
+  loggedInUser: LoggedInUser
+  publicUser(id: ID!): PublicUser
 }

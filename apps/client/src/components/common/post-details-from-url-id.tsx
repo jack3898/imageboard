@@ -37,11 +37,11 @@ export function PostUploader(): ReactElement {
   const postId = useUrlPostId();
   const { data } = useFileQuery({ variables: { fileId: postId } });
 
-  if (!data?.file?.user) {
+  if (!data?.file?.resolveUser) {
     return <></>;
   }
 
-  return <>{data.file.user}</>;
+  return <>{data.file.resolveUser.username}</>;
 }
 
 export function PostUploadDate(): ReactElement {

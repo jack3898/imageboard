@@ -27,10 +27,25 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
+export type AbstractFile = File & {
+  __typename?: 'AbstractFile';
+  createdAt: Scalars['Date']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  kind: Scalars['String']['output'];
+  resolveUser?: Maybe<PublicUser>;
+  tags: Array<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['Date']['output'];
+  user: Scalars['String']['output'];
+};
+
 export type File = {
   createdAt: Scalars['Date']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  kind: Scalars['String']['output'];
+  resolveUser?: Maybe<PublicUser>;
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
@@ -54,17 +69,37 @@ export type ImageFile = File & {
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   imageVariants: Array<Image>;
+  kind: Scalars['String']['output'];
+  resolveUser?: Maybe<PublicUser>;
   tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
 
+export type LoggedInUser = User & {
+  __typename?: 'LoggedInUser';
+  createdAt: Scalars['Date']['output'];
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  updatedAt: Scalars['Date']['output'];
+  username: Scalars['String']['output'];
+};
+
+export type PublicUser = User & {
+  __typename?: 'PublicUser';
+  createdAt: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  updatedAt: Scalars['Date']['output'];
+  username: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   file?: Maybe<File>;
   files: Array<File>;
-  loggedInUser?: Maybe<User>;
+  loggedInUser?: Maybe<LoggedInUser>;
+  publicUser?: Maybe<PublicUser>;
 };
 
 
@@ -72,10 +107,13 @@ export type QueryFileArgs = {
   id: Scalars['ID']['input'];
 };
 
+
+export type QueryPublicUserArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type User = {
-  __typename?: 'User';
   createdAt: Scalars['Date']['output'];
-  email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   updatedAt: Scalars['Date']['output'];
   username: Scalars['String']['output'];
@@ -152,11 +190,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
-  File: ( ImageFile );
+  File: ( AbstractFile ) | ( ImageFile );
+  User: ( LoggedInUser ) | ( PublicUser );
 }>;
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  AbstractFile: ResolverTypeWrapper<AbstractFile>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   File: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['File']>;
@@ -164,13 +204,16 @@ export type ResolversTypes = ResolversObject<{
   Image: ResolverTypeWrapper<Image>;
   ImageFile: ResolverTypeWrapper<ImageFile>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  LoggedInUser: ResolverTypeWrapper<LoggedInUser>;
+  PublicUser: ResolverTypeWrapper<PublicUser>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['User']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  AbstractFile: AbstractFile;
   Boolean: Scalars['Boolean']['output'];
   Date: Scalars['Date']['output'];
   File: ResolversInterfaceTypes<ResolversParentTypes>['File'];
@@ -178,9 +221,24 @@ export type ResolversParentTypes = ResolversObject<{
   Image: Image;
   ImageFile: ImageFile;
   Int: Scalars['Int']['output'];
+  LoggedInUser: LoggedInUser;
+  PublicUser: PublicUser;
   Query: {};
   String: Scalars['String']['output'];
-  User: User;
+  User: ResolversInterfaceTypes<ResolversParentTypes>['User'];
+}>;
+
+export type AbstractFileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['AbstractFile'] = ResolversParentTypes['AbstractFile']> = ResolversObject<{
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resolveUser?: Resolver<Maybe<ResolversTypes['PublicUser']>, ParentType, ContextType>;
+  tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -188,10 +246,12 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type FileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'ImageFile', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AbstractFile' | 'ImageFile', ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resolveUser?: Resolver<Maybe<ResolversTypes['PublicUser']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
@@ -214,6 +274,8 @@ export type ImageFileResolvers<ContextType = GqlContext, ParentType extends Reso
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageVariants?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resolveUser?: Resolver<Maybe<ResolversTypes['PublicUser']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
@@ -221,13 +283,7 @@ export type ImageFileResolvers<ContextType = GqlContext, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  file?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, RequireFields<QueryFileArgs, 'id'>>;
-  files?: Resolver<Array<ResolversTypes['File']>, ParentType, ContextType>;
-  loggedInUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-}>;
-
-export type UserResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+export type LoggedInUserResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['LoggedInUser'] = ResolversParentTypes['LoggedInUser']> = ResolversObject<{
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -236,11 +292,37 @@ export type UserResolvers<ContextType = GqlContext, ParentType extends Resolvers
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type PublicUserResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['PublicUser'] = ResolversParentTypes['PublicUser']> = ResolversObject<{
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type QueryResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  file?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType, RequireFields<QueryFileArgs, 'id'>>;
+  files?: Resolver<Array<ResolversTypes['File']>, ParentType, ContextType>;
+  loggedInUser?: Resolver<Maybe<ResolversTypes['LoggedInUser']>, ParentType, ContextType>;
+  publicUser?: Resolver<Maybe<ResolversTypes['PublicUser']>, ParentType, ContextType, RequireFields<QueryPublicUserArgs, 'id'>>;
+}>;
+
+export type UserResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  __resolveType: TypeResolveFn<'LoggedInUser' | 'PublicUser', ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = GqlContext> = ResolversObject<{
+  AbstractFile?: AbstractFileResolvers<ContextType>;
   Date?: GraphQLScalarType;
   File?: FileResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   ImageFile?: ImageFileResolvers<ContextType>;
+  LoggedInUser?: LoggedInUserResolvers<ContextType>;
+  PublicUser?: PublicUserResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;

@@ -40,7 +40,11 @@ function MediaItem(): ReactElement {
       <CardFooter>
         <p>
           <small>
-            Uploaded by <PostUploader />, <PostUploadDate />
+            Uploaded by{" "}
+            <strong>
+              <PostUploader />
+            </strong>
+            , <PostUploadDate />
           </small>
         </p>
       </CardFooter>

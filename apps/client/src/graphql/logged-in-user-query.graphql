@@ -3,7 +3,8 @@ query LoggedInUser {
     id
     username
     createdAt
-    updatedAt
     email
+    updatedAt
+    createdAt
   }
 }

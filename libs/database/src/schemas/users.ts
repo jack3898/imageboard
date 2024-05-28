@@ -5,8 +5,8 @@ export const usersSchema = new Schema<UsersValidationSchema>(
   {
     docVersion: { type: Number, required: true, default: 1 },
     username: { type: String, required: true },
-    email: { type: String, require: true },
-    password: { type: String, required: true }
+    email: { type: String, require: true, select: false },
+    password: { type: String, required: true, select: false }
   },
   {
     collection: "users",
