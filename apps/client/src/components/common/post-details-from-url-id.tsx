@@ -1,9 +1,14 @@
 import { type ReactElement } from "react";
 import { Button } from "../atom/button.js";
 import { Star } from "lucide-react";
+import { useFileQuery } from "@/hooks/generated-graphql-hooks.js";
+import { useUrlPostId } from "@/hooks/url-post-id.js";
 
 export function PostTitle(): ReactElement {
-  return <>Post Title</>;
+  const postId = useUrlPostId();
+  const { data } = useFileQuery({ variables: { fileId: postId } });
+
+  return <>{data?.file?.title}</>;
 }
 
 export function PostDescription(): ReactElement {
@@ -25,9 +30,23 @@ export function PostFavouriteButton(): ReactElement {
 }
 
 export function PostUploader(): ReactElement {
-  return <>jack</>;
+  const postId = useUrlPostId();
+  const { data } = useFileQuery({ variables: { fileId: postId } });
+
+  if (!data?.file?.user) {
+    return <></>;
+  }
+
+  return <>{data.file.user}</>;
 }
 
 export function PostUploadDate(): ReactElement {
-  return <>{new Date().toLocaleDateString()}</>;
+  const postId = useUrlPostId();
+  const { data } = useFileQuery({ variables: { fileId: postId } });
+
+  if (!data?.file?.createdAt) {
+    return <></>;
+  }
+
+  return <>{new Date(data.file.createdAt).toLocaleDateString()}</>;
 }

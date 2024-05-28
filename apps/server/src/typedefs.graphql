@@ -2,15 +2,21 @@ scalar Date
 
 interface File {
   id: ID!
+  title: String!
   tags: [String!]!
   user: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 type ImageFile implements File {
   id: ID!
+  title: String!
   tags: [String!]!
   user: String!
   imageVariants: [Image!]!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 type Image {

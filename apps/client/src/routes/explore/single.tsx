@@ -5,7 +5,7 @@ import {
   PostTitle,
   PostUploadDate,
   PostUploader
-} from "@/components/common/post.js";
+} from "@/components/common/post-details-from-url-id.js";
 import { createFileRoute } from "@tanstack/react-router";
 import { Quote } from "lucide-react";
 import { type ReactElement } from "react";

@@ -1,7 +1,12 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { type ReactNode, type ReactElement } from "react";
 
-const cache = new InMemoryCache();
+// TODO: Generate with fetch call
+const cache = new InMemoryCache({
+  possibleTypes: {
+    File: ["ImageFile"]
+  }
+});
 
 const client = new ApolloClient({
   uri: `${import.meta.env["UNSAFE_BACKEND_URL"]}/graphql`,

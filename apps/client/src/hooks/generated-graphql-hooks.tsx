@@ -31,8 +31,11 @@ export type Scalars = {
 };
 
 export type File = {
+  createdAt: Scalars['Date']['output'];
   id: Scalars['ID']['output'];
   tags: Array<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
 
@@ -48,9 +51,12 @@ export type Image = {
 
 export type ImageFile = File & {
   __typename?: 'ImageFile';
+  createdAt: Scalars['Date']['output'];
   id: Scalars['ID']['output'];
   imageVariants: Array<Image>;
   tags: Array<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
 
@@ -75,10 +81,17 @@ export type User = {
   username: Scalars['String']['output'];
 };
 
+export type FileQueryVariables = Exact<{
+  fileId: Scalars['ID']['input'];
+}>;
+
+
+export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'ImageFile', id: string, tags: Array<string>, user: string, title: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }> } | null };
+
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'ImageFile', id: string, tags: Array<string>, user: string, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }> }> };
+export type FilesQuery = { __typename?: 'Query', files: Array<{ __typename?: 'ImageFile', id: string, title: string, imageVariants: Array<{ __typename?: 'Image', path: string, width: number, height: number, type: string }> }> };
 
 export type LoggedInUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -86,12 +99,14 @@ export type LoggedInUserQueryVariables = Exact<{ [key: string]: never; }>;
 export type LoggedInUserQuery = { __typename?: 'Query', loggedInUser?: { __typename?: 'User', id: string, username: string, createdAt: any, updatedAt: any, email: string } | null };
 
 
-export const FilesDocument = gql`
-    query Files {
-  files {
+export const FileDocument = gql`
+    query File($fileId: ID!) {
+  file(id: $fileId) {
     id
     tags
     user
+    title
+    createdAt
     ... on ImageFile {
       imageVariants {
         id
@@ -100,6 +115,61 @@ export const FilesDocument = gql`
         height
         type
         quality
+      }
+    }
+  }
+}
+    `;
+export type FileComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<FileQuery, FileQueryVariables>, 'query'> & ({ variables: FileQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const FileComponent = (props: FileComponentProps) => (
+      <ApolloReactComponents.Query<FileQuery, FileQueryVariables> query={FileDocument} {...props} />
+    );
+    
+
+/**
+ * __useFileQuery__
+ *
+ * To run a query within a React component, call `useFileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFileQuery({
+ *   variables: {
+ *      fileId: // value for 'fileId'
+ *   },
+ * });
+ */
+export function useFileQuery(baseOptions: Apollo.QueryHookOptions<FileQuery, FileQueryVariables> & ({ variables: FileQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FileQuery, FileQueryVariables>(FileDocument, options);
+      }
+export function useFileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FileQuery, FileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FileQuery, FileQueryVariables>(FileDocument, options);
+        }
+export function useFileSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FileQuery, FileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FileQuery, FileQueryVariables>(FileDocument, options);
+        }
+export type FileQueryHookResult = ReturnType<typeof useFileQuery>;
+export type FileLazyQueryHookResult = ReturnType<typeof useFileLazyQuery>;
+export type FileSuspenseQueryHookResult = ReturnType<typeof useFileSuspenseQuery>;
+export type FileQueryResult = Apollo.QueryResult<FileQuery, FileQueryVariables>;
+export const FilesDocument = gql`
+    query Files {
+  files {
+    id
+    title
+    ... on ImageFile {
+      imageVariants {
+        path
+        width
+        height
+        type
       }
     }
   }

@@ -25,7 +25,8 @@ export default {
       ],
       config: {
         withComponent: true,
-        useTypeImports: true
+        useTypeImports: true,
+        possibleTypes: true
       }
     }
   }

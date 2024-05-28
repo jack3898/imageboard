@@ -28,8 +28,11 @@ export type Scalars = {
 };
 
 export type File = {
+  createdAt: Scalars['Date']['output'];
   id: Scalars['ID']['output'];
   tags: Array<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
 
@@ -45,9 +48,12 @@ export type Image = {
 
 export type ImageFile = File & {
   __typename?: 'ImageFile';
+  createdAt: Scalars['Date']['output'];
   id: Scalars['ID']['output'];
   imageVariants: Array<Image>;
   tags: Array<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
 
@@ -180,8 +186,11 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type FileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = ResolversObject<{
   __resolveType: TypeResolveFn<'ImageFile', ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
@@ -196,9 +205,12 @@ export type ImageResolvers<ContextType = GqlContext, ParentType extends Resolver
 }>;
 
 export type ImageFileResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['ImageFile'] = ResolversParentTypes['ImageFile']> = ResolversObject<{
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageVariants?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

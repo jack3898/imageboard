@@ -1,13 +1,18 @@
-query Files {
-  files {
+query File($fileId: ID!) {
+  file(id: $fileId) {
     id
+    tags
+    user
     title
+    createdAt
     ... on ImageFile {
       imageVariants {
+        id
         path
         width
         height
         type
+        quality
       }
     }
   }
