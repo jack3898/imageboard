@@ -11,7 +11,8 @@ export function MediaItemFromUrlId(): ReactElement {
     <img
       src={`${import.meta.env["UNSAFE_BACKEND_URL"]}/api/file/${fileId}/raw`}
       alt=""
-      className="w-full"
+      className="max-h-[70vh] w-auto"
+      onClick={(e) => e.currentTarget.requestFullscreen()}
     />
   );
 }
