@@ -3,6 +3,7 @@ import { Button } from "../atom/button.js";
 import { Star } from "lucide-react";
 import { useFileQuery } from "@/hooks/generated-graphql-hooks.js";
 import { useUrlPostId } from "@/hooks/url-post-id.js";
+import ReactMarkdown from "react-markdown";
 
 export function PostTitle(): ReactElement {
   const postId = useUrlPostId();
@@ -13,11 +14,11 @@ export function PostTitle(): ReactElement {
 
 export function PostDescription(): ReactElement {
   return (
-    <>
+    <ReactMarkdown>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos fugiat ea maiores!
       Minima nisi aut harum aspernatur soluta voluptatum laudantium, numquam, eum veniam quibusdam
       doloribus. Consequatur architecto excepturi modi expedita.
-    </>
+    </ReactMarkdown>
   );
 }
 
