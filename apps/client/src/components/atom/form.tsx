@@ -11,6 +11,7 @@ import {
 import { cn } from "@/utils/cn.js";
 import { createContext, forwardRef, useContext, useId, type ReactElement } from "react";
 import { Label } from "./label.js";
+import { CircleAlert } from "lucide-react";
 
 const Form = FormProvider;
 
@@ -87,12 +88,14 @@ const FormLabel = forwardRef<
   const { error, formItemId } = useFormField();
 
   return (
-    <Label
-      ref={ref}
-      className={cn(error && "text-destructive", className)}
-      htmlFor={formItemId}
-      {...props}
-    />
+    <div className="inline-flex gap-2">
+      <Label ref={ref} className={className} htmlFor={formItemId} {...props} />
+      {error && (
+        <div className="text-destructive">
+          <CircleAlert className="size-4" />
+        </div>
+      )}
+    </div>
   );
 });
 
@@ -144,7 +147,7 @@ const FormMessage = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLPa
       <p
         ref={ref}
         id={formMessageId}
-        className={cn("text-sm font-medium text-destructive h-4", className)}
+        className={cn("text-sm font-medium text-destructive h-4 italic", className)}
         {...props}
       >
         {body}
