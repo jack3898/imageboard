@@ -5,7 +5,7 @@ import { docVersionValidationSchema, timestampValidationSchema } from "./common.
 export const imageVariantValidationSchema = z
   .object({
     type: z.enum(["png", "jpeg"]),
-    quality: z.enum(["raw"]),
+    quality: z.enum(["RAW"]),
     path: z.string(),
     width: z.number(),
     height: z.number()

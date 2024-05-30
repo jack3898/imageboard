@@ -11,7 +11,7 @@ export default (router: Router): void => {
       const id = z.string().parse(req.params["id"]);
 
       const qualitySpecifier = await validation.imageVariantValidationSchema.shape.quality
-        .safeParseAsync(req.params["quality"])
+        .safeParseAsync(req.params["quality"]?.toUpperCase())
         .then((value) => value.data)
         .catch(() => null);
 

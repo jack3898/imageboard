@@ -60,7 +60,7 @@ export type Image = {
   height: Scalars['Int']['output'];
   id: Scalars['ID']['output'];
   path: Scalars['String']['output'];
-  quality: Scalars['String']['output'];
+  quality: ImageQuality;
   type: Scalars['String']['output'];
   width: Scalars['Int']['output'];
 };
@@ -79,6 +79,10 @@ export type ImageFile = File & {
   updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
+
+export enum ImageQuality {
+  Raw = 'RAW'
+}
 
 export type LoggedInUser = User & {
   __typename?: 'LoggedInUser';
@@ -127,7 +131,7 @@ export type FileQueryVariables = Exact<{
 }>;
 
 
-export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'AbstractFile', id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, resolveUser?: { __typename?: 'PublicUser', username: string } | null } | { __typename?: 'ImageFile', alt: string, id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: string }>, resolveUser?: { __typename?: 'PublicUser', username: string } | null } | null };
+export type FileQuery = { __typename?: 'Query', file?: { __typename?: 'AbstractFile', id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, resolveUser?: { __typename?: 'PublicUser', username: string } | null } | { __typename?: 'ImageFile', alt: string, id: string, tags: Array<string>, user: string, title: string, description: string, createdAt: any, imageVariants: Array<{ __typename?: 'Image', id: string, path: string, width: number, height: number, type: string, quality: ImageQuality }>, resolveUser?: { __typename?: 'PublicUser', username: string } | null } | null };
 
 export type FilesQueryVariables = Exact<{ [key: string]: never; }>;
 

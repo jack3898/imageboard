@@ -57,7 +57,7 @@ export type Image = {
   height: Scalars['Int']['output'];
   id: Scalars['ID']['output'];
   path: Scalars['String']['output'];
-  quality: Scalars['String']['output'];
+  quality: ImageQuality;
   type: Scalars['String']['output'];
   width: Scalars['Int']['output'];
 };
@@ -76,6 +76,10 @@ export type ImageFile = File & {
   updatedAt: Scalars['Date']['output'];
   user: Scalars['String']['output'];
 };
+
+export enum ImageQuality {
+  Raw = 'RAW'
+}
 
 export type LoggedInUser = User & {
   __typename?: 'LoggedInUser';
@@ -203,6 +207,7 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Image: ResolverTypeWrapper<Image>;
   ImageFile: ResolverTypeWrapper<ImageFile>;
+  ImageQuality: ImageQuality;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   LoggedInUser: ResolverTypeWrapper<LoggedInUser>;
   PublicUser: ResolverTypeWrapper<PublicUser>;
@@ -262,7 +267,7 @@ export type ImageResolvers<ContextType = GqlContext, ParentType extends Resolver
   height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  quality?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  quality?: Resolver<ResolversTypes['ImageQuality'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

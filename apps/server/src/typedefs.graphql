@@ -38,10 +38,14 @@ type ImageFile implements File {
   updatedAt: Date!
 }
 
+enum ImageQuality {
+  RAW
+}
+
 type Image {
   id: ID!
   type: String!
-  quality: String!
+  quality: ImageQuality!
   path: String!
   width: Int!
   height: Int!

@@ -2,14 +2,12 @@ import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
 import { Link } from "@tanstack/react-router";
 import { type ReactElement } from "react";
-import { type File, useFilesQuery } from "@/hooks/generated-graphql-hooks.js";
+import { useFilesSuspenseQuery, type FilesQuery } from "@/hooks/generated-graphql-hooks.js";
+
+type File = FilesQuery["files"][number];
 
 export function MediaList(): JSX.Element {
-  const { data } = useFilesQuery();
-
-  if (!data) {
-    return <>Loading...</>;
-  }
+  const { data } = useFilesSuspenseQuery();
 
   return (
     <ul className="flex items-center gap-2 flex-wrap">

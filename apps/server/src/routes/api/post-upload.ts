@@ -1,11 +1,13 @@
 import { abstractStorageDriver } from "@/storage-driver.js";
-import { File } from "@internal/storage";
+import { File, nodeReadableToWebReadable } from "@internal/storage";
 import multer from "multer";
 import { type Router } from "express";
 import { auth } from "@/middleware/use-auth.js";
 import { imagesModel, type validation } from "@internal/database";
 import { schemas } from "@internal/shared";
 import { mimeToFiletype } from "@/utils/mime-to-filetype.js";
+import { enforceMaxWidthAndHeight, getBasicImageMeta, stripExif } from "@/utils/process-image.js";
+import { Readable } from "stream";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const allowedTypes = ["jpeg", "png"];
@@ -36,10 +38,13 @@ export default (router: Router): void => {
         return res.status(400).send("There was a problem processing your request");
       }
 
+      const processedImage = enforceMaxWidthAndHeight(stripExif(Readable.from(req.file.buffer)));
+      const { meta, stream } = await getBasicImageMeta(processedImage);
+
       const file = new File({
         mimeType: req.file.mimetype,
         name: `${crypto.randomUUID()}.${fileType}`,
-        data: new Blob([req.file.buffer])
+        data: nodeReadableToWebReadable(stream)
       });
 
       await abstractStorageDriver.upload(file);
@@ -48,11 +53,11 @@ export default (router: Router): void => {
         ...formData,
         imageVariants: [
           {
-            quality: "raw",
+            quality: "RAW",
             type: fileType,
             path: file.name,
-            width: 500, // TODO: Calculate
-            height: 500 // TODO: Calculate
+            width: meta.width ?? 0,
+            height: meta.height ?? 0
           }
         ],
         tags: [],

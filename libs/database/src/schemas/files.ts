@@ -8,7 +8,7 @@ import {
 const imageVariant = new Schema<ImageVariantValidationSchema>(
   {
     type: { type: String, enum: ["png", "jpeg"], required: true },
-    quality: { type: String, enum: ["raw"], required: true },
+    quality: { type: String, enum: ["RAW"], required: true },
     path: { type: String, required: true },
     width: { type: Number, required: true },
     height: { type: Number, required: true }
