@@ -8,6 +8,7 @@ import { Focus } from "@/components/layout/focus.js";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { type ReactElement } from "react";
+import { Separator } from "@/components/atom/separator.js";
 
 export const Route = createLazyFileRoute("/")({
   component: Home
@@ -26,7 +27,7 @@ function Home(): ReactElement {
               Explore posts <ArrowRight />
             </Link>
           </Button>
-          <hr className="my-4" />
+          <Separator className="my-4" />
           <SearchBox to="/explore" />
         </CardContent>
       </Card>

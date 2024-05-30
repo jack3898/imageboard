@@ -1,4 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/atom/card.js";
+import { Separator } from "@/components/atom/separator.js";
 import { MediaItemFromUrlId } from "@/components/common/media-item-from-url-id.js";
 import {
   PostDescription,
@@ -30,7 +31,7 @@ function MediaItem(): ReactElement {
       </CardHeader>
       <CardContent>
         <MediaItemFromUrlId />
-        <hr className="my-4" />
+        <Separator className="my-4" />
         <Quote className="-scale-x-100" />
         <PostDescription />
         <div className="flex justify-end">
