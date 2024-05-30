@@ -23,8 +23,8 @@ export function LoginForm(): ReactElement {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="password">Email</FormLabel>
-              <Input type="password" {...field} />
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <Input type="text" {...field} />
               <FormMessage />
             </FormItem>
           )}
@@ -35,7 +35,7 @@ export function LoginForm(): ReactElement {
           render={({ field }) => (
             <FormItem>
               <FormLabel htmlFor="password">Password</FormLabel>
-              <Input type="text" {...field} />
+              <Input type="password" {...field} />
               <FormMessage />
             </FormItem>
           )}
