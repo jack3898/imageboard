@@ -6,7 +6,7 @@ I plan to use this as more of a personal photo hosting solution for myself but o
 
 ## WIP
 
-This project is a bit WIP! Rough edges are inevitable.
+This project is a bit WIP! Rough edges are inevitable and big breaking changes are too.
 
 Here is a super early sneak peek.
 
@@ -22,17 +22,19 @@ Here is a super early sneak peek.
 - Clone this repo
 - Copy and rename ".envexample" to ".env" and fill in the correct values
 - Install Volta (https://volta.sh/)
-  - ⚠️ Volta will read this application and auto-pick the best version of Node and npm to use that has been tested during development previously.
+  - ℹ️ Volta will read this application and auto-pick the best version of Node and npm to use that has been tested during development previously.
 - Run `npm install` on this package
 - Using Docker, run `docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`, to spin up a database
-  - ⚠️ For local dev, make sure the DB port is exposed to localhost!
-  - ⚠️ Update the values in the command where necessary
-  - ⚠️ It may be a good idea to use Docker volumes to persist data
+  - ℹ️ For local dev, make sure the DB port is exposed to localhost!
+  - ℹ️ Update the values in the command where necessary
+  - ℹ️ It may be a good idea to use Docker volumes to persist data
 - Run `npm run nx run @internal/server:migrate` to initialize the database
 - Run `npm run dev` to launch all services
 - Visit the site on `localhost:5173`!
 
 ### Prod build via Docker Compose
+
+⚠️ Currently not working since migration from mongodb to postgres. Check back soon!
 
 - Clone this repo
 - Install Docker with Docker Compose
