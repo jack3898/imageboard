@@ -37,7 +37,7 @@ export type File = {
   id: Scalars['ID']['output'];
   type: FileType;
   updatedAt: Scalars['Date']['output'];
-  variants: Array<FileVariant>;
+  variants?: Maybe<Array<FileVariant>>;
 };
 
 export enum FileType {
@@ -127,12 +127,12 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, author?: { __typename?: 'LoggedInUser', username: string } | { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> } | null } | null };
+export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, author?: { __typename?: 'LoggedInUser', username: string } | { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants?: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> | null } | null } | null };
 
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, file?: { __typename?: 'File', type: FileType, variants: Array<{ __typename?: 'FileVariant', id: string, path: string, width: number, height: number, quality: Quality }> } | null }> };
+export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, file?: { __typename?: 'File', type: FileType, variants?: Array<{ __typename?: 'FileVariant', id: string, path: string, width: number, height: number, quality: Quality }> | null } | null }> };
 
 
 export const LoggedInUserDocument = gql`

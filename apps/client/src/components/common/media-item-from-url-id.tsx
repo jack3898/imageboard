@@ -16,7 +16,7 @@ export function MediaItemFromUrlId(): ReactElement {
     return <></>;
   }
 
-  const rawImage = image?.file?.variants.find((file) => file.quality === Quality.Raw);
+  const rawImage = image?.file?.variants?.find((file) => file.quality === Quality.Raw);
 
   return (
     <img

@@ -35,13 +35,12 @@ export type File = {
   id: Scalars['ID']['output'];
   type: FileType;
   updatedAt: Scalars['Date']['output'];
-  variants: Array<FileVariant>;
+  variants?: Maybe<Array<FileVariant>>;
 };
 
-export enum FileType {
-  Jpeg = 'jpeg',
-  Png = 'png'
-}
+export type FileType =
+  | 'jpeg'
+  | 'png';
 
 export type FileVariant = {
   __typename?: 'FileVariant';
@@ -84,11 +83,10 @@ export type PublicUser = User & {
   username: Scalars['String']['output'];
 };
 
-export enum Quality {
-  Optimized = 'OPTIMIZED',
-  Raw = 'RAW',
-  Thumbnail = 'THUMBNAIL'
-}
+export type Quality =
+  | 'OPTIMIZED'
+  | 'RAW'
+  | 'THUMBNAIL';
 
 export type Query = {
   __typename?: 'Query';
@@ -233,7 +231,7 @@ export type FileResolvers<ContextType = GqlContext, ParentType extends Resolvers
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['FileType'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
-  variants?: Resolver<Array<ResolversTypes['FileVariant']>, ParentType, ContextType>;
+  variants?: Resolver<Maybe<Array<ResolversTypes['FileVariant']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

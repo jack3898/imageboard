@@ -8,7 +8,5 @@ export async function getPosts(): Promise<Post[]> {
 }
 
 export async function getPost(id: string): Promise<Post | null> {
-  const [post] = await db.select().from(PostsTable).where(eq(PostsTable.id, id)).limit(1);
-
-  return post ?? null;
+  return db.query.PostsTable.findFirst({ where: eq(PostsTable.id, id) }).then((res) => res ?? null);
 }

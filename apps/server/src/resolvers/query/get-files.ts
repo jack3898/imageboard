@@ -8,15 +8,11 @@ export async function getFileByPostId(postId?: string): Promise<File | null> {
     return null;
   }
 
-  const file = await db.query.FilesTable.findFirst({ where: eq(FilesTable.postId, postId) });
-
-  // Will remove later
-  // @ts-expect-error Quality enum is not assignable to the string union, but they're the same
-  return file ?? null;
+  return db.query.FilesTable.findFirst({ where: eq(FilesTable.postId, postId) }).then(
+    (res) => res ?? null
+  );
 }
 
 export async function getFileVariants(id: string): Promise<FileVariant[]> {
-  // Will remove later
-  // @ts-expect-error Quality enum is not assignable to the string union, but they're the same
-  return db.select().from(FileVariantsTable).where(eq(FileVariantsTable.fileId, id));
+  return db.query.FileVariantsTable.findMany({ where: eq(FileVariantsTable.fileId, id) });
 }

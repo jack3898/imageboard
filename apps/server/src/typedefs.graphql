@@ -28,7 +28,7 @@ type File {
   updatedAt: Date!
   type: FileType!
   alt: String!
-  variants: [FileVariant!]!
+  variants: [FileVariant!]
 }
 
 enum FileType {

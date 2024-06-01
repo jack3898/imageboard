@@ -33,7 +33,7 @@ function MediaTile({ mediaItem }: { mediaItem: File }): ReactElement {
     store.thumbnailFit === "cover" ? "object-cover" : "object-contain"
   );
 
-  const rawVariant = mediaItem.file?.variants.find((variant) => variant.quality === Quality.Raw);
+  const rawVariant = mediaItem.file?.variants?.find((variant) => variant.quality === Quality.Raw);
 
   return (
     <img
