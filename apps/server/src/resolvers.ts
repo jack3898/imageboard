@@ -1,31 +1,20 @@
+import { getFileByPostId, getFileVariants } from "./resolvers/query/get-files.js";
+import { getPost, getPosts } from "./resolvers/query/get-posts.js";
 import { getLoggedInUser, getPublicUser } from "./resolvers/query/get-users.js";
-import { getFile, getImageFiles, resolveFileType } from "./resolvers/query/get-files.js";
 import { type Resolvers } from "./types/generated-graphql-types.js";
 
 export const resolvers: Resolvers = {
   Query: {
-    files: getImageFiles,
-    file: (_, args) => {
-      return getFile(args.id);
-    },
+    posts: getPosts,
+    post: (_, args) => getPost(args.id),
     loggedInUser: getLoggedInUser,
-    publicUser: (_, args) => {
-      return getPublicUser(args.id);
-    }
+    publicUser: (_, args) => getPublicUser(args.id)
+  },
+  Post: {
+    author: (parent) => getPublicUser(parent.authorId),
+    file: (parent) => getFileByPostId(parent.id)
   },
   File: {
-    __resolveType(type) {
-      return resolveFileType(type.kind);
-    }
-  },
-  ImageFile: {
-    resolveUser: (parent) => {
-      return getPublicUser(parent.user);
-    }
-  },
-  AbstractFile: {
-    resolveUser: (parent) => {
-      return getPublicUser(parent.user);
-    }
+    variants: (parent) => getFileVariants(parent.id)
   }
 };

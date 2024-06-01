@@ -1,33 +1,22 @@
-import { type ImageFile } from "@/types/generated-graphql-types.js";
-import { type z } from "zod";
+import { db } from "@/db.js";
+import { FileVariantsTable, FilesTable } from "@internal/database";
+import { eq } from "drizzle-orm";
+import { type FileVariant, type File } from "@/types/generated-graphql-types.js";
 
-export async function getImageFiles(): Promise<ImageFile[]> {
-  throw Error("Not yet converted to Drizzle");
-
-  const files = await filesModel.find().limit(100);
-
-  return files.map((file) => file.toObject({ getters: true }));
-}
-
-export async function getFile(id: string): Promise<ImageFile | null> {
-  throw Error("Not yet converted to Drizzle");
-
-  const file = await filesModel.findById(id);
-
-  if (!file) {
+export async function getFileByPostId(postId?: string): Promise<File | null> {
+  if (!postId) {
     return null;
   }
 
-  return file.toObject({ getters: true });
+  const file = await db.query.FilesTable.findFirst({ where: eq(FilesTable.postId, postId) });
+
+  // Will remove later
+  // @ts-expect-error Quality enum is not assignable to the string union, but they're the same
+  return file ?? null;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function resolveFileType(kind: string) {
-  switch (kind as FileKind) {
-    case "image":
-      return "ImageFile";
-    case "unknown":
-    default:
-      return "AbstractFile";
-  }
+export async function getFileVariants(id: string): Promise<FileVariant[]> {
+  // Will remove later
+  // @ts-expect-error Quality enum is not assignable to the string union, but they're the same
+  return db.select().from(FileVariantsTable).where(eq(FileVariantsTable.fileId, id));
 }

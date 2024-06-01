@@ -1,28 +1,28 @@
 import { useMemo, type ReactElement } from "react";
 import { Button } from "../atom/button.js";
 import { Star } from "lucide-react";
-import { useFileQuery } from "@/hooks/generated-graphql-hooks.js";
+import { usePostSuspenseQuery } from "@/hooks/generated-graphql-hooks.js";
 import { useUrlPostId } from "@/hooks/url-post-id.js";
 import ReactMarkdown from "react-markdown";
 
 export function PostTitle(): ReactElement {
   const postId = useUrlPostId();
-  const { data } = useFileQuery({ variables: { fileId: postId } });
+  const { data } = usePostSuspenseQuery({ variables: { postId } });
 
-  return <>{data?.file?.title}</>;
+  return <>{data.post?.title}</>;
 }
 
 export function PostDescription(): ReactElement {
   const postId = useUrlPostId();
-  const { data } = useFileQuery({ variables: { fileId: postId } });
+  const { data } = usePostSuspenseQuery({ variables: { postId } });
 
   return useMemo(() => {
-    if (!data?.file?.description) {
+    if (!data?.post?.description) {
       return <></>;
     }
 
-    return <ReactMarkdown>{data.file.description}</ReactMarkdown>;
-  }, [data?.file?.description]);
+    return <ReactMarkdown>{data.post.description}</ReactMarkdown>;
+  }, [data?.post?.description]);
 }
 
 export function PostFavouriteButton(): ReactElement {
@@ -35,22 +35,22 @@ export function PostFavouriteButton(): ReactElement {
 
 export function PostUploader(): ReactElement {
   const postId = useUrlPostId();
-  const { data } = useFileQuery({ variables: { fileId: postId } });
+  const { data } = usePostSuspenseQuery({ variables: { postId } });
 
-  if (!data?.file?.resolveUser) {
+  if (!data?.post?.author) {
     return <></>;
   }
 
-  return <>{data.file.resolveUser.username}</>;
+  return <>{data.post.author.username}</>;
 }
 
 export function PostUploadDate(): ReactElement {
   const postId = useUrlPostId();
-  const { data } = useFileQuery({ variables: { fileId: postId } });
+  const { data } = usePostSuspenseQuery({ variables: { postId } });
 
-  if (!data?.file?.createdAt) {
+  if (!data?.post?.createdAt) {
     return <></>;
   }
 
-  return <>{new Date(data.file.createdAt).toLocaleDateString()}</>;
+  return <>{new Date(data.post.createdAt).toLocaleDateString()}</>;
 }

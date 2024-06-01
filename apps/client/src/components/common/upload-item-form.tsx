@@ -14,13 +14,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../atom/button.js";
 import { Input } from "../atom/input.js";
-import { useFilesLazyQuery } from "@/hooks/generated-graphql-hooks.js";
 import { Textarea } from "../atom/textarea.js";
+import { usePostsLazyQuery } from "@/hooks/generated-graphql-hooks.js";
 
 type UploadForm = schemas.upload.UploadForm;
 
 export function UploadFileForm(): ReactElement {
-  const [fetchFiles] = useFilesLazyQuery();
+  const [fetchPosts] = usePostsLazyQuery();
 
   const form = useForm<UploadForm>({
     resolver: zodResolver(schemas.upload.uploadForm),
@@ -42,7 +42,7 @@ export function UploadFileForm(): ReactElement {
     },
     async onSuccess() {
       form.reset();
-      await fetchFiles({ fetchPolicy: "network-only" });
+      await fetchPosts({ fetchPolicy: "network-only" });
     }
   });
 

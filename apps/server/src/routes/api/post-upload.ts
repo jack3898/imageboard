@@ -7,6 +7,8 @@ import { schemas } from "@internal/shared";
 import { mimeToFiletype } from "@/utils/mime-to-filetype.js";
 import { enforceMaxWidthAndHeight, getBasicImageMeta, stripExif } from "@/utils/process-image.js";
 import { Readable } from "stream";
+import { db } from "@/db.js";
+import { FileVariantsTable, FilesTable, PostsTable } from "@internal/database";
 
 const upload = multer({ storage: multer.memoryStorage() });
 const allowedTypes = ["jpeg", "png"];
@@ -14,8 +16,6 @@ const allowedTypes = ["jpeg", "png"];
 export default (router: Router): void => {
   router.post("/upload/image", auth(), upload.single("file"), async (req, res, next) => {
     try {
-      throw Error("Not yet converted to Drizzle");
-
       const formData = schemas.upload.uploadForm.omit({ file: true }).parse(req.body);
 
       if (!req.file) {
@@ -50,20 +50,31 @@ export default (router: Router): void => {
 
       await abstractStorageDriver.upload(file);
 
-      await imagesModel.create({
-        ...formData,
-        imageVariants: [
-          {
-            quality: "RAW",
-            type: fileType,
-            path: file.name,
-            width: meta.width ?? 0,
-            height: meta.height ?? 0
-          }
-        ],
-        tags: [],
-        user: req.user.userId
-      } satisfies validation.ImagesValidationSchema);
+      const [dbPost] = await db
+        .insert(PostsTable)
+        .values({
+          authorId: req.user.userId,
+          description: formData.description,
+          title: formData.title
+        })
+        .returning({ postId: PostsTable.id });
+
+      const [dbFile] = await db
+        .insert(FilesTable)
+        .values({
+          type: fileType,
+          alt: formData.alt,
+          postId: dbPost!.postId
+        })
+        .returning({ fileId: FilesTable.id });
+
+      await db.insert(FileVariantsTable).values({
+        fileId: dbFile!.fileId,
+        height: meta.height ?? 0,
+        width: meta.width ?? 0,
+        path: file.name,
+        quality: "RAW"
+      });
 
       res.sendStatus(200);
     } catch (error) {
