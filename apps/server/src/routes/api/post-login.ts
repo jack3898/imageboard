@@ -1,14 +1,24 @@
+import { db } from "@/db.js";
 import { verifyHash } from "@/utils/pw-hash.js";
 import { userJwt } from "@/utils/user.jwt.js";
-import { usersModel } from "@internal/database";
 import { schemas } from "@internal/shared";
 import { type Router } from "express";
+import { UsersTable } from "@internal/database";
+import { eq } from "drizzle-orm";
 
 export default (router: Router): void => {
   router.post("/login", async (req, res, next) => {
     try {
       const { email, password: passwordInput } = schemas.account.accountForm.parse(req.body);
-      const dbUser = await usersModel.findOne({ email }).select("+password");
+
+      const [dbUser] = await db
+        .select({
+          id: UsersTable.id,
+          password: UsersTable.password
+        })
+        .from(UsersTable)
+        .where(eq(UsersTable.email, email))
+        .limit(1);
 
       if (!dbUser) {
         return res.status(401).send("Invalid login");

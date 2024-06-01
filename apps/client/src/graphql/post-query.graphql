@@ -1,0 +1,26 @@
+query Post($postId: ID!) {
+  post(id: $postId) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
+    author {
+      username
+    }
+    file {
+      id
+      type
+      alt
+      variants {
+        id
+        width
+        height
+        path
+        quality
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}

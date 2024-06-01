@@ -1,54 +1,45 @@
 scalar Date
 
-interface File {
+type Post {
   id: ID!
-  title: String!
-  description: String!
-  tags: [String!]!
-  user: String!
-  resolveUser: PublicUser
   createdAt: Date!
   updatedAt: Date!
-  kind: String!
-}
-
-type AbstractFile implements File {
-  id: ID!
   title: String!
   description: String!
-  tags: [String!]!
-  user: String!
-  resolveUser: PublicUser
+  authorId: ID!
+  file: File
+  author: User
+}
+
+type FileVariant {
+  id: ID!
   createdAt: Date!
   updatedAt: Date!
-  kind: String!
-}
-
-type ImageFile implements File {
-  id: ID!
-  title: String!
-  description: String!
-  alt: String!
-  tags: [String!]!
-  user: String!
-  resolveUser: PublicUser
-  imageVariants: [Image!]!
-  kind: String!
-  createdAt: Date!
-  updatedAt: Date!
-}
-
-enum ImageQuality {
-  RAW
-}
-
-type Image {
-  id: ID!
-  type: String!
-  quality: ImageQuality!
-  path: String!
   width: Int!
   height: Int!
+  path: String!
+  quality: Quality!
+  fileId: ID!
+}
+
+type File {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  type: FileType!
+  alt: String!
+  variants: [FileVariant!]
+}
+
+enum FileType {
+  jpeg
+  png
+}
+
+enum Quality {
+  RAW
+  THUMBNAIL
+  OPTIMIZED
 }
 
 interface User {
@@ -74,8 +65,8 @@ type LoggedInUser implements User {
 }
 
 type Query {
-  files: [File!]!
-  file(id: ID!): File
+  posts: [Post!]!
+  post(id: ID!): Post
   loggedInUser: LoggedInUser
   publicUser(id: ID!): PublicUser
 }

@@ -1,0 +1,16 @@
+query Posts {
+  posts {
+    id
+    title
+    file {
+      variants {
+        id
+        path
+        width
+        height
+        quality
+      }
+      type
+    }
+  }
+}

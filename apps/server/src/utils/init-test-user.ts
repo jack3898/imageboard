@@ -1,7 +1,8 @@
 import { schemas } from "@internal/shared";
 import { z } from "zod";
 import { hash } from "@/utils/pw-hash.js";
-import { usersModel } from "@internal/database";
+import { db } from "@/db.js";
+import { UsersTable } from "@internal/database";
 
 export async function initTestUser(): Promise<void> {
   const envCredentialsCheck = z
@@ -18,27 +19,21 @@ export async function initTestUser(): Promise<void> {
 
   const env = envCredentialsCheck.data;
 
-  await usersModel.findOne({ username: env.TEST_USERNAME }).then(async (result) => {
-    if (!result) {
-      const passwordHash = await hash(env.TEST_PASSWORD);
+  const usersEmpty = await db.query.UsersTable.findFirst().then((u) => !u);
 
-      usersModel.create({
-        username: env.TEST_USERNAME,
-        password: passwordHash,
-        email: env.TEST_EMAIL
-      });
+  if (!usersEmpty) {
+    return;
+  }
 
-      console.info(
-        `ℹ️ Test account "${env.TEST_USERNAME}" created successfully. Please remove this account from your .env.`
-      );
+  const passwordHash = await hash(env.TEST_PASSWORD);
 
-      return;
-    }
-
-    if (env.TEST_USERNAME) {
-      console.warn(
-        "⚠️  Test credentials detected in environment when test user is already created. Please remove the test credentials."
-      );
-    }
+  await db.insert(UsersTable).values({
+    username: env.TEST_USERNAME,
+    password: passwordHash,
+    email: env.TEST_EMAIL
   });
+
+  console.info(
+    `ℹ️ Test account "${env.TEST_USERNAME}" created successfully. Please remove this account from your .env.`
+  );
 }

@@ -15,6 +15,20 @@
     },
     "type-check": {
       "defaultConfiguration": "lint"
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "drizzle-kit generate"
+      }
+    },
+    "studio": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "drizzle-kit studio"
+      }
     }
   }
 }

@@ -17,7 +17,8 @@ export default {
       plugins: ["typescript", "typescript-resolvers", { add: { content: generatedComment } }],
       config: {
         useIndexSignature: true,
-        contextType: "./src/types/graphql-context.ts#GqlContext"
+        contextType: "./src/types/graphql-context.ts#GqlContext",
+        enumsAsTypes: true
       }
     }
   }

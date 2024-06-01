@@ -1,32 +1,18 @@
-import { type ImageFile } from "@/types/generated-graphql-types.js";
-import { filesModel, type validation } from "@internal/database";
-import { type z } from "zod";
+import { db } from "@/db.js";
+import { FileVariantsTable, FilesTable } from "@internal/database";
+import { eq } from "drizzle-orm";
+import { type FileVariant, type File } from "@/types/generated-graphql-types.js";
 
-export async function getImageFiles(): Promise<ImageFile[]> {
-  const files = await filesModel.find().limit(100);
-
-  return files.map((file) => file.toObject({ getters: true }));
-}
-
-export async function getFile(id: string): Promise<ImageFile | null> {
-  const file = await filesModel.findById(id);
-
-  if (!file) {
+export async function getFileByPostId(postId?: string): Promise<File | null> {
+  if (!postId) {
     return null;
   }
 
-  return file.toObject({ getters: true });
+  return db.query.FilesTable.findFirst({ where: eq(FilesTable.postId, postId) }).then(
+    (res) => res ?? null
+  );
 }
 
-type FileKind = z.infer<typeof validation.filesValidationSchema.shape.kind>;
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function resolveFileType(kind: string) {
-  switch (kind as FileKind) {
-    case "image":
-      return "ImageFile";
-    case "unknown":
-    default:
-      return "AbstractFile";
-  }
+export async function getFileVariants(id: string): Promise<FileVariant[]> {
+  return db.query.FileVariantsTable.findMany({ where: eq(FileVariantsTable.fileId, id) });
 }
