@@ -3,11 +3,12 @@ import { z } from "zod";
 import { webReadableToNodeReadable } from "@internal/storage";
 import { type Router } from "express";
 import { auth } from "@/middleware/use-auth.js";
-import { imagesModel, validation } from "@internal/database";
 
 export default (router: Router): void => {
   router.get("/file/:id/:quality", auth(), async (req, res, next) => {
     try {
+      throw Error("Not yet converted to Drizzle");
+
       const id = z.string().parse(req.params["id"]);
 
       const qualitySpecifier = await validation.imageVariantValidationSchema.shape.quality

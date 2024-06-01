@@ -3,7 +3,6 @@ import { File, nodeReadableToWebReadable } from "@internal/storage";
 import multer from "multer";
 import { type Router } from "express";
 import { auth } from "@/middleware/use-auth.js";
-import { imagesModel, type validation } from "@internal/database";
 import { schemas } from "@internal/shared";
 import { mimeToFiletype } from "@/utils/mime-to-filetype.js";
 import { enforceMaxWidthAndHeight, getBasicImageMeta, stripExif } from "@/utils/process-image.js";
@@ -15,6 +14,8 @@ const allowedTypes = ["jpeg", "png"];
 export default (router: Router): void => {
   router.post("/upload/image", auth(), upload.single("file"), async (req, res, next) => {
     try {
+      throw Error("Not yet converted to Drizzle");
+
       const formData = schemas.upload.uploadForm.omit({ file: true }).parse(req.body);
 
       if (!req.file) {
