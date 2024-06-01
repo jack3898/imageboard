@@ -26,6 +26,13 @@
         "command": "graphql-codegen -r tsx/cjs --config graphql-codegen.config.ts --verbose true"
       }
     },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "tsx src/migrate.ts"
+      }
+    },
     "lint": {
       "defaultConfiguration": "lint"
     },

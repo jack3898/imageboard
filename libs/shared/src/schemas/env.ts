@@ -12,7 +12,7 @@ export const FRONTEND_PORT = z.number({ coerce: true }).min(0).max(25565);
 
 export const CORS_ORIGIN = z.string().url();
 
-export const MONGO_URL = z.string().url();
+export const POSTGRES_URL = z.string().url();
 
 export const TEST_USERNAME = username;
 
