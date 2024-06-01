@@ -2,7 +2,8 @@ CORS_ORIGIN=
 UNSAFE_BACKEND_URL=
 FRONTEND_PORT=
 NODE_ENV=development
-MONGO_URL=mongodb://someurl:27017/yourdb
+
+POSTGRES_URL=postgres://postgres:password@localhost:5432/postgres
 
 # This is temporary while in development.
 # Auth will be managed by supertokens in the future.
