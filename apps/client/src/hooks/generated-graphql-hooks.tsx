@@ -143,7 +143,6 @@ export const LoggedInUserDocument = gql`
     createdAt
     email
     updatedAt
-    createdAt
   }
 }
     `;

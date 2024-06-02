@@ -1,4 +1,5 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
+import { BACKEND_SCHEMA_FILE } from "@internal/server/path";
 
 const generatedComment = `/* eslint-disable */
 // @ts-nocheck
@@ -12,7 +13,7 @@ const generatedComment = `/* eslint-disable */
 
 export default {
   overwrite: true,
-  schema: [{ "my-api": { loader: "./src/introspect-apollo-server.ts" } }],
+  schema: BACKEND_SCHEMA_FILE,
   documents: "src/graphql/*-{query,mutation,fragment}.graphql",
   emitLegacyCommonJSImports: false,
   generates: {

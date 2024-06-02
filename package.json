@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "nx": "nx",
-    "dev": "nx run-many --target=dev --output-style=stream --parallel --max-parallel=10",
+    "dev": "nx run-many --targets=dev,dev:generate --output-style=stream --parallel --max-parallel=10",
     "lint": "nx run-many --targets=lint --output-style=stream",
     "test": "nx run-many --targets=test --output-style=stream",
     "generate": "nx run-many --target=generate --output-style=stream",
@@ -37,6 +37,7 @@
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@graphql-codegen/typescript-resolvers": "^4.1.0",
     "@hookform/resolvers": "^3.4.0",
+    "@parcel/watcher": "^2.4.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-label": "^2.0.2",

@@ -26,6 +26,13 @@
         "command": "graphql-codegen -r tsx/cjs --config graphql-codegen.config.ts --verbose true"
       }
     },
+    "dev:generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/server",
+        "command": "graphql-codegen -r tsx/cjs --config graphql-codegen.config.ts --verbose true --watch"
+      }
+    },
     "migrate": {
       "executor": "nx:run-commands",
       "options": {

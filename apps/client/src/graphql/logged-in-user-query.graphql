@@ -5,6 +5,5 @@ query LoggedInUser {
     createdAt
     email
     updatedAt
-    createdAt
   }
 }
