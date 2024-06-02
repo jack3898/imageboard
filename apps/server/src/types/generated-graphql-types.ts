@@ -238,6 +238,10 @@ export type ResolversParentTypes = ResolversObject<{
   User: ResolversInterfaceTypes<ResolversParentTypes>['User'];
 }>;
 
+export type UpperDirectiveArgs = { };
+
+export type UpperDirectiveResolver<Result, Parent, ContextType = GqlContext, Args = UpperDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
 }
@@ -324,3 +328,6 @@ export type Resolvers<ContextType = GqlContext> = ResolversObject<{
   User?: UserResolvers<ContextType>;
 }>;
 
+export type DirectiveResolvers<ContextType = GqlContext> = ResolversObject<{
+  upper?: UpperDirectiveResolver<any, any, ContextType>;
+}>;

@@ -6,13 +6,21 @@ import { resolvers } from "./resolvers.js";
 import { ApolloServer } from "@apollo/server";
 import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 import { env } from "./env.js";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { upperDirectiveTransformer } from "./directives/upper.js";
+import { type GraphQLSchema } from "graphql";
 
 const expressServer = express();
 const httpServer = http.createServer(expressServer);
+const typeDefs = await readFile("src/typedefs.graphql").then((buf) => buf.toString("utf-8"));
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+const transformedSchema = [
+  (schema: GraphQLSchema): GraphQLSchema => upperDirectiveTransformer(schema, "upper")
+].reduce((schema, next) => next(schema), schema);
 
 const apolloServer = new ApolloServer({
-  typeDefs: await readFile("src/typedefs.graphql").then((buf) => buf.toString("utf-8")),
-  resolvers,
+  schema: transformedSchema,
   introspection: env.NODE_ENV === "development",
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
