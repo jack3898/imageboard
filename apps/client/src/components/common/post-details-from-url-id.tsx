@@ -2,8 +2,8 @@ import { useMemo, type ReactElement } from "react";
 import { Button } from "../atom/button.js";
 import { Star } from "lucide-react";
 import { usePostSuspenseQuery } from "@/hooks/generated-graphql-hooks.js";
-import { useUrlPostId } from "@/hooks/url-post-id.js";
 import ReactMarkdown from "react-markdown";
+import { useUrlPostId } from "@/hooks/urlParams.js";
 
 export function PostTitle(): ReactElement {
   const postId = useUrlPostId();

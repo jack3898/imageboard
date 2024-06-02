@@ -1,12 +1,9 @@
 import { Quality, usePostSuspenseQuery } from "@/hooks/generated-graphql-hooks.js";
-import { useSearch } from "@tanstack/react-router";
+import { useUrlPostId } from "@/hooks/urlParams.js";
 import { type ReactElement } from "react";
 
 export function MediaItemFromUrlId(): ReactElement {
-  const postId = useSearch({
-    strict: false,
-    select: (search) => ("id" in search ? search.id : "")
-  });
+  const postId = useUrlPostId();
   const file = usePostSuspenseQuery({ variables: { postId } });
   const image = file.data.post;
 

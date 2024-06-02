@@ -65,7 +65,7 @@ type LoggedInUser implements User {
 }
 
 type Query {
-  posts: [Post!]!
+  posts(filter: String): [Post!]!
   post(id: ID!): Post
   loggedInUser: LoggedInUser
   publicUser(id: ID!): PublicUser

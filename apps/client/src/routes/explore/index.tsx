@@ -1,23 +1,28 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/atom/card.js";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { type ReactElement } from "react";
+import { Suspense, type ReactElement } from "react";
 import { z } from "zod";
 import { MediaList } from "@/components/common/media-list.js";
+import { useUrlQ } from "@/hooks/urlParams.js";
 
 export const Route = createFileRoute("/explore/")({
-  component: MediaListView,
+  component: MediaListWrapper,
   validateSearch: z.object({ q: z.string().catch("") }).parse,
   errorComponent: MediaListError
 });
 
-export function MediaListView(): JSX.Element {
+export function MediaListWrapper(): JSX.Element {
+  const search = useUrlQ();
+
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Latest</CardTitle>
+        <CardTitle>{search ? `Showing results for "${search}"` : "Latest"}</CardTitle>
       </CardHeader>
       <CardContent>
-        <MediaList />
+        <Suspense fallback={<p>Please wait...</p>}>
+          <MediaList />
+        </Suspense>
       </CardContent>
     </Card>
   );

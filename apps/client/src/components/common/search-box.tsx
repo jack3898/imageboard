@@ -3,10 +3,11 @@ import { Input } from "../atom/input.js";
 import { z } from "zod";
 import { Button } from "../atom/button.js";
 import { Search as SearchIcon } from "lucide-react";
-import { type NavigateOptions, useNavigate, useSearch } from "@tanstack/react-router";
+import { type NavigateOptions, useNavigate } from "@tanstack/react-router";
 import { Form, FormField, FormMessage } from "../atom/form.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useUrlQ } from "@/hooks/urlParams.js";
 
 type SearchProps = NavigateOptions;
 
@@ -16,11 +17,7 @@ const formSchema = z.object({
 
 export function SearchBox(navigateOptions: SearchProps): ReactElement {
   const navigate = useNavigate();
-
-  const q = useSearch({
-    strict: false,
-    select: (search) => ("q" in search ? search.q : "")
-  });
+  const q = useUrlQ();
 
   const onSubmit = useCallback(
     ({ q }: z.infer<typeof formSchema>) => {

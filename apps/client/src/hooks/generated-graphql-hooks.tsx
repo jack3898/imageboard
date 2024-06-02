@@ -106,6 +106,11 @@ export type QueryPostArgs = {
 };
 
 
+export type QueryPostsArgs = {
+  filter?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryPublicUserArgs = {
   id: Scalars['ID']['input'];
 };
@@ -129,7 +134,9 @@ export type PostQueryVariables = Exact<{
 
 export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, author?: { __typename?: 'LoggedInUser', username: string } | { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants?: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> | null } | null } | null };
 
-export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type PostsQueryVariables = Exact<{
+  filter?: InputMaybe<Scalars['String']['input']>;
+}>;
 
 
 export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, file?: { __typename?: 'File', type: FileType, variants?: Array<{ __typename?: 'FileVariant', id: string, path: string, width: number, height: number, quality: Quality }> | null } | null }> };
@@ -252,8 +259,8 @@ export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
 export type PostSuspenseQueryHookResult = ReturnType<typeof usePostSuspenseQuery>;
 export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
 export const PostsDocument = gql`
-    query Posts {
-  posts {
+    query Posts($filter: String) {
+  posts(filter: $filter) {
     id
     title
     file {
@@ -288,6 +295,7 @@ export type PostsComponentProps = Omit<ApolloReactComponents.QueryComponentOptio
  * @example
  * const { data, loading, error } = usePostsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */

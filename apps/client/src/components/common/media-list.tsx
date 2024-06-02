@@ -3,6 +3,7 @@ import {
   usePostsSuspenseQuery,
   Quality
 } from "@/hooks/generated-graphql-hooks.js";
+import { useUrlQ } from "@/hooks/urlParams.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
 import { Link } from "@tanstack/react-router";
@@ -11,7 +12,12 @@ import { type ReactElement } from "react";
 type File = PostsQuery["posts"][number];
 
 export function MediaList(): JSX.Element {
-  const { data } = usePostsSuspenseQuery();
+  const q = useUrlQ();
+  const { data } = usePostsSuspenseQuery({ variables: { filter: q } });
+
+  if (!data.posts.length) {
+    return <NoMediaFound />;
+  }
 
   return (
     <ul className="flex items-center gap-2 flex-wrap">
@@ -26,6 +32,10 @@ export function MediaList(): JSX.Element {
         ))}
     </ul>
   );
+}
+
+function NoMediaFound(): JSX.Element {
+  return <p>We searched far and wide, but nothing. 😣</p>;
 }
 
 function MediaTile({ mediaItem }: { mediaItem: File }): ReactElement {

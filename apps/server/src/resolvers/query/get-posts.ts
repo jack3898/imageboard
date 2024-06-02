@@ -1,10 +1,18 @@
 import { db } from "@/db.js";
 import { type Post } from "@/types/generated-graphql-types.js";
 import { PostsTable } from "@internal/database";
-import { eq } from "drizzle-orm";
+import { eq, like, or } from "drizzle-orm";
 
-export async function getPosts(): Promise<Post[]> {
-  return db.query.PostsTable.findMany({ limit: 50 });
+export async function getPosts(filter?: string): Promise<Post[]> {
+  return db
+    .select()
+    .from(PostsTable)
+    .where(
+      filter
+        ? or(like(PostsTable.title, `%${filter}%`), like(PostsTable.description, `%${filter}%`))
+        : undefined
+    )
+    .limit(50);
 }
 
 export async function getPost(id: string): Promise<Post | null> {

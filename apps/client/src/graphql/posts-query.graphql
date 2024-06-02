@@ -1,5 +1,5 @@
-query Posts {
-  posts {
+query Posts($filter: String) {
+  posts(filter: $filter) {
     id
     title
     file {

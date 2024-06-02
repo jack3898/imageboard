@@ -102,6 +102,11 @@ export type QueryPostArgs = {
 };
 
 
+export type QueryPostsArgs = {
+  filter?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryPublicUserArgs = {
   id: Scalars['ID']['input'];
 };
@@ -279,7 +284,7 @@ export type PublicUserResolvers<ContextType = GqlContext, ParentType extends Res
 export type QueryResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   loggedInUser?: Resolver<Maybe<ResolversTypes['LoggedInUser']>, ParentType, ContextType>;
   post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
-  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType, Partial<QueryPostsArgs>>;
   publicUser?: Resolver<Maybe<ResolversTypes['PublicUser']>, ParentType, ContextType, RequireFields<QueryPublicUserArgs, 'id'>>;
 }>;
 
