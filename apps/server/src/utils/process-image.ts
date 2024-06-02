@@ -31,7 +31,19 @@ export function getBasicImageMeta(file: Readable): Promise<{
   });
 }
 
-export function enforceMaxWidthAndHeight(file: Readable): Readable {
+export function enforceMaxWidthAndHeight(
+  file: Readable,
+  meta: { width?: number | undefined; height?: number | undefined },
+  max: number = 2000
+): Readable {
+  const maxSquareContainerSize = Math.min(max, Math.max(meta.width ?? max, meta.height ?? max));
+
   // Might be cool in the future to define a db config for the w and h 🤔
-  return file.pipe(sharp().resize({ fit: "inside", width: 2000, height: 2000 }));
+  return file.pipe(
+    sharp().resize({
+      fit: "inside",
+      width: maxSquareContainerSize,
+      height: maxSquareContainerSize
+    })
+  );
 }

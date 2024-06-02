@@ -39,8 +39,11 @@ export default (router: Router): void => {
         return res.status(400).send("There was a problem processing your request");
       }
 
-      const processedImage = enforceMaxWidthAndHeight(stripExif(Readable.from(req.file.buffer)));
-      const { meta, stream } = await getBasicImageMeta(processedImage);
+      const imageWithoutExif = stripExif(Readable.from(req.file.buffer));
+      const { meta: metaBeforeResize, stream: streamBeforeResize } =
+        await getBasicImageMeta(imageWithoutExif);
+      const resizedImage = enforceMaxWidthAndHeight(streamBeforeResize, metaBeforeResize);
+      const { meta, stream } = await getBasicImageMeta(resizedImage);
 
       const file = new File({
         mimeType: req.file.mimetype,
