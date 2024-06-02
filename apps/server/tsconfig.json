@@ -7,5 +7,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "exclude": ["graphql-codegen.config.ts"]
+  "exclude": ["graphql-codegen.config.ts", "path.ts"]
 }

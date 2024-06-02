@@ -1,18 +1,35 @@
 import { db } from "@/db.js";
 import { FileVariantsTable, FilesTable } from "@internal/database";
-import { eq } from "drizzle-orm";
+import { inArray } from "drizzle-orm";
 import { type FileVariant, type File } from "@/types/generated-graphql-types.js";
+import DataLoader from "dataloader";
 
-export async function getFileByPostId(postId?: string): Promise<File | null> {
+const fileDataloader = new DataLoader(async (postIds: readonly string[]) => {
+  const results = await db
+    .select()
+    .from(FilesTable)
+    .where(inArray(FilesTable.postId, [...postIds]));
+
+  return postIds.map((key) => results.find(({ postId }) => postId === key) ?? null);
+});
+
+export function getFileByPostId(postId?: string): Promise<File | null> {
   if (!postId) {
-    return null;
+    return Promise.resolve(null);
   }
 
-  return db.query.FilesTable.findFirst({ where: eq(FilesTable.postId, postId) }).then(
-    (res) => res ?? null
-  );
+  return fileDataloader.load(postId);
 }
 
-export async function getFileVariants(id: string): Promise<FileVariant[]> {
-  return db.query.FileVariantsTable.findMany({ where: eq(FileVariantsTable.fileId, id) });
+const fileVariantsDataloader = new DataLoader(async (fileIds: readonly string[]) => {
+  const results = await db
+    .select()
+    .from(FileVariantsTable)
+    .where(inArray(FileVariantsTable.fileId, [...fileIds]));
+
+  return fileIds.map((key) => results.filter(({ fileId }) => fileId === key));
+});
+
+export function getFileVariants(fileId: string): Promise<FileVariant[]> {
+  return fileVariantsDataloader.load(fileId);
 }

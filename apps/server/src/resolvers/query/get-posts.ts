@@ -4,7 +4,7 @@ import { PostsTable } from "@internal/database";
 import { eq } from "drizzle-orm";
 
 export async function getPosts(): Promise<Post[]> {
-  return db.query.PostsTable.findMany({ limit: 100 });
+  return db.query.PostsTable.findMany({ limit: 50 });
 }
 
 export async function getPost(id: string): Promise<Post | null> {
