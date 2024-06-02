@@ -1,3 +1,4 @@
+import { deletePost } from "./resolvers/mutation/mutate-posts.js";
 import { getFileByPostId, getFileVariants } from "./resolvers/query/get-files.js";
 import { getPost, getPosts } from "./resolvers/query/get-posts.js";
 import { getLoggedInUser, getPublicUser } from "./resolvers/query/get-users.js";
@@ -9,6 +10,9 @@ export const resolvers: Resolvers = {
     post: (_, args) => getPost(args.id),
     loggedInUser: getLoggedInUser,
     publicUser: (_, args) => getPublicUser(args.id)
+  },
+  Mutation: {
+    deletePost: (_, args) => deletePost(args.id.toString())
   },
   Post: {
     author: (parent) => getPublicUser(parent.authorId),

@@ -66,6 +66,16 @@ export type LoggedInUser = User & {
   username: Scalars['String']['output'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  deletePost?: Maybe<Post>;
+};
+
+
+export type MutationDeletePostArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type Post = {
   __typename?: 'Post';
   author?: Maybe<User>;

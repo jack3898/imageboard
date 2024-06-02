@@ -35,7 +35,7 @@ export const FilesTable = pgTable("files", {
   ...timestamps,
   type: filetypeEnum("type").notNull(),
   alt: varchar("alt", { length: 255 }).default("").notNull(),
-  postId: uuid("postId").references(() => PostsTable.id)
+  postId: uuid("postId").references(() => PostsTable.id, { onDelete: "cascade" })
 });
 
 export const FileVariantsTable = pgTable("fileVariants", {
@@ -46,7 +46,7 @@ export const FileVariantsTable = pgTable("fileVariants", {
   path: varchar("path", { length: 255 }).notNull(),
   quality: qualityEnum("quality").notNull(),
   fileId: uuid("fileId")
-    .references(() => FilesTable.id)
+    .references(() => FilesTable.id, { onDelete: "cascade" })
     .notNull()
 });
 

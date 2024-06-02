@@ -63,6 +63,16 @@ export type LoggedInUser = User & {
   username: Scalars['String']['output'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  deletePost?: Maybe<Post>;
+};
+
+
+export type MutationDeletePostArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type Post = {
   __typename?: 'Post';
   author?: Maybe<User>;
@@ -202,6 +212,7 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   LoggedInUser: ResolverTypeWrapper<LoggedInUser>;
+  Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Omit<Post, 'author'> & { author?: Maybe<ResolversTypes['User']> }>;
   PublicUser: ResolverTypeWrapper<PublicUser>;
   Quality: Quality;
@@ -219,6 +230,7 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
   LoggedInUser: LoggedInUser;
+  Mutation: {};
   Post: Omit<Post, 'author'> & { author?: Maybe<ResolversParentTypes['User']> };
   PublicUser: PublicUser;
   Query: {};
@@ -261,6 +273,10 @@ export type LoggedInUserResolvers<ContextType = GqlContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type MutationResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  deletePost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
+}>;
+
 export type PostResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
   author?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   authorId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -301,6 +317,7 @@ export type Resolvers<ContextType = GqlContext> = ResolversObject<{
   File?: FileResolvers<ContextType>;
   FileVariant?: FileVariantResolvers<ContextType>;
   LoggedInUser?: LoggedInUserResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   PublicUser?: PublicUserResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

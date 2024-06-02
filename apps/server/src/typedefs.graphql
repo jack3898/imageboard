@@ -70,3 +70,7 @@ type Query {
   loggedInUser: LoggedInUser
   publicUser(id: ID!): PublicUser
 }
+
+type Mutation {
+  deletePost(id: ID!): Post
+}
