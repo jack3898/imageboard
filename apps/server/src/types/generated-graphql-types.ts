@@ -16,7 +16,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -75,7 +74,7 @@ export type MutationDeletePostArgs = {
 
 export type Post = {
   __typename?: 'Post';
-  author?: Maybe<User>;
+  author?: Maybe<PublicUser>;
   authorId: Scalars['ID']['output'];
   createdAt: Scalars['Date']['output'];
   description: Scalars['String']['output'];
@@ -213,7 +212,7 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   LoggedInUser: ResolverTypeWrapper<LoggedInUser>;
   Mutation: ResolverTypeWrapper<{}>;
-  Post: ResolverTypeWrapper<Omit<Post, 'author'> & { author?: Maybe<ResolversTypes['User']> }>;
+  Post: ResolverTypeWrapper<Post>;
   PublicUser: ResolverTypeWrapper<PublicUser>;
   Quality: Quality;
   Query: ResolverTypeWrapper<{}>;
@@ -231,12 +230,18 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int']['output'];
   LoggedInUser: LoggedInUser;
   Mutation: {};
-  Post: Omit<Post, 'author'> & { author?: Maybe<ResolversParentTypes['User']> };
+  Post: Post;
   PublicUser: PublicUser;
   Query: {};
   String: Scalars['String']['output'];
   User: ResolversInterfaceTypes<ResolversParentTypes>['User'];
 }>;
+
+export type AuthenticatedDirectiveArgs = {
+  throws?: Maybe<Scalars['Boolean']['input']>;
+};
+
+export type AuthenticatedDirectiveResolver<Result, Parent, ContextType = GqlContext, Args = AuthenticatedDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type UpperDirectiveArgs = { };
 
@@ -282,7 +287,7 @@ export type MutationResolvers<ContextType = GqlContext, ParentType extends Resol
 }>;
 
 export type PostResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
-  author?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['PublicUser']>, ParentType, ContextType>;
   authorId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -329,5 +334,6 @@ export type Resolvers<ContextType = GqlContext> = ResolversObject<{
 }>;
 
 export type DirectiveResolvers<ContextType = GqlContext> = ResolversObject<{
+  authenticated?: AuthenticatedDirectiveResolver<any, any, ContextType>;
   upper?: UpperDirectiveResolver<any, any, ContextType>;
 }>;

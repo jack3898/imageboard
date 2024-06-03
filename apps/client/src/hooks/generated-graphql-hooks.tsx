@@ -78,7 +78,7 @@ export type MutationDeletePostArgs = {
 
 export type Post = {
   __typename?: 'Post';
-  author?: Maybe<User>;
+  author?: Maybe<PublicUser>;
   authorId: Scalars['ID']['output'];
   createdAt: Scalars['Date']['output'];
   description: Scalars['String']['output'];
@@ -142,7 +142,7 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, author?: { __typename?: 'LoggedInUser', username: string } | { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants?: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> | null } | null } | null };
+export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, author?: { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants?: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> | null } | null } | null };
 
 export type PostsQueryVariables = Exact<{
   filter?: InputMaybe<Scalars['String']['input']>;

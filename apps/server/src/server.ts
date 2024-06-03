@@ -9,6 +9,7 @@ import { env } from "./env.js";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { upperDirectiveTransformer } from "./directives/upper.js";
 import { type GraphQLSchema } from "graphql";
+import { authDirectiveTransformer } from "./directives/auth.js";
 
 const expressServer = express();
 const httpServer = http.createServer(expressServer);
@@ -16,7 +17,8 @@ const typeDefs = await readFile("src/typedefs.graphql").then((buf) => buf.toStri
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const transformedSchema = [
-  (schema: GraphQLSchema): GraphQLSchema => upperDirectiveTransformer(schema, "upper")
+  (schema: GraphQLSchema): GraphQLSchema => upperDirectiveTransformer(schema, "upper"),
+  (schema: GraphQLSchema): GraphQLSchema => authDirectiveTransformer(schema, "authenticated")
 ].reduce((schema, next) => next(schema), schema);
 
 const apolloServer = new ApolloServer({

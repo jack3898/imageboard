@@ -1,16 +1,18 @@
 scalar Date
 
 directive @upper on FIELD_DEFINITION
+# If "throws" is false, null is returned instead, so remember to make the field nullable
+directive @authenticated(throws: Boolean = true) on FIELD_DEFINITION
 
 type Post {
   id: ID!
   createdAt: Date!
   updatedAt: Date!
-  title: String! @upper
+  title: String!
   description: String!
   authorId: ID!
   file: File
-  author: User
+  author: PublicUser
 }
 
 type FileVariant {
@@ -67,12 +69,12 @@ type LoggedInUser implements User {
 }
 
 type Query {
-  posts(filter: String): [Post!]!
-  post(id: ID!): Post
+  posts(filter: String): [Post!]! @authenticated
+  post(id: ID!): Post @authenticated
   loggedInUser: LoggedInUser
-  publicUser(id: ID!): PublicUser
+  publicUser(id: ID!): PublicUser @authenticated
 }
 
 type Mutation {
-  deletePost(id: ID!): Post
+  deletePost(id: ID!): Post @authenticated(throws: false)
 }
