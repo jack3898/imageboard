@@ -12,7 +12,7 @@ export const resolvers: Resolvers = {
     publicUser: (_, args) => getPublicUser(args.id)
   },
   Mutation: {
-    deletePost: (_, args) => deletePost(args.id.toString())
+    deletePost: (_, { id: postId }, { req }) => deletePost(postId.toString(), req.user.userId)
   },
   Post: {
     author: (parent) => getPublicUser(parent.authorId),
