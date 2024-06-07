@@ -1,5 +1,5 @@
 import { type ReactElement } from "react";
-import { Button } from "../atom/button.js";
+import { Button } from "../../atom/button.js";
 import { Link } from "@tanstack/react-router";
 import { LogIn, Upload, UserCog, UserPlus, UserRound } from "lucide-react";
 import {
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "../atom/dropdown-menu.js";
+} from "../../atom/dropdown-menu.js";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from "../atom/dialog.js";
+} from "../../atom/dialog.js";
 import { Auth } from "@/context/imageboard.js";
 import { useLogout } from "@/hooks/login-logout-hooks.js";
 

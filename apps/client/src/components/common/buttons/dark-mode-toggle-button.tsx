@@ -4,9 +4,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from "../atom/dropdown-menu.js";
+} from "../../atom/dropdown-menu.js";
 import { useTheme } from "@/context/theme.js";
-import { Button } from "../atom/button.js";
+import { Button } from "../../atom/button.js";
 import { type ReactElement } from "react";
 
 export function DarkModeToggle(): ReactElement {
