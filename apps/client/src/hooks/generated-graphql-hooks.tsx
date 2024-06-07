@@ -84,6 +84,7 @@ export type Post = {
   description: Scalars['String']['output'];
   file?: Maybe<File>;
   id: Scalars['ID']['output'];
+  isOwner: Scalars['Boolean']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
 };
@@ -149,14 +150,14 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, author?: { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants?: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> | null } | null } | null };
+export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, description: string, createdAt: any, updatedAt: any, isOwner: boolean, author?: { __typename?: 'PublicUser', username: string } | null, file?: { __typename?: 'File', id: string, type: FileType, alt: string, variants?: Array<{ __typename?: 'FileVariant', id: string, width: number, height: number, path: string, quality: Quality, createdAt: any, updatedAt: any }> | null } | null } | null };
 
 export type PostsQueryVariables = Exact<{
   filter?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, file?: { __typename?: 'File', type: FileType, variants?: Array<{ __typename?: 'FileVariant', id: string, path: string, width: number, height: number, quality: Quality }> | null } | null }> };
+export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, isOwner: boolean, file?: { __typename?: 'File', type: FileType, variants?: Array<{ __typename?: 'FileVariant', id: string, path: string, width: number, height: number, quality: Quality }> | null } | null }> };
 
 
 export const DeletePostDocument = gql`
@@ -257,6 +258,7 @@ export const PostDocument = gql`
     description
     createdAt
     updatedAt
+    isOwner
     author {
       username
     }
@@ -321,6 +323,7 @@ export const PostsDocument = gql`
   posts(filter: $filter) {
     id
     title
+    isOwner
     file {
       variants {
         id

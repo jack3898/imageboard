@@ -1,14 +1,13 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/atom/card.js";
 import { Separator } from "@/components/atom/separator.js";
-import { DeletePostButton } from "@/components/common/buttons/delete-post-button.js";
 import { MediaItemFromUrlId } from "@/components/common/media-item-from-url-id.js";
 import {
+  DeletePostButton,
   PostDescription,
   PostTitle,
   PostUploadDate,
   PostUploader
 } from "@/components/common/post-details-from-url-id.js";
-import { useUrlPostId } from "@/hooks/urlParams.js";
 import { createFileRoute } from "@tanstack/react-router";
 import { Quote } from "lucide-react";
 import { type ReactElement } from "react";
@@ -24,8 +23,6 @@ export const Route = createFileRoute("/explore/single")({
 });
 
 function MediaItem(): ReactElement {
-  const id = useUrlPostId();
-
   return (
     <Card className="size-full">
       <CardHeader>
@@ -42,7 +39,7 @@ function MediaItem(): ReactElement {
           <Quote />
         </div>
         <Separator className="my-4" />
-        <DeletePostButton postId={id} />
+        <DeletePostButton />
       </CardContent>
       <CardFooter>
         <p>

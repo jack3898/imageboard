@@ -7,7 +7,7 @@ import { type NavigateOptions, useNavigate } from "@tanstack/react-router";
 import { Form, FormField, FormMessage } from "../atom/form.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useUrlQ } from "@/hooks/urlParams.js";
+import { useUrlQ } from "@/hooks/url-params.js";
 
 type SearchProps = NavigateOptions;
 

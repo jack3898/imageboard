@@ -6,8 +6,8 @@ import { type Resolvers } from "./types/generated-graphql-types.js";
 
 export const resolvers: Resolvers = {
   Query: {
-    posts: (_, args) => getPosts(args.filter?.toString()),
-    post: (_, args) => getPost(args.id),
+    posts: (_, args, { req }) => getPosts(req.user.userId, args.filter?.toString()),
+    post: (_, args, { req }) => getPost(req.user.userId, args.id),
     loggedInUser: getLoggedInUser,
     publicUser: (_, args) => getPublicUser(args.id)
   },

@@ -80,6 +80,7 @@ export type Post = {
   description: Scalars['String']['output'];
   file?: Maybe<File>;
   id: Scalars['ID']['output'];
+  isOwner?: Maybe<Scalars['Boolean']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
 };
@@ -293,6 +294,7 @@ export type PostResolvers<ContextType = GqlContext, ParentType extends Resolvers
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   file?: Resolver<Maybe<ResolversTypes['File']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isOwner?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

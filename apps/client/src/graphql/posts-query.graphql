@@ -2,6 +2,7 @@ query Posts($filter: String) {
   posts(filter: $filter) {
     id
     title
+    isOwner
     file {
       variants {
         id

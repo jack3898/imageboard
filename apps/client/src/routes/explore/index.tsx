@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, type ReactElement } from "react";
 import { z } from "zod";
 import { MediaList } from "@/components/common/media-list.js";
-import { useUrlQ } from "@/hooks/urlParams.js";
+import { useUrlQ } from "@/hooks/url-params.js";
 
 export const Route = createFileRoute("/explore/")({
   component: MediaListWrapper,

@@ -5,6 +5,7 @@ query Post($postId: ID!) {
     description
     createdAt
     updatedAt
+    isOwner
     author {
       username
     }

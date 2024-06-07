@@ -1,5 +1,5 @@
 import { Quality, usePostSuspenseQuery } from "@/hooks/generated-graphql-hooks.js";
-import { useUrlPostId } from "@/hooks/urlParams.js";
+import { useUrlPostId } from "@/hooks/url-params.js";
 import { type ReactElement } from "react";
 
 export function MediaItemFromUrlId(): ReactElement {

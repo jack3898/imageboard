@@ -3,7 +3,7 @@ import {
   usePostsSuspenseQuery,
   Quality
 } from "@/hooks/generated-graphql-hooks.js";
-import { useUrlQ } from "@/hooks/urlParams.js";
+import { useUrlQ } from "@/hooks/url-params.js";
 import { useGlobalStore } from "@/store/global-store.js";
 import { cn } from "@/utils/cn.js";
 import { Link } from "@tanstack/react-router";
