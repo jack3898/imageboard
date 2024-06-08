@@ -3,8 +3,8 @@ import { type Post } from "@/types/generated-graphql-types.js";
 import { PostsTable } from "@internal/database";
 import { eq, like, or } from "drizzle-orm";
 
-export async function getPosts(loggedInUserId: string, filter?: string): Promise<Post[]> {
-  const posts = await db
+export async function getPosts(filter?: string): Promise<Post[]> {
+  return db
     .select()
     .from(PostsTable)
     .where(
@@ -13,22 +13,8 @@ export async function getPosts(loggedInUserId: string, filter?: string): Promise
         : undefined
     )
     .limit(50);
-
-  return posts.map((post) => ({
-    ...post,
-    isOwner: post.authorId === loggedInUserId
-  }));
 }
 
-export async function getPost(loggedInUserId: string, id: string): Promise<Post | null> {
-  const post = await db.query.PostsTable.findFirst({ where: eq(PostsTable.id, id) });
-
-  if (!post) {
-    return null;
-  }
-
-  return {
-    ...post,
-    isOwner: loggedInUserId === post.authorId
-  };
+export async function getPost(id: string): Promise<Post | null> {
+  return db.query.PostsTable.findFirst({ where: eq(PostsTable.id, id) }).then((res) => res ?? null);
 }

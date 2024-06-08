@@ -6,8 +6,8 @@ import { type Resolvers } from "./types/generated-graphql-types.js";
 
 export const resolvers: Resolvers = {
   Query: {
-    posts: (_, args, { req }) => getPosts(req.user.userId, args.filter?.toString()),
-    post: (_, args, { req }) => getPost(req.user.userId, args.id),
+    posts: (_, args) => getPosts(args.filter?.toString()),
+    post: (_, args) => getPost(args.id),
     loggedInUser: getLoggedInUser,
     publicUser: (_, args) => getPublicUser(args.id)
   },
@@ -16,7 +16,8 @@ export const resolvers: Resolvers = {
   },
   Post: {
     author: (parent) => getPublicUser(parent.authorId),
-    file: (parent) => getFileByPostId(parent.id)
+    file: (parent) => getFileByPostId(parent.id),
+    isOwner: (parent, _, { req }) => parent.authorId === req.user.userId
   },
   File: {
     variants: (parent) => getFileVariants(parent.id)
