@@ -1,6 +1,7 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 import { BACKEND_SCHEMA_FILE } from "@internal/server/path";
 
+// As you're viewing the config, ignore the below message
 const generatedComment = `/* eslint-disable */
 // @ts-nocheck
 
