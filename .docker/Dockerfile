@@ -2,7 +2,7 @@
 # and prune unwanted files but for now, I will create one and run everything through it
 # Also yes, adding node user permissions is going to happen at some point.
 
-FROM node:20.13.1
+FROM node:20.14.0
 
 ARG UNSAFE_BACKEND_URL
 
@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm i -g npm@10.7.0
+RUN npm i -g npm@10.8.0
 
 RUN npm ci --ignore-scripts
 

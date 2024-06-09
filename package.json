@@ -20,12 +20,12 @@
     "libs/*"
   ],
   "volta": {
-    "node": "20.13.1",
-    "npm": "10.7.0"
+    "node": "20.14.0",
+    "npm": "10.8.0"
   },
   "engines": {
-    "node": "20.13.1",
-    "npm": "10.7.0"
+    "node": "20.14.0",
+    "npm": "10.8.0"
   },
   "devDependencies": {
     "@apollo/client": "^3.10.4",
