@@ -11,10 +11,11 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogCancel,
-  AlertDialogAction
-} from "@radix-ui/react-alert-dialog";
+  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogFooter
+} from "../atom/alert-dialogue.js";
 import { useNavigate } from "@tanstack/react-router";
-import { AlertDialogHeader, AlertDialogFooter } from "../atom/alert-dialogue.js";
 
 export function PostTitle(): ReactElement {
   const postId = useUrlPostId();
