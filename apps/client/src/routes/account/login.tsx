@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/common/login-form.js";
+import { LoginForm } from "@/components/common/forms/login-form.js";
 import { createFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";
 

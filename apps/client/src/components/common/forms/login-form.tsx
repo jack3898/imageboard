@@ -3,9 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schemas } from "@internal/shared";
 import { type ReactElement } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "../atom/button.js";
-import { FormLabel, FormField, FormMessage, Form, FormItem } from "../atom/form.js";
-import { Input } from "../atom/input.js";
+import { Button } from "../../atom/button.js";
+import { FormLabel, FormField, FormMessage, Form, FormItem } from "../../atom/form.js";
+import { Input } from "../../atom/input.js";
 
 export function LoginForm(): ReactElement {
   const { login } = useLogin();
@@ -17,7 +17,7 @@ export function LoginForm(): ReactElement {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(login)} className="max-w-sm">
+      <form onSubmit={form.handleSubmit(login)}>
         <FormField
           control={form.control}
           name="email"

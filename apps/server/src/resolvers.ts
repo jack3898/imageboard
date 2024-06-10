@@ -12,12 +12,12 @@ export const resolvers: Resolvers = {
     publicUser: (_, args) => getPublicUser(args.id)
   },
   Mutation: {
-    deletePost: (_, { id: postId }, { req }) => deletePost(postId.toString(), req.user.userId)
+    deletePost: (_, { id: postId }, { req }) => deletePost(postId.toString(), req.user?.userId)
   },
   Post: {
     author: (parent) => getPublicUser(parent.authorId),
     file: (parent) => getFileByPostId(parent.id),
-    isOwner: (parent, _, { req }) => parent.authorId === req.user.userId
+    isOwner: (parent, _, { req }) => parent.authorId === req.user?.userId
   },
   File: {
     variants: (parent) => getFileVariants(parent.id)

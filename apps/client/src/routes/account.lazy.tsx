@@ -1,9 +1,9 @@
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/atom/card.js";
 import { Footer } from "@/components/panels/footer.js";
 import { Header } from "@/components/panels/header.js";
-import { FullLayout } from "@/components/layout/full.js";
 import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
 import { type ReactElement } from "react";
+import { Focus } from "@/components/layout/focus.js";
 
 export const Route = createLazyFileRoute("/account")({
   component: Account
@@ -11,20 +11,15 @@ export const Route = createLazyFileRoute("/account")({
 
 function Account(): ReactElement {
   return (
-    <FullLayout
-      header={<Header />}
-      main={
-        <Card className="size-full">
-          <CardHeader>
-            <CardTitle>Account</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Outlet />
-          </CardContent>
-        </Card>
-      }
-      footer={<Footer />}
-      className="p-2"
-    />
+    <Focus header={<Header />} footer={<Footer />} className="p-2">
+      <Card className="size-full">
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Outlet />
+        </CardContent>
+      </Card>
+    </Focus>
   );
 }
