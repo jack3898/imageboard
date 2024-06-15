@@ -11,7 +11,7 @@ export function LoginForm(): ReactElement {
   const { login } = useLogin();
 
   const form = useForm({
-    resolver: zodResolver(schemas.account.accountForm),
+    resolver: zodResolver(schemas.account.loginForm),
     defaultValues: { email: "", password: "" }
   });
 

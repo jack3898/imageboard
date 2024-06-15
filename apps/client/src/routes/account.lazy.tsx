@@ -14,7 +14,7 @@ function Account(): ReactElement {
     <Focus header={<Header />} footer={<Footer />} className="p-2">
       <Card className="size-full">
         <CardHeader>
-          <CardTitle>Login</CardTitle>
+          <CardTitle>Account</CardTitle>
         </CardHeader>
         <CardContent>
           <Outlet />

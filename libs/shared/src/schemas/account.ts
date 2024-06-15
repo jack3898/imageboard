@@ -17,9 +17,26 @@ export const password = z
     message: "The provided password is invalid"
   });
 
-export const accountForm = z.object({
+export const loginForm = z.object({
   email,
   password
 });
 
-export type AccountForm = z.infer<typeof accountForm>;
+export const signupForm = z
+  .object({
+    username,
+    email,
+    verifyEmail: email,
+    password,
+    verifyPassword: password
+  })
+  .refine((schema) => schema.password === schema.verifyPassword, {
+    message: "Passwords do not match",
+    path: ["password"]
+  })
+  .refine((schema) => schema.email === schema.verifyEmail, {
+    message: "Emails do not match",
+    path: ["email"]
+  });
+
+export type AccountForm = z.infer<typeof loginForm>;
