@@ -69,6 +69,12 @@ type LoggedInUser implements User {
   updatedAt: Date!
 }
 
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
 type Query {
   posts(filter: String): [Post!]! @authenticated
   post(id: ID!): Post @authenticated
@@ -78,4 +84,5 @@ type Query {
 
 type Mutation {
   deletePost(id: ID!): Post @authenticated(throws: false)
+  createUser(user: CreateUserInput): LoggedInUser!
 }

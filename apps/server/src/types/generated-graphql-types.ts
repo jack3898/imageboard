@@ -26,6 +26,12 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
+export type CreateUserInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
 export type File = {
   __typename?: 'File';
   alt: Scalars['String']['output'];
@@ -63,7 +69,13 @@ export type LoggedInUser = User & {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createUser: LoggedInUser;
   deletePost?: Maybe<Post>;
+};
+
+
+export type MutationCreateUserArgs = {
+  user?: InputMaybe<CreateUserInput>;
 };
 
 
@@ -204,6 +216,7 @@ export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateUserInput: CreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   File: ResolverTypeWrapper<File>;
   FileType: FileType;
@@ -223,6 +236,7 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
+  CreateUserInput: CreateUserInput;
   Date: Scalars['Date']['output'];
   File: File;
   FileVariant: FileVariant;
@@ -283,6 +297,7 @@ export type LoggedInUserResolvers<ContextType = GqlContext, ParentType extends R
 }>;
 
 export type MutationResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createUser?: Resolver<ResolversTypes['LoggedInUser'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
   deletePost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
 }>;
 

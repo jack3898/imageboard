@@ -30,6 +30,12 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
+export type CreateUserInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
 export type File = {
   __typename?: 'File';
   alt: Scalars['String']['output'];
@@ -68,7 +74,13 @@ export type LoggedInUser = User & {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createUser: LoggedInUser;
   deletePost?: Maybe<Post>;
+};
+
+
+export type MutationCreateUserArgs = {
+  user?: InputMaybe<CreateUserInput>;
 };
 
 
