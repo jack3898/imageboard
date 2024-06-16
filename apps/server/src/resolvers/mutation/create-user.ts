@@ -21,7 +21,7 @@ export async function createUser(newUser: Partial<MutationCreateUserArgs>): Prom
   const [dbUser] = await db
     .insert(UsersTable)
     .values({
-      username: user.password,
+      username: user.username,
       email: user.email,
       password: await hash(user.password)
     })

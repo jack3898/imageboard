@@ -20,7 +20,7 @@ import {
   DialogTrigger
 } from "../../atom/dialog.js";
 import { Auth } from "@/context/imageboard.js";
-import { useLogout } from "@/hooks/login-logout-hooks.js";
+import { useLogout } from "@/hooks/account-hooks.js";
 
 export function AccountDropdownMenu(): ReactElement {
   const { logout } = useLogout();

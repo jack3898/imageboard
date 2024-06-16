@@ -1,15 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemas } from "@internal/shared";
-import { useCallback, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../atom/button.js";
 import { FormLabel, FormField, FormMessage, Form, FormItem } from "../../atom/form.js";
 import { Input } from "../../atom/input.js";
+import { useSignup } from "@/hooks/account-hooks.js";
 
 export function SignupForm(): ReactElement {
-  const signup = useCallback((values: unknown) => {
-    console.log(values);
-  }, []);
+  const { signup } = useSignup();
 
   const form = useForm({
     resolver: zodResolver(schemas.account.signupForm),

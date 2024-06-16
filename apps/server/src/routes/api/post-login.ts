@@ -9,7 +9,7 @@ import { eq } from "drizzle-orm";
 export default (router: Router): void => {
   router.post("/login", async (req, res, next) => {
     try {
-      const { email, password: passwordInput } = schemas.account.accountForm.parse(req.body);
+      const { email, password: passwordInput } = schemas.account.loginForm.parse(req.body);
 
       const [dbUser] = await db
         .select({

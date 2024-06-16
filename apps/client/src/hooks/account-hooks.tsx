@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { useLoggedInUserLazyQuery } from "./generated-graphql-hooks.js";
+import { useCreateUserMutation, useLoggedInUserLazyQuery } from "./generated-graphql-hooks.js";
 import { type schemas } from "@internal/shared";
 
 type AccountForm = schemas.account.AccountForm;
@@ -72,5 +72,32 @@ export function useLogout(): UseLogoutHookResult {
       }
     }),
     [logoutMutation]
+  );
+}
+
+type UseSignupHookResult = {
+  signup: (credentials: { username: string; email: string; password: string }) => void;
+};
+
+export function useSignup(): UseSignupHookResult {
+  const navigate = useNavigate();
+  const [createUserMutation] = useCreateUserMutation();
+
+  return useMemo(
+    () => ({
+      async signup(credentials): Promise<void> {
+        await createUserMutation({
+          variables: {
+            user: {
+              username: credentials.username,
+              email: credentials.email,
+              password: credentials.password
+            }
+          }
+        });
+        navigate({ from: "/", to: "/account/login" });
+      }
+    }),
+    [createUserMutation, navigate]
   );
 }
