@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm i -g npm@10.8.0
+RUN npm i -g npm@10.8.1
 
 RUN npm ci --ignore-scripts
 
