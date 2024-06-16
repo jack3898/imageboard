@@ -17,7 +17,7 @@
       "defaultConfiguration": "test"
     },
     "type-check": {
-      "defaultConfiguration": "lint"
+      "defaultConfiguration": "type-check"
     }
   }
 }

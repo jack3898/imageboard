@@ -30,7 +30,7 @@
       "defaultConfiguration": "lint"
     },
     "type-check": {
-      "defaultConfiguration": "lint"
+      "defaultConfiguration": "type-check"
     },
     "generate": {
       "executor": "nx:run-commands",
