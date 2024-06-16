@@ -1,4 +1,4 @@
-import { Readable } from "stream";
+import { Readable } from "node:stream";
 
 export function webReadableToNodeReadable(readableStream: ReadableStream): Readable {
   const reader = readableStream.getReader();

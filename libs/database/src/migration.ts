@@ -1,8 +1,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
-import { dirname, resolve } from "path";
+import { dirname, resolve } from "node:path";
 import postgres from "postgres";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { schemas } from "@internal/shared";
 

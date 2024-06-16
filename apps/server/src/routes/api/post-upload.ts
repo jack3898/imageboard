@@ -6,7 +6,7 @@ import { auth } from "@/middleware/use-auth.js";
 import { schemas } from "@internal/shared";
 import { mimeToFiletype } from "@/utils/mime-to-filetype.js";
 import { enforceMaxWidthAndHeight, getBasicImageMeta, stripExif } from "@/utils/process-image.js";
-import { Readable } from "stream";
+import { Readable } from "node:stream";
 import { db } from "@/db.js";
 import { FileVariantsTable, FilesTable, PostsTable } from "@internal/database";
 
