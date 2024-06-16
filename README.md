@@ -24,13 +24,14 @@ Here is a super early sneak peek.
 - Install Volta (https://volta.sh/)
   - ℹ️ Volta will read this application and auto-pick the best version of Node and npm to use that has been tested during development previously.
 - Run `npm install` on this package
-- Using Docker, run `docker run --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`, to spin up a database
-  - ℹ️ For local dev, make sure the DB port is exposed to localhost!
-  - ℹ️ Update the values in the command where necessary
-  - ℹ️ It may be a good idea to use Docker volumes to persist data
+- Using Docker, run `docker run --name postgres -v postgresdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`, to spin up a database
+  - ℹ️ For local dev, make sure the DB port is exposed to localhost
+  - ℹ️ Update the values in the command if required to match your .env
 - Run `npm run nx run @internal/server:migrate` to initialize the database
 - Run `npm run dev` to launch all services
 - Visit the site on `localhost:5173`!
+
+_You will need to make an account on the sign up page to log in._
 
 ### Prod build via Docker Compose
 
