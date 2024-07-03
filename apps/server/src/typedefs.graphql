@@ -75,6 +75,11 @@ input CreateUserInput {
   password: String!
 }
 
+input ChangePasswordInput {
+  currentPassword: String!
+  newPassword: String!
+}
+
 type Query {
   posts(filter: String): [Post!]! @authenticated
   post(id: ID!): Post @authenticated
@@ -85,4 +90,5 @@ type Query {
 type Mutation {
   deletePost(id: ID!): Post @authenticated(throws: false)
   createUser(user: CreateUserInput): LoggedInUser!
+  changePassword(input: ChangePasswordInput): Boolean!
 }

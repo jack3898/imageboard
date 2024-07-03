@@ -26,6 +26,11 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
+export type ChangePasswordInput = {
+  currentPassword: Scalars['String']['input'];
+  newPassword: Scalars['String']['input'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -69,8 +74,14 @@ export type LoggedInUser = User & {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  changePassword: Scalars['Boolean']['output'];
   createUser: LoggedInUser;
   deletePost?: Maybe<Post>;
+};
+
+
+export type MutationChangePasswordArgs = {
+  input?: InputMaybe<ChangePasswordInput>;
 };
 
 
@@ -216,6 +227,7 @@ export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  ChangePasswordInput: ChangePasswordInput;
   CreateUserInput: CreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   File: ResolverTypeWrapper<File>;
@@ -236,6 +248,7 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
+  ChangePasswordInput: ChangePasswordInput;
   CreateUserInput: CreateUserInput;
   Date: Scalars['Date']['output'];
   File: File;
@@ -297,6 +310,7 @@ export type LoggedInUserResolvers<ContextType = GqlContext, ParentType extends R
 }>;
 
 export type MutationResolvers<ContextType = GqlContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  changePassword?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<MutationChangePasswordArgs>>;
   createUser?: Resolver<ResolversTypes['LoggedInUser'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
   deletePost?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
 }>;

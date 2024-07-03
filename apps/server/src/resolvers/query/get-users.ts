@@ -1,15 +1,10 @@
 import { db } from "@/db.js";
 import { type PublicUser, type LoggedInUser } from "@/types/generated-graphql-types.js";
-import { type GqlContext } from "@/types/graphql-context.js";
 import { UsersTable } from "@internal/database";
 import { eq } from "drizzle-orm";
 
-export async function getLoggedInUser(
-  _: unknown,
-  __: unknown,
-  context: GqlContext
-): Promise<LoggedInUser | null> {
-  if (!context.req.user?.userId) {
+export async function getLoggedInUser(userId?: string): Promise<LoggedInUser | null> {
+  if (!userId) {
     return null;
   }
 
@@ -22,7 +17,7 @@ export async function getLoggedInUser(
       updatedAt: UsersTable.updatedAt
     })
     .from(UsersTable)
-    .where(eq(UsersTable.id, context.req.user.userId))
+    .where(eq(UsersTable.id, userId))
     .limit(1);
 
   if (!user) {

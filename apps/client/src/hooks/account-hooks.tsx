@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { useCreateUserMutation, useLoggedInUserLazyQuery } from "./generated-graphql-hooks.js";
+import {
+  useCreateUserMutation,
+  useEditPasswordMutation,
+  useLoggedInUserLazyQuery
+} from "./generated-graphql-hooks.js";
 import { type schemas } from "@internal/shared";
 
 type AccountForm = schemas.account.AccountForm;
@@ -99,5 +103,24 @@ export function useSignup(): UseSignupHookResult {
       }
     }),
     [createUserMutation, navigate]
+  );
+}
+
+type UseEditPasswordHookResult = {
+  editPassword: (input: { currentPassword: string; newPassword: string }) => void;
+};
+
+export function useEditPassword(): UseEditPasswordHookResult {
+  const [editPasswordMutation] = useEditPasswordMutation();
+
+  return useMemo(
+    () => ({
+      async editPassword(input): Promise<void> {
+        editPasswordMutation({
+          variables: { input }
+        });
+      }
+    }),
+    [editPasswordMutation]
   );
 }

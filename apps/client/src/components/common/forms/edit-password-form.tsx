@@ -1,6 +1,7 @@
 import { Button } from "@/components/atom/button.js";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/atom/form.js";
 import { Input } from "@/components/atom/input.js";
+import { useEditPassword } from "@/hooks/account-hooks.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemas } from "@internal/shared";
 import { useCallback, type ReactElement } from "react";
@@ -10,6 +11,8 @@ import { type z } from "zod";
 type AccountEditPasswordForm = z.infer<typeof schemas.account.editPasswordForm>;
 
 export function EditPasswordForm(): ReactElement {
+  const { editPassword } = useEditPassword();
+
   const form = useForm({
     resolver: zodResolver(schemas.account.editPasswordForm),
     defaultValues: {
@@ -19,9 +22,15 @@ export function EditPasswordForm(): ReactElement {
     }
   });
 
-  const changePassword = useCallback((values: AccountEditPasswordForm) => {
-    alert(JSON.stringify(values));
-  }, []);
+  const changePassword = useCallback(
+    (values: AccountEditPasswordForm) => {
+      editPassword({
+        currentPassword: values.currentPassword,
+        newPassword: values.password
+      });
+    },
+    [editPassword]
+  );
 
   return (
     <Form {...form}>

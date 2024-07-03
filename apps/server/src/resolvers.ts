@@ -1,3 +1,4 @@
+import { changePassword } from "./resolvers/mutation/change-password.js";
 import { createUser } from "./resolvers/mutation/create-user.js";
 import { deletePost } from "./resolvers/mutation/mutate-posts.js";
 import { getFileByPostId, getFileVariants } from "./resolvers/query/get-files.js";
@@ -9,12 +10,13 @@ export const resolvers: Resolvers = {
   Query: {
     posts: (_, args) => getPosts(args.filter?.toString()),
     post: (_, args) => getPost(args.id),
-    loggedInUser: getLoggedInUser,
+    loggedInUser: (_, __, { req }) => getLoggedInUser(req.user?.userId),
     publicUser: (_, args) => getPublicUser(args.id)
   },
   Mutation: {
     deletePost: (_, { id: postId }, { req }) => deletePost(postId.toString(), req.user?.userId),
-    createUser: (_, args) => createUser(args)
+    createUser: (_, args) => createUser(args),
+    changePassword: (_, args, { req }) => changePassword(args, req.user?.userId)
   },
   Post: {
     author: (parent) => getPublicUser(parent.authorId),
