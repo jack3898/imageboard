@@ -39,4 +39,19 @@ export const signupForm = z
     path: ["email"]
   });
 
+export const editPasswordForm = z
+  .object({
+    currentPassword: password,
+    password,
+    verifyPassword: password
+  })
+  .refine((schema) => schema.password === schema.verifyPassword, {
+    message: "Passwords do not match",
+    path: ["password"]
+  })
+  .refine((schema) => schema.currentPassword !== schema.password, {
+    message: "Your new password is not different",
+    path: ["password"]
+  });
+
 export type AccountForm = z.infer<typeof loginForm>;
